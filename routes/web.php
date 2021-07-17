@@ -16,3 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::group(['prefix' => 'admin'], function () {
+    Route::get('{any?}', function () {
+        return view('admin.app');
+    })->where('any', '[\s\S]*');
+});
