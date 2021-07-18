@@ -6,13 +6,17 @@
 
         <title>Admin Panel</title>
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
+        <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+
+        <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.js"></script>
+
         <script src="{{ asset('js/admin/app.js') }}" defer></script>
     </head>
     <body>
         <div id="admin">
-            <router-view></router-view>
+            <index></index>
         </div>
     </body>
 </html>

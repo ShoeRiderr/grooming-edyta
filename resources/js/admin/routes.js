@@ -3,8 +3,13 @@ import VueRouter from 'vue-router';
 const routes = [
     {
         path: '/admin',
-        name: 'admin.home',
+        name: 'admin.index',
         component: require('./../components/ExampleComponent.vue').default
+    },
+    {
+        path: '/admin/login',
+        name: 'admin.login',
+        component: require('./components/Login.vue').default
     }
 ];
 
