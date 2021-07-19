@@ -10,8 +10,6 @@
 
         <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
 
-        <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.js"></script>
-
         <script src="{{ asset('js/admin/app.js') }}" defer></script>
     </head>
     <body>

@@ -3,7 +3,7 @@
         <notifications position="top center" width="50%"/>
         <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark mb-4">
             <router-link class="navbar-brand" :to="{ name: 'admin.index' }">
-                Groomer
+                CMS Admin Panel
             </router-link>
 
             <div class="collapse navbar-collapse" id="navbarNav">

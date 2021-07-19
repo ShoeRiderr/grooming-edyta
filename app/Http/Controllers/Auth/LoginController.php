@@ -52,4 +52,20 @@ class LoginController extends Controller
             return response(null, 204);
         }
     }
+
+    protected function credentials(Request $request)
+    {
+        $login = $request->get($this->username());
+        $field = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+
+        return [
+            $field     => $login,
+            'password' => $request->password,
+        ];
+    }
+
+    public function username()
+    {
+        return 'login';
+    }
 }

@@ -2,10 +2,10 @@
     <div>
         <div class="w-50 m-auto">
             <div class="card card-body">
-                <form @submit.prevent="login">
+                <form @submit.prevent="logIn">
                     <div class="form-group">
-                        <label for="email">Email</label>
-                        <input class="form-control" type="email" v-model="email">
+                        <label for="login">Email</label>
+                        <input class="form-control" type="text" id="login" v-model="login">
                     </div>
                     <div class="form-group">
                         <label for="password">Hasło</label>
@@ -23,7 +23,7 @@ import { logIn } from './../auth/auth.js'
 export default {
     data() {
         return {
-            email: '',
+            login: '',
             password: '',
             errors: {},
             loading: false,
@@ -31,13 +31,13 @@ export default {
     },
 
     methods: {
-        login() {
+        logIn() {
             this.loading = true;
 
             axios.get('/sanctum/csrf-cookie');
 
             axios.post('/login', {
-                email: this.email,
+                login: this.login,
                 password: this.password
             })
             .then((response) => {
@@ -63,7 +63,7 @@ export default {
                 this.$store.dispatch('loadUser', response.data);
             })
             .catch((error) => {
-                console.log(error.data)
+                console.log(error)
                 this.$notify({
                     type: 'error',
                     title: 'Error',
