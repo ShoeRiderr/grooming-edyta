@@ -1,11 +1,11 @@
 <template>
     <div>
-        <div class="w-50 m-auto">
+        <div class="d-flex w-50 m-auto align-items-center">
             <div class="card card-body">
-                <form @submit.prevent="logIn">
+                <form @submit.prevent="login">
                     <div class="form-group">
-                        <label for="login">Email</label>
-                        <input class="form-control" type="text" id="login" v-model="login">
+                        <label for="email">Email</label>
+                        <input class="form-control" type="email" v-model="email">
                     </div>
                     <div class="form-group">
                         <label for="password">Hasło</label>
@@ -23,47 +23,44 @@ import { logIn } from './../auth/auth.js'
 export default {
     data() {
         return {
-            login: '',
+            email: '',
             password: '',
-            errors: {},
             loading: false,
         }
     },
 
     methods: {
-        logIn() {
+        login() {
             this.loading = true;
-
-            axios.get('/sanctum/csrf-cookie');
-
-            axios.post('/login', {
-                login: this.login,
-                password: this.password
-            })
-            .then((response) => {
-                this.fetchUser();
-            })
-            .catch((error) => {
-                this.$notify({
-                    type: 'error',
-                    title: 'Error',
-                    text: 'Podane dane są nieprawidłowe.'
+            axios.get('/sanctum/csrf-cookie').then(_ => {
+                axios.post('/login', {
+                    email: this.email,
+                    password: this.password
+                })
+                .then(_ => {
+                    this.fetchUser();
+                })
+                .catch((error) => {
+                    this.$notify({
+                        type: 'error',
+                        title: 'Error',
+                        text: 'Podane dane są nieprawidłowe.'
+                    });
+                })
+                .then(_ => {
+                    this.loading = false;
                 });
-            })
-            .then(_ => {
-                this.loading = false;
             });
         },
 
         fetchUser() {
-            axios.get(`/api/user`)
+            axios.get(`/json/user`)
             .then((response) => {
                 console.log(response.data)
                 logIn()
-                this.$store.dispatch('loadUser', response.data);
+                this.$store.dispatch('loadUser', _.get(response.data, 'data', {}));
             })
             .catch((error) => {
-                console.log(error)
                 this.$notify({
                     type: 'error',
                     title: 'Error',

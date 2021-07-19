@@ -5,7 +5,7 @@ import store from './auth/store.js';
 import Index from './Index';
 import Notifications from 'vue-notification';
 
-require('./../bootstrap');
+require('./bootstrap');
 
 window.Vue = require('vue').default;
 
@@ -19,5 +19,5 @@ const admin = new Vue({
     store,
     components: {
         Index
-    }
+    },
 });

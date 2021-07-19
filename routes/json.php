@@ -14,3 +14,7 @@ use App\Http\Resources\UserResource;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::middleware('auth')->get('/user', function (Request $request) {
+    return UserResource::make($request->user());
+});
