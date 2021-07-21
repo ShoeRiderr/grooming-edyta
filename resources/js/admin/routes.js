@@ -4,7 +4,7 @@ const routes = [
     {
         path: '/admin',
         name: 'admin.index',
-        component: require('./../components/ExampleComponent.vue').default
+        component: require('./components/Index.vue').default
     },
     {
         path: '/admin/login',

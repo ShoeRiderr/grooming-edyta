@@ -18,3 +18,9 @@ use App\Http\Resources\UserResource;
 Route::middleware('auth')->get('/user', function (Request $request) {
     return UserResource::make($request->user());
 });
+Route::group(['prefix' => 'admin'], function () {
+    Route::resource('user', \App\Http\Controllers\Json\Admin\UserController::class, [
+        'only' => ['update']
+    ]);
+});
+

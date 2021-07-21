@@ -56,9 +56,9 @@ export default {
         fetchUser() {
             axios.get(`/json/user`)
             .then((response) => {
-                console.log(response.data)
                 logIn()
                 this.$store.dispatch('loadUser', _.get(response.data, 'data', {}));
+                this.$router.push({name: 'admin.index'})
             })
             .catch((error) => {
                 this.$notify({

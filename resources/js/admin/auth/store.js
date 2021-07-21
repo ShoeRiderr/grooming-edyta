@@ -19,7 +19,7 @@ export default {
         async loadUser(context, payload) {
             if (isLoggedIn()) {
                 try {
-                    const user = payload == undefined ? (await axios.get(`/json/user`)).data : payload;
+                    const user = payload == undefined ? (await axios.get(`/json/user`)).data.data : payload;
                     context.commit('setUser', user);
                     context.commit('setLoggedIn', true);
                 } catch (error) {

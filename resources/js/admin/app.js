@@ -1,7 +1,7 @@
 import VueRouter from 'vue-router';
 import Vuex from 'vuex'
 import router from './routes';
-import store from './auth/store.js';
+import storeElement from './auth/store.js';
 import Index from './Index';
 import Notifications from 'vue-notification';
 
@@ -13,6 +13,8 @@ Vue.use(Notifications)
 Vue.use(VueRouter);
 Vue.use(Vuex);
 
+const store = new Vuex.Store(storeElement);
+
 const admin = new Vue({
     el: '#admin',
     router,
@@ -20,4 +22,7 @@ const admin = new Vue({
     components: {
         Index
     },
+    async beforeCreate() {
+        this.$store.dispatch('loadUser');
+    }
 });
