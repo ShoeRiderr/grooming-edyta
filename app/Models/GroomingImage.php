@@ -16,6 +16,6 @@ class GroomingImage extends Model
 
     public function images()
     {
-        return $this->morphMany(Image::class);
+        return $this->morphOne(Image::class);
     }
 }

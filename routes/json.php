@@ -22,5 +22,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('user', \App\Http\Controllers\Json\Admin\UserController::class, [
         'only' => ['update']
     ]);
+
+    Route::post('groomer-image', '\App\Http\Controllers\Json\GroomingImageController@store');
 });
 

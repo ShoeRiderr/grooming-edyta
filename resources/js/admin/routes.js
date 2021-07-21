@@ -10,6 +10,11 @@ const routes = [
         path: '/admin/login',
         name: 'admin.login',
         component: require('./components/Login.vue').default
+    },
+    {
+        path: '/admin/groomer-image/create',
+        name: 'admin.groomerImage.create',
+        component: require('./components/GroomerImage/Create.vue').default
     }
 ];
 
