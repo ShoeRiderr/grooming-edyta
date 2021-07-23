@@ -1,3 +1,9 @@
+/**
+ * Import dayjs library with locale in application.
+ */
+import 'dayjs/locale/pl';
+import dayjs from 'dayjs';
+
 window._ = require('lodash');
 
 try {
@@ -10,4 +16,7 @@ try {
 window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-window.axios.defaults.withCredentials = true;
+
+dayjs.locale('pl');
+
+window.dayjs = dayjs;

@@ -1,0 +1,95 @@
+@charset "UTF-8";
+
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+// Select2
+@import "~select2/src/scss/core.scss";
+@import "~select2-bootstrap4-theme/src/select2-bootstrap4.scss";
+@import "../select2-bootstrap4";
+
+.navbar-logo {
+    max-height: 52px;
+}
+
+.pagination {
+    margin-bottom: 0;
+}
+
+.table .table-condensed-column {
+    width: 0.1%;
+    white-space: nowrap;
+
+    form {
+        display: inline-block;
+    }
+}
+
+.header {
+    @extend .d-flex;
+    @extend .align-items-center;
+    @extend .justify-content-between;
+    @extend .border-bottom;
+    @extend .pb-1;
+
+    margin-bottom: 2em;
+
+    h1, h2, h3, h4, h5, h6 {
+        @extend .mb-0;
+    }
+}
+
+.sidebar {
+    @extend .col-xl-3;
+    @extend .border-right;
+
+    padding-right: 2em;
+
+    form {
+        @extend .sticky-top;
+
+        top: 1em;
+    }
+}
+
+.content {
+    @extend .col-xl-9;
+
+    padding-left: 2em;
+}
+
+.content-header, .sidebar-header {
+    @extend .d-flex;
+    @extend .align-items-center;
+    @extend .justify-content-between;
+    @extend .mb-3;
+
+    h1, h2, h3, h4, h5, h6 {
+        @extend .mb-0;
+    }
+}
+
+.content-footer {
+    @extend .d-flex;
+    @extend .align-items-center;
+    @extend .justify-content-between;
+}
+
+.header-actions, .footer-actions {
+    @extend .ml-auto;
+    @extend .d-flex;
+
+    > * {
+        @extend .mx-1;
+
+        &:last-child {
+            @extend .mr-0;
+        }
+    }
+}

@@ -1,6 +1,11 @@
+import Vue from 'vue';
+import VCalendar from 'v-calendar';
+
 require('./bootstrap');
 
-window.Vue = require('vue').default;
+window.Vue = Vue;
+
+Vue.use(VCalendar);
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 

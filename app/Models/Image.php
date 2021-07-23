@@ -10,8 +10,10 @@ class Image extends Model
     use HasFactory;
 
     protected $fillablse = [
+        'file_pathname',
         'name',
-        'path',
+        'description',
+        'type',
     ];
 
     public function imageable()
