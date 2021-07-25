@@ -15,6 +15,8 @@ class Image extends Model
         'description'
     ];
 
+    // public $timestamps = false;
+
     public function imageable()
     {
         return $this->morphTo();

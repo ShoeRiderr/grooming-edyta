@@ -2,7 +2,7 @@
     <div class="container">
         <div class="content">
             <div class="content-header">
-                <h1>Dodaj skany związane z pobytem w szpitalu</h1>
+                <h1>Dodaj zdjęcia psów</h1>
             </div>
             <grooming-image-form
                 id="grooming-image-form"
@@ -78,7 +78,7 @@ export default {
                     text: 'Dodano skany.',
                 });
 
-                this.$router.push({ name: 'admin.groomerImage' });
+                this.$router.push({ name: 'admin.groomerImage.index' });
             }).catch((error) => {
                 if (error.response.status === 422) {
                     this.errors = _.get(error.response.data, 'errors', {});

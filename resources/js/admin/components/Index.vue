@@ -165,5 +165,5 @@ export default {
             this.title = 'opisu na slajdzie'
         }
     }
-}
+};
 </script>

@@ -17,7 +17,5 @@ export default {
             window.location.replace(this.$siteUrl);
         }
     },
-
-
-}
+};
 </script>

@@ -19,6 +19,18 @@ class GroomingImageController extends Controller
     {
         $this->connection = $connection;
     }
+
+    public function index()
+    {
+        $groomingImages = GroomingImage::all()->each(function ($groomingImage) {
+            $groomingImage->load('images');
+        });
+
+        // $groomingImages->load('images');
+
+        return GroomingImageResource::collection($groomingImages);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
