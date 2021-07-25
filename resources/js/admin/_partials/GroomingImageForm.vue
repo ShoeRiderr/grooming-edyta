@@ -6,6 +6,8 @@
             </div>
         </div>
 
+        <slot></slot>
+
         <grooming-image
             v-for="(file, index) in files"
             class="mb-3"

@@ -8,7 +8,27 @@
                 id="grooming-image-form"
                 :errors="errors"
                 @submit="onSubmit"
-            ></grooming-image-form>
+            >
+                <div class="form-group">
+                    <label for="dog_race">Rasa psa</label>
+                    <input type="text" id="dog_race" required class="form-control" v-model="dog.race">
+
+                    <field-errors
+                        :class="[{ 'is-invalid': hasErrors(`dog_race`) }]"
+                        :errors="getErrors(`dog_race`)"
+                    ></field-errors>
+                </div>
+
+                <div class="form-group">
+                    <label for="dog_name">Imię psa</label>
+                    <input type="text" id="dog_name" class="form-control" v-model="dog.name">
+
+                    <field-errors
+                        :class="[{ 'is-invalid': hasErrors(`dog_name`) }]"
+                        :errors="getErrors(`dog_name`)"
+                    ></field-errors>
+                </div>
+            </grooming-image-form>
             <div class="content-footer">
                 <div class="footer-actions">
                     <button form="grooming-image-form" type="submit" class="btn btn-primary">Dodaj zdjęcia</button>
@@ -18,9 +38,12 @@
     </div>
 </template>
 <script>
+import validateErrors from './../../../mixins/validateErrors.js';
 import GroomingImageForm from './../../_partials/GroomingImageForm.vue';
 
 export default {
+    mixins: [validateErrors],
+
     components: {
         GroomingImageForm,
     },
@@ -28,6 +51,10 @@ export default {
     data: function() {
         return {
             errors: {},
+            dog: {
+                race: '',
+                name: ''
+            }
         };
     },
 
@@ -39,6 +66,8 @@ export default {
                 data.append(`image[${index}][file]`, _.get(image, 'source'));
                 data.append(`image[${index}][name]`, _.get(image, 'name'));
                 data.append(`image[${index}][description]`, _.get(image, 'description') || '');
+                data.append('dog_name', _.get(this.dog, 'name') || '');
+                data.append('dog_race', _.get(this.dog, 'race') || '');
             });
 
             axios.post(`/json/admin/grooming-image`, data, {
@@ -49,7 +78,7 @@ export default {
                     text: 'Dodano skany.',
                 });
 
-                // this.$router.push({ name: 'admin.index' });
+                this.$router.push({ name: 'admin.groomerImage' });
             }).catch((error) => {
                 if (error.response.status === 422) {
                     this.errors = _.get(error.response.data, 'errors', {});

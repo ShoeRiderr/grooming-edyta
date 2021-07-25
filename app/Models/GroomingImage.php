@@ -9,13 +9,13 @@ class GroomingImage extends Model
 {
     use HasFactory;
 
-    protected $fillablse = [
+    protected $fillable = [
         'dog_race',
         'dog_name',
     ];
 
     public function images()
     {
-        return $this->morphOne(Image::class);
+        return $this->morphMany(Image::class, 'imageable');
     }
 }

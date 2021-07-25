@@ -16,7 +16,7 @@ class CreateGroomingImagesTable extends Migration
         Schema::create('grooming_images', function (Blueprint $table) {
             $table->id();
             $table->string('dog_race');
-            $table->string('dog_name');
+            $table->string('dog_name')->nullable();
             $table->timestamps();
         });
     }

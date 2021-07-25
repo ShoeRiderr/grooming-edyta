@@ -16,6 +16,11 @@
                 />
 
                 <div class="col-xl-6">
+                    <div v-if="hasErrors(`image.${index}.file`)" class="alert alert-danger">
+                        <ul class="list-unstyled mb-0">
+                            <li v-for="error in getErrors(`image.${index}.file`)" v-html="error"></li>
+                        </ul>
+                    </div>
 
                     <div class="form-group">
                         <label :for="`name-${iteration}`">Nazwa pliku</label>
@@ -27,6 +32,11 @@
                             required
                             v-model="file.name"
                         />
+
+                        <field-errors
+                            :class="[{ 'is-invalid': hasErrors(`image.${index}.name`) }]"
+                            :errors="getErrors(`image.${index}.name`)"
+                        ></field-errors>
                     </div>
 
                     <div class="form-group">
@@ -36,8 +46,14 @@
                             :id="`description-${iteration}`"
                             class="form-control"
                             rows="3"
+                            :class="[{ 'is-invalid': hasErrors(`image.${index}.description`) }]"
                             v-model="file.description"
                         ></textarea>
+
+                        <field-errors
+                            :class="[{ 'is-invalid': hasErrors(`image.${index}.description`) }]"
+                            :errors="getErrors(`image.${index}.description`)"
+                        ></field-errors>
                     </div>
                 </div>
             </div>

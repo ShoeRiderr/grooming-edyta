@@ -15,9 +15,10 @@ class GroomingImageResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'dog_race' => $this->dog_race,
             'dog_name' => $this->dog_name,
-            'image'    => ImageResource::make($this->whenLoaded('image'))
+            'image'    => ImageResource::make($this->whenLoaded('images'))
         ];
     }
 }
