@@ -1,11 +1,5 @@
 const mix = require('laravel-mix');
 
-mix.alias({
-    '#': path.join(__dirname, '/resources/js'),
-    '@': path.join(__dirname, '/resources/js/components'),
-    '@admin': path.join(__dirname, '/resources/js/admin/components'),
-});
-
 mix.js('resources/js/app.js', 'public/js')
     .vue()
     .sass('resources/sass/app.scss', 'public/css');

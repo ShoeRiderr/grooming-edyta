@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests\Admin\GroomingImage;
 
-use App\Enums\ImageType;
-use BenSampo\Enum\Rules\EnumValue;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRequest extends FormRequest
@@ -29,7 +27,6 @@ class StoreRequest extends FormRequest
             'document.image'    => ['required', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],
             'document.dog_race' => ['required'],
             'document.dog_name' => ['required'],
-            'document.type'     => ['required', new EnumValue(ImageType::class, false)],
         ];
     }
 }

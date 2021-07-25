@@ -2,45 +2,36 @@
     <form @submit.prevent="onSubmit">
         <div class="border-bottom mb-4">
             <div class="form-group">
-                <input type="file" multiple :accept="validExtensions" @change="onFilesChange"  />
+                <input type="file" multiple :accept="validExtensions" @change="onFilesChange"/>
             </div>
         </div>
 
-        <document-scan
+        <grooming-image
             v-for="(file, index) in files"
             class="mb-3"
             :key="index"
             :index="index"
             :file="file"
-            :document-scan-types="documentScanTypes"
             :errors="errors"
-            @remove="onDocumentScanRemove"
-        ></document-scan>
+            @remove="onGroomingImageRemove"
+        ></grooming-image>
     </form>
 </template>
 <script>
-import DocumentScan from '@documentation/_partials/DocumentScan.vue';
+import GroomingImage from './GroomingImage.vue';
 
 const validExtensions = [
     'jpg',
     'jpeg',
     'png',
-    'bmp',
-    'webp',
-    'pdf',
 ];
 
 export default {
     components: {
-        DocumentScan,
+        GroomingImage,
     },
 
     props: {
-        documentScanTypes: {
-            required: true,
-            type: Array,
-        },
-
         errors: {
             required: true,
             type: Object,
@@ -102,7 +93,7 @@ export default {
             return validExtensions.includes(extension);
         },
 
-        onDocumentScanRemove(index) {
+        onGroomingImageRemove(index) {
             this.files.splice(index, 1);
         },
 

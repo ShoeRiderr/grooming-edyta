@@ -23,6 +23,6 @@ Route::group(['prefix' => 'admin'], function () {
         'only' => ['update']
     ]);
 
-    Route::post('groomer-image', '\App\Http\Controllers\Json\GroomingImageController@store');
+    Route::post('grooming-image', '\App\Http\Controllers\Json\GroomingImageController@store');
 });
 

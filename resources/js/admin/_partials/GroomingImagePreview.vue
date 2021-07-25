@@ -6,7 +6,7 @@
 
         <template v-else>
             <template v-if="isGenerated">
-                <img :src="source" class="shadow" style="max-width: 100%;" />
+                <img :src="source" class="shadow" style="max-width: 100%;"/>
             </template>
 
             <template v-else>

@@ -19,7 +19,6 @@ class CreateImagesTable extends Migration
             $table->string('name');
             $table->text('description');
             $table->morphs('imageable');
-            $table->unsignedSmallInteger('type');
             $table->timestamps();
         });
     }

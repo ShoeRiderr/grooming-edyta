@@ -89,7 +89,6 @@
 </template>
 <script>
 import { mapState } from 'vuex';
-import { isLoggedIn } from './../auth/auth.js';
 import Modal from './../_partials/Modal';
 
 export default {
@@ -109,12 +108,6 @@ export default {
                 description: '/images/static/description.png',
                 slider_photos: '/images/static/slider_photos.png'
             }
-        }
-    },
-
-    created() {
-        if (!isLoggedIn() && this.$router.currentRoute.name.startsWith('admin')) {
-            this.$router.push({ name: 'index'});
         }
     },
 

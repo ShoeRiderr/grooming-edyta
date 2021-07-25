@@ -15,8 +15,20 @@ Vue.use(VCalendar);
 Vue.use(Notifications)
 Vue.use(VueRouter);
 Vue.use(Vuex);
+Vue.prototype.$siteUrl = '/';
 
 const store = new Vuex.Store(storeElement);
+
+window.axios.interceptors.response.use(
+    response => response,
+    error => {
+        if (error.response.status === 401) {
+            store.dispatch('logout');
+        }
+
+        return Promise.reject(error);
+    }
+)
 
 const admin = new Vue({
     el: '#admin',
