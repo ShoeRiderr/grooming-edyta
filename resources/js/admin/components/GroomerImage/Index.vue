@@ -3,6 +3,11 @@
         <div class="content">
             <div class="content-header">
                 <h2>Lista zdjęć psów</h2>
+                <router-link
+                    class="text-right btn btn-secondary btn-sm"
+                    :to="{ name: 'admin.groomerImage.create' }"
+                >Dodaj zdjęcia
+                </router-link>
             </div>
             <hr>
             <div v-if="error" class="alert alert-danger">
@@ -11,7 +16,7 @@
             <div v-if="groomingImages.length == 0" class="alert alert-primary">
                 Brak zdjęć.
             </div>
-            <table class="table">
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>Pies</th>
@@ -21,7 +26,24 @@
                 </thead>
                 <tbody>
                     <tr v-for="groomingImage in groomingImages">
-                        <td>{{ groomingImage }}</td>
+                        <td>
+                            <b>Rasa: </b>{{ groomingImage.dog_race }},
+                            <b>Imię: </b>{{ groomingImage.dog_name }}
+                        </td>
+                        <td>{{ convertDate(groomingImage.created_at) }}</td>
+                        <td class="text-right">
+                            <router-link
+                                class="btn btn-secondary btn-sm" 
+                                :to="{ name: 'admin.groomerImage.edit', params: { 'groomingImageId': groomingImage.id }}"
+                            >Edytuj</router-link>
+                            <button
+                                type="button"
+                                class="btn btn-outline-danger btn-sm"
+                                @click="onDelete(groomingImage.id)"
+                            >
+                                Usuń
+                            </button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -55,6 +77,28 @@ export default {
                     text: 'Wystąpił nieoczekiwany błąd podczas pobierania zdjęć.',
                 });
             })
+        },
+
+        onDelete(groomingImageId) {
+            axios.delete(`/json/admin/grooming-image/${groomingImageId}`)
+            .then(_ => {
+                this.$notify({
+                    type: 'success',
+                    title: 'Sukces',
+                    text: `Usunięto zdjęcie.`
+                })
+                this.fetchServices();
+            })
+            .catch(_ => {
+                this.$notify({
+                    type: 'error',
+                    title: 'Błąd',
+                    text: 'Wystąpił nieoczekiwany błąd podczas usuwania zdjęcia.'
+                });
+            })
+        },
+        convertDate(date) {
+            return dayjs(date).format('YYYY-MM-DD');
         }
     }
 };

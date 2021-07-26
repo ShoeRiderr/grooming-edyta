@@ -5,6 +5,7 @@
                 <h1>Dodaj zdjęcia psów</h1>
             </div>
             <grooming-image-form
+                :image-data="groomingImageData.images"
                 id="grooming-image-form"
                 :errors="errors"
                 @submit="onSubmit"
@@ -55,7 +56,24 @@ export default {
         };
     },
 
+    mounted() {
+        this.fetchGroomingImages();
+    },
+
     methods: {
+        fetchGroomingImages() {
+            axios.get(`/json/admin/grooming-image/${this.$route.params.groomingImageId}`)
+            .then((response) => {
+                this.groomingImageData = _.get(response.data, 'data', {});
+            }).catch(_ => {
+                this.$notify({
+                    type: 'error',
+                    title: 'Błąd',
+                    text: 'Wystąpił nieoczekiwany błąd podczas pobierania zdjęć.',
+                })
+            })
+        },
+
         onSubmit(images) {
             const data = new FormData();
 
@@ -63,8 +81,8 @@ export default {
                 data.append(`image[${index}][file]`, _.get(image, 'source'));
                 data.append(`image[${index}][name]`, _.get(image, 'name'));
                 data.append(`image[${index}][description]`, _.get(image, 'description') || '');
-                data.append('dog_name', _.get(this.groomingImageData, 'dog_name') || '');
-                data.append('dog_race', _.get(this.groomingImageData, 'dog_race') || '');
+                data.append('dog_name', _.get(this.dog, 'name') || '');
+                data.append('dog_race', _.get(this.dog, 'race') || '');
             });
 
             axios.post(`/json/admin/grooming-image`, data, {

@@ -24,7 +24,7 @@ Route::group(['prefix' => 'admin'], function () {
     ]);
 
     Route::resource('grooming-image', \App\Http\Controllers\Json\GroomingImageController::class, [
-        'only' => ['index', 'store']
+        'only' => ['index', 'show', 'store']
     ]);
 });
 

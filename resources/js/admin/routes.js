@@ -17,6 +17,11 @@ const routes = [
         component: require('./components/GroomerImage/Create.vue').default
     },
     {
+        path: '/admin/groomer-image/:groomingImageId/edit',
+        name: 'admin.groomerImage.edit',
+        component: require('./components/GroomerImage/Edit.vue').default
+    },
+    {
         path: '/admin/groomer-image',
         name: 'admin.groomerImage.index',
         component: require('./components/GroomerImage/Index.vue').default

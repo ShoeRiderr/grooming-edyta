@@ -73,14 +73,10 @@ export default {
 
         resolveFile(file) {
             switch (this.fileExtension) {
-            case 'jpg':
-            case 'jpeg':
-            case 'png':
-            case 'bmp':
-            case 'webp':
-                return this.resolveImage(file);
-            case 'pdf':
-                return this.resolvePdf(file);
+                case 'jpg':
+                case 'jpeg':
+                case 'png':
+                    return this.resolveImage(file);
             }
         },
 
@@ -88,34 +84,34 @@ export default {
             this.source = URL.createObjectURL(file);
         },
 
-        resolvePdf(file) {
-            const fileReader = new FileReader();
+        // resolvePdf(file) {
+        //     const fileReader = new FileReader();
 
-            fileReader.readAsArrayBuffer(file);
+        //     fileReader.readAsArrayBuffer(file);
 
-            fileReader.onload = () => {
-                const loadingTask = PDFJS.getDocument(fileReader.result);
+        //     fileReader.onload = () => {
+        //         const loadingTask = PDFJS.getDocument(fileReader.result);
 
-                loadingTask.promise.then((pdf) => {
-                    pdf.getPage(1).then((page) => {
-                        const viewport = page.getViewport({ scale: 1 });
-                        const canvas = document.createElement('canvas');
+        //         loadingTask.promise.then((pdf) => {
+        //             pdf.getPage(1).then((page) => {
+        //                 const viewport = page.getViewport({ scale: 1 });
+        //                 const canvas = document.createElement('canvas');
 
-                        canvas.height = viewport.height;
-                        canvas.width = viewport.width;
+        //                 canvas.height = viewport.height;
+        //                 canvas.width = viewport.width;
 
-                        const renderTask = page.render({
-                            canvasContext: canvas.getContext('2d'),
-                            viewport: viewport,
-                        });
+        //                 const renderTask = page.render({
+        //                     canvasContext: canvas.getContext('2d'),
+        //                     viewport: viewport,
+        //                 });
 
-                        return renderTask.promise.then(() => {
-                            this.source = canvas.toDataURL('image/jpeg');
-                        });
-                    });
-                });
-            };
-        },
+        //                 return renderTask.promise.then(() => {
+        //                     this.source = canvas.toDataURL('image/jpeg');
+        //                 });
+        //             });
+        //         });
+        //     };
+        // },
     },
 };
 </script>
