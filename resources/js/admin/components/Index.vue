@@ -89,7 +89,7 @@
 </template>
 <script>
 import { mapState } from 'vuex';
-import Modal from './../_partials/Modal';
+import Modal from './_partials/Modal';
 
 export default {
     components: {

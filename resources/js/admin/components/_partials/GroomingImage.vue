@@ -61,7 +61,6 @@
     </div>
 </template>
 <script>
-
 import GroomingImagePreview from './GroomingImagePreview';
 
 export default {

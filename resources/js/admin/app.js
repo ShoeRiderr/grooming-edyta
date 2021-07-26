@@ -28,7 +28,9 @@ window.axios.interceptors.response.use(
 
         return Promise.reject(error);
     }
-)
+);
+
+Vue.component('field-errors', require('./components/_partials/FieldErrors.vue').default);
 
 const admin = new Vue({
     el: '#admin',
