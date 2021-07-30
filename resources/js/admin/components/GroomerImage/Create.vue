@@ -38,8 +38,8 @@
     </div>
 </template>
 <script>
-import validateErrors from './../../mixins/validateErrors.js';
-import GroomingImageForm from './../_partials/GroomingImageForm.vue';
+import validateErrors from '#/admin/mixins/validateErrors.js';
+import GroomingImageForm from '#/admin/components/_partials/GroomingImageForm.vue';
 
 export default {
     mixins: [validateErrors],

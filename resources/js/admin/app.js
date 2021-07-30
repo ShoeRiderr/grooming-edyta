@@ -4,8 +4,9 @@ import Vuex from 'vuex'
 import router from './routes';
 import storeElement from './auth/store.js';
 import Index from './Index';
-import Notifications from 'vue-notification';
 import VCalendar from 'v-calendar';
+import Notifications from 'vue-notification';
+import Pagination from 'laravel-vue-pagination';
 
 require('./bootstrap');
 
@@ -31,13 +32,15 @@ window.axios.interceptors.response.use(
 );
 
 Vue.component('field-errors', require('./components/_partials/FieldErrors.vue').default);
+Vue.component('pagination', require('laravel-vue-pagination'));
 
 const admin = new Vue({
     el: '#admin',
     router,
     store,
     components: {
-        Index
+        Index,
+        Pagination,
     },
     async beforeCreate() {
         this.$store.dispatch('loadUser');

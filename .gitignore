@@ -1,5 +1,7 @@
 /node_modules
-/public
+/public/js
+/public/css
+/public/webpack.mix.js
 /storage/*.key
 /vendor
 .env

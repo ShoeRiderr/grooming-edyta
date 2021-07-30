@@ -26,5 +26,9 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('grooming-image', \App\Http\Controllers\Json\GroomingImageController::class, [
         'only' => ['index', 'show', 'store']
     ]);
+
+    Route::resource('physiotherapy', \App\Http\Controllers\Json\PhysiotherapyController::class, [
+        'except' => ['edit']
+    ]);
 });
 
