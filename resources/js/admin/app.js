@@ -4,8 +4,9 @@ import Vuex from 'vuex'
 import router from './routes';
 import storeElement from './auth/store.js';
 import Index from './Index';
-import Notifications from 'vue-notification';
 import VCalendar from 'v-calendar';
+import Notifications from 'vue-notification';
+import Pagination from 'laravel-vue-pagination';
 
 require('./bootstrap');
 
@@ -37,7 +38,8 @@ const admin = new Vue({
     router,
     store,
     components: {
-        Index
+        Index,
+        Pagination,
     },
     async beforeCreate() {
         this.$store.dispatch('loadUser');

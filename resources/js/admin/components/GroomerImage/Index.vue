@@ -32,10 +32,6 @@
                         </td>
                         <td>{{ convertDate(groomingImage.created_at) }}</td>
                         <td class="text-right">
-                            <router-link
-                                class="btn btn-secondary btn-sm" 
-                                :to="{ name: 'admin.groomerImage.edit', params: { 'groomingImageId': groomingImage.id }}"
-                            >Edytuj</router-link>
                             <button
                                 type="button"
                                 class="btn btn-outline-danger btn-sm"
