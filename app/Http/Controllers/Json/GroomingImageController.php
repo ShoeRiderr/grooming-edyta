@@ -64,7 +64,7 @@ class GroomingImageController extends Controller
             foreach ($request->input('image') as $index => $attributes) {
                 /** @var \Illuminate\Http\UploadedFile */
                 $file     = $request->file("image.{$index}.file");
-                $pathname = $file->store("image/{$groomingImage->id}");
+                $pathname = $file->store("public/images/{$groomingImage->id}");
 
                 $images = $groomingImage->images()->make([
                     'file_pathname' => $pathname,

@@ -17,6 +17,8 @@ use Illuminate\Http\Request;
 
 Auth::routes();
 
+Route::get('/', '\App\Http\Controllers\PageController@index');
+
 Route::group(['prefix' => 'admin'], function () {
     Route::get('{any?}', function () {
         return view('admin.app');
