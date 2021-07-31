@@ -1,7 +1,7 @@
 /node_modules
 /public/js
 /public/css
-/public/webpack.mix.js
+/public/mix-manifest.json
 /storage/*.key
 /vendor
 .env
