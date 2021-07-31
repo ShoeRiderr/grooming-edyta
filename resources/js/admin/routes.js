@@ -12,15 +12,30 @@ const routes = [
         component: require('./components/Login.vue').default
     },
     {
+        path: '/admin/groomer-image',
+        name: 'admin.groomerImage.index',
+        component: require('./components/GroomerImage/Index.vue').default
+    },
+    {
         path: '/admin/groomer-image/create',
         name: 'admin.groomerImage.create',
         component: require('./components/GroomerImage/Create.vue').default
     },
     {
-        path: '/admin/groomer-image',
-        name: 'admin.groomerImage.index',
-        component: require('./components/GroomerImage/Index.vue').default
-    }
+        path: '/admin/physiotherapy',
+        name: 'admin.physiotherapy.index',
+        component: require('./components/Physiotherapy/Index.vue').default
+    },
+    {
+        path: '/admin/physiotherapy/create',
+        name: 'admin.physiotherapy.create',
+        component: require('./components/Physiotherapy/Create.vue').default
+    },
+    {
+        path: '/admin/physiotherapy/:physiotherapyId',
+        name: 'admin.physiotherapy.edit',
+        component: require('./components/Physiotherapy/Edit.vue').default
+    },
 ];
 
 const router = new VueRouter({

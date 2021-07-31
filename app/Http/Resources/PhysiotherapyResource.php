@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ImageResource extends JsonResource
+class PhysiotherapyResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,9 +16,8 @@ class ImageResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'file_pathname' => $this->file_pathname,
-            'name' => $this->name,
-            'description' => $this->description,
+            'title' => $this->title,
+            'content' => $this->content
         ];
     }
 }

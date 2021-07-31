@@ -11,7 +11,7 @@
             >
                 <div class="form-group">
                     <label for="dog_race">Rasa psa</label>
-                    <input type="text" id="dog_race" required class="form-control" v-model="dog.race">
+                    <input type="text" id="dog_race" required class="form-control" v-model="groomingImageData.dog_race">
 
                     <field-errors
                         :class="[{ 'is-invalid': hasErrors(`dog_race`) }]"
@@ -21,7 +21,7 @@
 
                 <div class="form-group">
                     <label for="dog_name">Imię psa</label>
-                    <input type="text" id="dog_name" class="form-control" v-model="dog.name">
+                    <input type="text" id="dog_name" class="form-control" v-model="groomingImageData.dog_name">
 
                     <field-errors
                         :class="[{ 'is-invalid': hasErrors(`dog_name`) }]"
@@ -38,8 +38,8 @@
     </div>
 </template>
 <script>
-import validateErrors from './../../mixins/validateErrors.js';
-import GroomingImageForm from './../_partials/GroomingImageForm.vue';
+import validateErrors from '#/admin/mixins/validateErrors.js';
+import GroomingImageForm from '#/admin/components/_partials/GroomingImageForm.vue';
 
 export default {
     mixins: [validateErrors],
@@ -51,10 +51,7 @@ export default {
     data: function() {
         return {
             errors: {},
-            dog: {
-                race: '',
-                name: ''
-            }
+            groomingImageData: {}
         };
     },
 
@@ -66,8 +63,8 @@ export default {
                 data.append(`image[${index}][file]`, _.get(image, 'source'));
                 data.append(`image[${index}][name]`, _.get(image, 'name'));
                 data.append(`image[${index}][description]`, _.get(image, 'description') || '');
-                data.append('dog_name', _.get(this.dog, 'name') || '');
-                data.append('dog_race', _.get(this.dog, 'race') || '');
+                data.append('dog_name', _.get(this.groomingImageData, 'dog_name') || '');
+                data.append('dog_race', _.get(this.groomingImageData, 'dog_race') || '');
             });
 
             axios.post(`/json/admin/grooming-image`, data, {

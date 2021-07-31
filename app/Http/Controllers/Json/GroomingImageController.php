@@ -20,20 +20,37 @@ class GroomingImageController extends Controller
         $this->connection = $connection;
     }
 
-    public function index()
+    /**
+     * Show grooming images collection.
+     *
+     * @return \Illuminate\Contracts\Support\Responsable
+     */
+    public function index(): Responsable
     {
         $groomingImages = GroomingImage::all()->each(function ($groomingImage) {
             $groomingImage->load('images');
         });
 
-        // $groomingImages->load('images');
-
         return GroomingImageResource::collection($groomingImages);
+    }
+
+    /**
+     * Show grooming image resource.
+     *
+     * @param \App\Models\GroomingImage $groomingImage
+     * @return \Illuminate\Contracts\Support\Responsable
+     */
+    public function show(GroomingImage $groomingImage): Responsable
+    {
+        $groomingImage->load('images');
+
+        return GroomingImageResource::make($groomingImage);
     }
 
     /**
      * Store a newly created resource in storage.
      *
+     * @param \App\Http\Requests\Admin\GroomingImage\StoreRequest $request
      * @return \Illuminate\Contracts\Support\Responsable
      */
     public function store(StoreRequest $request): Responsable

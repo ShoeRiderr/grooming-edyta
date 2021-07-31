@@ -38,6 +38,10 @@ export default {
             required: true,
             type: Object,
         },
+        imageData: {
+            default: null,
+            type: Object
+        }
     },
 
     data: function() {
@@ -52,6 +56,14 @@ export default {
                 return `.${extension}`;
             }).join(',');
         },
+    },
+
+    watch: {
+        imageData() {
+            if (this.imageData !== null) {
+                this.files = this.imageData;
+            }
+        }
     },
 
     methods: {
