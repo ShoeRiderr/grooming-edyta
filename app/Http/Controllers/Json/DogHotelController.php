@@ -5,45 +5,45 @@ namespace App\Http\Controllers\Json;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use App\Http\Resources\GroomingResource;
+use App\Http\Resources\DogHotelResource;
 use Illuminate\Contracts\Support\Responsable;
-use App\Models\Grooming;
+use App\Models\DogHotel;
 
-class GroomingController extends Controller
+class DogHotelController extends Controller
 {
     public function index(): JsonResponse
     {
-        return new JsonResponse(Grooming::paginate(10), 200);
+        return new JsonResponse(DogHotel::paginate(10), 200);
     }
 
-    public function show(Grooming $grooming): Responsable
+    public function show(DogHotel $dogHotel): Responsable
     {
-        return GroomingResource::make($grooming);
+        return DogHotelResource::make($dogHotel);
     }
 
     public function store(Request $request): Responsable
     {
-        $grooming = Grooming::create([
+        $dogHotel = DogHotel::create([
             'title' => $request->input('title'),
             'content' => $request->input('content'),
         ]);
 
-        return GroomingResource::make($grooming);
+        return DogHotelResource::make($dogHotel);
     }
 
-    public function update(Request $request, Grooming $grooming): Responsable
+    public function update(Request $request, DogHotel $dogHotel): Responsable
     {
-        $grooming->update([
+        $dogHotel->update([
             'title' => $request->input('title'),
             'content' => $request->input('content'),
         ]);
 
-        return GroomingResource::make($grooming);
+        return DogHotelResource::make($dogHotel);
     }
 
-    public function destroy(Grooming $grooming): JsonResponse
+    public function destroy(DogHotel $dogHotel): JsonResponse
     {
-        $grooming->delete();
+        $dogHotel->delete();
 
         return new JsonResponse('', 200);
     }

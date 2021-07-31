@@ -4,7 +4,7 @@
         :is-saved="isSaved"
         @input="onSubmit"
     >
-        Tworzenie nowego wpisu do sekcji grooming
+        Edycja wpisu do sekcji hotel dla psów
     </text-editor-view>
 </template>
 
@@ -15,7 +15,6 @@ export default {
     components: {
         TextEditorView
     },
-
     data() {
         return {
             loading: false,
@@ -27,7 +26,7 @@ export default {
         onSubmit(values) {
             this.loading = true;
 
-            axios.post('/json/admin/grooming', {
+            axios.put(`/json/admin/dog-hotel/${this.$route.params.dogHotelId}`, {
                 title: values.title,
                 content: values.content
             })
@@ -38,7 +37,7 @@ export default {
                     title: 'Sukces',
                     text: 'Pomyślnie dodano nową usługę.'
                 });
-                this.$router.push({ name: 'admin.grooming.index' });
+                this.$router.push({ name: 'admin.dog-hotel.index' });
             })
             .catch(_ => {
                 this.$notify({

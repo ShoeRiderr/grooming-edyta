@@ -37,6 +37,7 @@ export default {
                     title: 'Sukces',
                     text: 'Pomyślnie dodano nową usługę.'
                 });
+                this.$router.push({ name: 'admin.physiotherapy.index' });
             })
             .catch(_ => {
                 this.$notify({

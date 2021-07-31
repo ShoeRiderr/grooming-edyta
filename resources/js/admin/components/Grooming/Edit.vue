@@ -4,7 +4,7 @@
         :is-saved="isSaved"
         @input="onSubmit"
     >
-        Edycja wpisu do sekcji fizjoterapia
+        Edycja wpisu do sekcji grooming
     </text-editor-view>
 </template>
 
@@ -37,6 +37,7 @@ export default {
                     title: 'Sukces',
                     text: 'Pomyślnie dodano nową usługę.'
                 });
+                this.$router.push({ name: 'admin.grooming.index' });
             })
             .catch(_ => {
                 this.$notify({

@@ -3,33 +3,33 @@
         <div class="card">
             <div class="card-header">
                 <div class="d-flex">
-                    <span>Lista wpisów w sekcji grooming</span>
+                    <span>Lista wpisów w sekcji hotel dla psów</span>
                     <router-link
                         class="btn btn-outline-primary btn-sm ml-auto"
-                        :to="{ name: 'admin.grooming.create' }"
+                        :to="{ name: 'admin.dog-hotel.create' }"
                     >
                         Dodaj nowy wpis
                     </router-link>
                 </div>
             </div>
             <div class="card">
-                <div v-if="!hasGrooming" class="alert alert-info">
+                <div v-if="!hasdogHotel" class="alert alert-info">
                     Brak wpisów.
                 </div>
-                <ul class="list-group list-group-flush" v-for="grooming in grooming.data" :key="grooming.id">
+                <ul class="list-group list-group-flush" v-for="dogHotel in dogHotel.data" :key="dogHotel.id">
                     <li class="list-group-item border-bottom">
                         <div class="d-flex">
-                            <h4>{{grooming.title}}</h4>
+                            <h4>{{dogHotel.title}}</h4>
                             <div class="ml-auto">
                                 <router-link
                                     class="btn btn-outline-primary btn-sm mr-2"
-                                    :to="{ name: 'admin.grooming.edit', params: { groomingId: grooming.id } }"
+                                    :to="{ name: 'admin.dog-hotel.edit', params: { dogHotelId: dogHotel.id } }"
                                 >
                                     Edytuj
                                 </router-link>
                                 <button
                                     class="btn btn-outline-danger btn-sm"
-                                    @click.prevent="deleteGrooming(grooming.title, grooming.id)"
+                                    @click.prevent="deleteDogHotel(dogHotel.title, dogHotel.id)"
                                     :disabled="loading"
                                 >
                                     Usuń
@@ -38,7 +38,7 @@
                         </div>
                     </li>
                 </ul>
-                <pagination class="p-4 mb-0 float-right" :data="grooming" @pagination-change-page="fetchGrooming"></pagination>
+                <pagination class="p-4 mb-0 float-right" :data="dogHotel" @pagination-change-page="fetchDogHotel"></pagination>
             </div>
         </div>
     </div>
@@ -48,26 +48,26 @@
 export default {
     data() {
         return {
-            grooming: {},
+            dogHotel: {},
             loading: false
         }
     },
 
     mounted() {
-        this.fetchGrooming();
+        this.fetchDogHotel();
     },
 
     computed: {
-        hasGrooming() {
-            return this.grooming.data ? this.grooming.data.length > 0 : false;
+        hasdogHotel() {
+            return this.dogHotel.data ? this.dogHotel.data.length > 0 : false;
         }
     },
 
     methods: {
-        fetchGrooming(page = 1) {
-            axios.get('/json/admin/grooming?page=' + page)
+        fetchDogHotel(page = 1) {
+            axios.get('/json/admin/dog-hotel?page=' + page)
             .then((response) => {
-                this.grooming = response.data;
+                this.dogHotel = response.data;
             })
             .catch(_ => {
                  this.$notify({
@@ -78,18 +78,18 @@ export default {
             })
         },
 
-        deleteGrooming(grooming, id) {
+        deleteDogHotel(dogHotel, id) {
             this.loading = true;
 
-            if(confirm(`Czy na pewno chcesz usunąć wpis ${grooming}?`)) {
-                axios.delete(`/json/admin/grooming/${id}`)
+            if(confirm(`Czy na pewno chcesz usunąć wpis ${dogHotel}?`)) {
+                axios.delete(`/json/admin/dog-hotel/${id}`)
                 .then(_ => {
                     this.$notify({
                         type: 'success',
                         title: 'Sukces',
-                        text: `Usuniętousługę ${grooming}.`
+                        text: `Usuniętousługę ${dogHotel}.`
                     })
-                    this.fetchGrooming();
+                    this.fetchDogHotel();
                 })
                 .catch(_ => {
                     this.$notify({

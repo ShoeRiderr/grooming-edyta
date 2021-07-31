@@ -23,8 +23,22 @@ export default {
             });
         },
 
+        fetchDogHotel() {
+            axios.get(`/json/dog-hotel/${this.$route.params.dogHotelId}`)
+            .then((response) => {
+                this.values = _.get(response.data, 'data', {})
+            })
+            .catch(_ => {
+                this.$notify({
+                    type: 'error',
+                    title: 'Error',
+                    text: 'Wystąpił nieoczekiwany błąd.'
+                });
+            });
+        },
+
         fetchGrooming() {
-            axios.get(`/json/admin/grooming/${this.$route.params.groomingId}`)
+            axios.get(`/json/grooming/${this.$route.params.groomingId}`)
             .then((response) => {
                 this.values = _.get(response.data, 'data', {})
             })
@@ -38,7 +52,7 @@ export default {
         },
 
         fetchPhysiotherapy() {
-            axios.get(`/json/admin/physiotherapy/${this.$route.params.physiotherapyId}`)
+            axios.get(`/json/physiotherapy/${this.$route.params.physiotherapyId}`)
             .then((response) => {
                 this.values = _.get(response.data, 'data', {})
             })

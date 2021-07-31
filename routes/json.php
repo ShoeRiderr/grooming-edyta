@@ -24,15 +24,28 @@ Route::group(['prefix' => 'admin'], function () {
     ]);
 
     Route::resource('grooming-image', \App\Http\Controllers\Json\GroomingImageController::class, [
-        'only' => ['index', 'show', 'store']
+        'only' => ['index', 'store']
     ]);
 
     Route::resource('physiotherapy', \App\Http\Controllers\Json\PhysiotherapyController::class, [
-        'except' => ['edit']
+        'except' => ['edit', 'show']
     ]);
 
     Route::resource('grooming', \App\Http\Controllers\Json\GroomingController::class, [
-        'except' => ['edit']
+        'except' => ['edit', 'show']
+    ]);
+
+    Route::resource('dog-hotel', \App\Http\Controllers\Json\DogHotelController::class, [
+        'except' => ['edit', 'show']
     ]);
 });
+
+Route::get('grooming-image/{groomingImage}', '\App\Http\Controllers\Json\GroomingImageController@show');
+
+Route::get('physiotherapy/{physiotherapy}', '\App\Http\Controllers\Json\PhysiotherapyController@show');
+
+Route::get('grooming/{grooming}', '\App\Http\Controllers\Json\GroomingController@show');
+
+Route::get('dog-hotel/{dogHotel}', '\App\Http\Controllers\Json\DogHotelController@show');
+
 

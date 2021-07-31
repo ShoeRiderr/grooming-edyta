@@ -51,6 +51,21 @@ const routes = [
         name: 'admin.grooming.edit',
         component: require('./components/Grooming/Edit.vue').default
     },
+    {
+        path: '/admin/dog-hotel',
+        name: 'admin.dog-hotel.index',
+        component: require('./components/DogHotel/Index.vue').default
+    },
+    {
+        path: '/admin/dog-hotel/create',
+        name: 'admin.dog-hotel.create',
+        component: require('./components/DogHotel/Create.vue').default
+    },
+    {
+        path: '/admin/dog-hotel/:dogHotelId',
+        name: 'admin.dog-hotel.edit',
+        component: require('./components/DogHotel/Edit.vue').default
+    },
 ];
 
 const router = new VueRouter({

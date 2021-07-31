@@ -43,7 +43,8 @@ export default {
     mounted() {
         if (
             this.$route.name == 'admin.physiotherapy.edit' || this.$route.name == 'admin.physiotherapy.create' ||
-            this.$route.name == 'admin.grooming.edit' || this.$route.name == 'admin.grooming.create'
+            this.$route.name == 'admin.grooming.edit' || this.$route.name == 'admin.grooming.create' ||
+            this.$route.name == 'admin.dog-hotel.edit' || this.$route.name == 'admin.dog-hotel.create'
             ) {
             this.withTitle = true;
             if (this.$route.name == 'admin.physiotherapy.edit') {
@@ -51,6 +52,9 @@ export default {
             }
             if (this.$route.name == 'admin.grooming.edit') {
                 this.fetchGrooming();
+            }
+            if (this.$route.name == 'admin.dog-hotel.edit') {
+                this.fetchDogHotel();
             }
         }
     },
