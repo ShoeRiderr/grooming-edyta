@@ -36,6 +36,21 @@ const routes = [
         name: 'admin.physiotherapy.edit',
         component: require('./components/Physiotherapy/Edit.vue').default
     },
+    {
+        path: '/admin/grooming',
+        name: 'admin.grooming.index',
+        component: require('./components/Grooming/Index.vue').default
+    },
+    {
+        path: '/admin/grooming/create',
+        name: 'admin.grooming.create',
+        component: require('./components/Grooming/Create.vue').default
+    },
+    {
+        path: '/admin/grooming/:groomingId',
+        name: 'admin.grooming.edit',
+        component: require('./components/Grooming/Edit.vue').default
+    },
 ];
 
 const router = new VueRouter({

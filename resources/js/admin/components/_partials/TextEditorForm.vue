@@ -41,10 +41,16 @@ export default {
     },
 
     mounted() {
-        if (this.$route.name == 'admin.physiotherapy.edit' || this.$route.name == 'admin.physiotherapy.create') {
+        if (
+            this.$route.name == 'admin.physiotherapy.edit' || this.$route.name == 'admin.physiotherapy.create' ||
+            this.$route.name == 'admin.grooming.edit' || this.$route.name == 'admin.grooming.create'
+            ) {
             this.withTitle = true;
             if (this.$route.name == 'admin.physiotherapy.edit') {
                 this.fetchPhysiotherapy();
+            }
+            if (this.$route.name == 'admin.grooming.edit') {
+                this.fetchGrooming();
             }
         }
     },

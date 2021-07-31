@@ -23,10 +23,10 @@ export default {
             });
         },
 
-        fetchContactContent() {
-            axios.get('/api/contact')
+        fetchGrooming() {
+            axios.get(`/json/admin/grooming/${this.$route.params.groomingId}`)
             .then((response) => {
-                this.values.content = response.data
+                this.values = _.get(response.data, 'data', {})
             })
             .catch(_ => {
                 this.$notify({

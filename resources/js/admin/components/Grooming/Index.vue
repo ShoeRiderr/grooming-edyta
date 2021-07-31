@@ -6,30 +6,30 @@
                     <span>Lista wpisów w sekcji fizjoterapia</span>
                     <router-link
                         class="btn btn-outline-primary btn-sm ml-auto"
-                        :to="{ name: 'admin.physiotherapy.create' }"
+                        :to="{ name: 'admin.grooming.create' }"
                     >
                         Dodaj nowy wpis
                     </router-link>
                 </div>
             </div>
             <div class="card">
-                <div v-if="!hasPhysiotherapies" class="alert alert-info">
+                <div v-if="!hasGrooming" class="alert alert-info">
                     Brak wpisów.
                 </div>
-                <ul class="list-group list-group-flush" v-for="physiotherapy in physiotherapy.data" :key="physiotherapy.id">
+                <ul class="list-group list-group-flush" v-for="grooming in grooming.data" :key="grooming.id">
                     <li class="list-group-item border-bottom">
                         <div class="d-flex">
-                            <h4>{{physiotherapy.title}}</h4>
+                            <h4>{{grooming.title}}</h4>
                             <div class="ml-auto">
                                 <router-link
                                     class="btn btn-outline-primary btn-sm mr-2"
-                                    :to="{ name: 'admin.physiotherapy.edit', params: { physiotherapyId: physiotherapy.id } }"
+                                    :to="{ name: 'admin.grooming.edit', params: { groomingId: grooming.id } }"
                                 >
                                     Edytuj
                                 </router-link>
                                 <button
                                     class="btn btn-outline-danger btn-sm"
-                                    @click.prevent="deletePhysiotherapy(physiotherapy.title, physiotherapy.id)"
+                                    @click.prevent="deleteGrooming(grooming.title, grooming.id)"
                                     :disabled="loading"
                                 >
                                     Usuń
@@ -38,7 +38,7 @@
                         </div>
                     </li>
                 </ul>
-                <pagination class="p-4 mb-0 float-right" :data="physiotherapy" @pagination-change-page="fetchPhysiotherapies"></pagination>
+                <pagination class="p-4 mb-0 float-right" :data="grooming" @pagination-change-page="fetchGrooming"></pagination>
             </div>
         </div>
     </div>
@@ -48,26 +48,26 @@
 export default {
     data() {
         return {
-            physiotherapy: {},
+            grooming: {},
             loading: false
         }
     },
 
     mounted() {
-        this.fetchPhysiotherapies();
+        this.fetchGrooming();
     },
 
     computed: {
-        hasPhysiotherapies() {
-            return this.physiotherapy.data ? this.physiotherapy.data.length > 0 : false;
+        hasGrooming() {
+            return this.grooming.data ? this.grooming.data.length > 0 : false;
         }
     },
 
     methods: {
-        fetchPhysiotherapies(page = 1) {
-            axios.get('/json/admin/physiotherapy?page=' + page)
+        fetchGrooming(page = 1) {
+            axios.get('/json/admin/grooming?page=' + page)
             .then((response) => {
-                this.physiotherapy = response.data;
+                this.grooming = response.data;
             })
             .catch(_ => {
                  this.$notify({
@@ -78,18 +78,18 @@ export default {
             })
         },
 
-        deletePhysiotherapy(physiotherapy, id) {
+        deleteGrooming(grooming, id) {
             this.loading = true;
 
-            if(confirm(`Czy na pewno chcesz usunąć wpis ${physiotherapy}?`)) {
-                axios.delete(`/json/admin/physiotherapy/${id}`)
+            if(confirm(`Czy na pewno chcesz usunąć wpis ${grooming}?`)) {
+                axios.delete(`/json/admin/grooming/${id}`)
                 .then(_ => {
                     this.$notify({
                         type: 'success',
                         title: 'Sukces',
-                        text: `Usuniętousługę ${physiotherapy}.`
+                        text: `Usuniętousługę ${grooming}.`
                     })
-                    this.fetchPhysiotherapies();
+                    this.fetchGrooming();
                 })
                 .catch(_ => {
                     this.$notify({

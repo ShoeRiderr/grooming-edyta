@@ -30,5 +30,9 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('physiotherapy', \App\Http\Controllers\Json\PhysiotherapyController::class, [
         'except' => ['edit']
     ]);
+
+    Route::resource('grooming', \App\Http\Controllers\Json\GroomingController::class, [
+        'except' => ['edit']
+    ]);
 });
 
