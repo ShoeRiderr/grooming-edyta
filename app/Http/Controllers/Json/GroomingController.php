@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Json;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Resources\GroomingResource;
 use Illuminate\Contracts\Support\Responsable;
 use App\Models\Grooming;
+use App\Http\Requests\GroomingRequest;
 
 class GroomingController extends Controller
 {
@@ -21,7 +21,7 @@ class GroomingController extends Controller
         return GroomingResource::make($grooming);
     }
 
-    public function store(Request $request): Responsable
+    public function store(GroomingRequest $request): Responsable
     {
         $grooming = Grooming::create([
             'title' => $request->input('title'),
@@ -31,7 +31,7 @@ class GroomingController extends Controller
         return GroomingResource::make($grooming);
     }
 
-    public function update(Request $request, Grooming $grooming): Responsable
+    public function update(GroomingRequest $request, Grooming $grooming): Responsable
     {
         $grooming->update([
             'title' => $request->input('title'),

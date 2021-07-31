@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Json;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Resources\PhysiotherapyResource;
 use Illuminate\Contracts\Support\Responsable;
 use App\Models\Physiotherapy;
+use App\Http\Requests\PhysiotherapyRequest;
 
 class PhysiotherapyController extends Controller
 {
@@ -21,7 +21,7 @@ class PhysiotherapyController extends Controller
         return PhysiotherapyResource::make($physiotherapy);
     }
 
-    public function store(Request $request): Responsable
+    public function store(PhysiotherapyRequest $request): Responsable
     {
         $physiotherapy = Physiotherapy::create([
             'title' => $request->input('title'),
@@ -31,7 +31,7 @@ class PhysiotherapyController extends Controller
         return PhysiotherapyResource::make($physiotherapy);
     }
 
-    public function update(Request $request, Physiotherapy $physiotherapy): Responsable
+    public function update(PhysiotherapyRequest $request, Physiotherapy $physiotherapy): Responsable
     {
         $physiotherapy->update([
             'title' => $request->input('title'),

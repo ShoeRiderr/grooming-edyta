@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Json;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Resources\DogHotelResource;
 use Illuminate\Contracts\Support\Responsable;
 use App\Models\DogHotel;
+use App\Http\Requests\DogHotelRequest;
 
 class DogHotelController extends Controller
 {
@@ -21,7 +21,7 @@ class DogHotelController extends Controller
         return DogHotelResource::make($dogHotel);
     }
 
-    public function store(Request $request): Responsable
+    public function store(DogHotelRequest $request): Responsable
     {
         $dogHotel = DogHotel::create([
             'title' => $request->input('title'),
@@ -31,7 +31,7 @@ class DogHotelController extends Controller
         return DogHotelResource::make($dogHotel);
     }
 
-    public function update(Request $request, DogHotel $dogHotel): Responsable
+    public function update(DogHotelRequest $request, DogHotel $dogHotel): Responsable
     {
         $dogHotel->update([
             'title' => $request->input('title'),
