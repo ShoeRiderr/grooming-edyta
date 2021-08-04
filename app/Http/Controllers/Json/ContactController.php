@@ -4,22 +4,22 @@ namespace App\Http\Controllers\Json;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
-use App\Http\Resources\AboutCompanyResource;
+use App\Http\Resources\ContactResource;
 use Illuminate\Contracts\Support\Responsable;
-use App\Models\AboutCompany;
-use App\Http\Requests\AboutCompanyRequest;
+use App\Models\Contact;
+use App\Http\Requests\ContactRequest;
 use App\Enums\ContentType;
 
-class AboutCompanyController extends Controller
+class ContactController extends Controller
 {
     public function show(): Responsable
     {
-        return AboutCompanyResource::make(AboutCompany::where('type', ContentType::CONSTANT)->get());
+        return ContactResource::make(Contact::where('type', ContentType::CONSTANT)->get());
     }
 
     public function edit(): Responsable
     {
-        $aboutCompany = AboutCompany::firstOrCreate(
+        $contact = Contact::firstOrCreate(
             ['type' => ContentType::CONSTANT],
             [
                 'title' => '',
@@ -28,16 +28,16 @@ class AboutCompanyController extends Controller
             ]
         );
 
-        return AboutCompanyResource::make($aboutCompany);
+        return ContactResource::make($contact);
     }
 
-    public function update(AboutCompanyRequest $request, AboutCompany $aboutCompany): Responsable
+    public function update(ContactRequest $request, Contact $contact): Responsable
     {
-        $aboutCompany->update([
+        $contact->update([
             'title' => $request->input('title'),
             'content' => $request->input('content'),
         ]);
 
-        return AboutCompanyResource::make($aboutCompany);
+        return ContactResource::make($contact);
     }
 }

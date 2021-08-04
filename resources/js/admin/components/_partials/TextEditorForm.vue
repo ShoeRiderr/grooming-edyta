@@ -6,7 +6,7 @@
                 <input type="text" class="form-control" v-model="values.title">
                 <hr>
             </div>
-            <vue-editor v-model="values.content"></vue-editor>
+            <vue-editor :editor-toolbar="editorToolbar" v-model="values.content"></vue-editor>
             <div class="card-footer">
                 <button type="submit" class="btn btn-primary btn-block" :disabled="loading">Zapisz</button>
             </div>
@@ -36,7 +36,28 @@ export default {
 
     data() {
         return {
-            withTitle: false
+            withTitle: false,
+            editorToolbar: [[{
+              header: [false, 1, 2, 3, 4, 5, 6]
+            }], ["bold", "italic", "underline"],
+            [{
+              align: ""
+            }, {
+              align: "center"
+            }, {
+              align: "right"
+            }, {
+              align: "justify"
+            }], [{
+              list: "ordered"
+            }, {
+              list: "bullet"
+            }],
+            [{
+              color: []
+            }],
+            ["image", "video"]
+            ]
         }
     },
 
@@ -61,6 +82,11 @@ export default {
         if (this.$route.name == 'admin.aboutCompany.edit') {
             this.withTitle = true;
             this.fetchAboutCompany();
+        }
+
+        if (this.$route.name == 'admin.contact.edit') {
+            this.withTitle = true;
+            this.fetchContact();
         }
     },
 

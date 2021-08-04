@@ -23,6 +23,20 @@ export default {
             });
         },
 
+        fetchContact() {
+            axios.get('/json/admin/contact/edit')
+            .then((response) => {
+                this.values = _.get(response.data, 'data', {})
+            })
+            .catch(_ => {
+                this.$notify({
+                    type: 'error',
+                    title: 'Error',
+                    text: 'Wystąpił nieoczekiwany błąd.'
+                });
+            });
+        },
+
         fetchDogHotel() {
             axios.get(`/json/dog-hotel/${this.$route.params.dogHotelId}`)
             .then((response) => {

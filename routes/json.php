@@ -40,10 +40,13 @@ Route::group(['prefix' => 'admin'], function () {
     ]);
 
     Route::get('about-company/edit', '\App\Http\Controllers\Json\AboutCompanyController@edit');
-    Route::put('about-company', '\App\Http\Controllers\Json\AboutCompanyController@update');
+    Route::put('about-company/{about_company}', '\App\Http\Controllers\Json\AboutCompanyController@update');
+
+    Route::get('contact/edit', '\App\Http\Controllers\Json\ContactController@edit');
+    Route::put('contact/{contact}', '\App\Http\Controllers\Json\ContactController@update');
 });
 
-Route::get('grooming-image/{groomingImage}', '\App\Http\Controllers\Json\GroomingImageController@show');
+Route::get('grooming-image/{grooming_image}', '\App\Http\Controllers\Json\GroomingImageController@show');
 
 Route::get('physiotherapy/{physiotherapy}', '\App\Http\Controllers\Json\PhysiotherapyController@show');
 
@@ -52,5 +55,7 @@ Route::get('grooming/{grooming}', '\App\Http\Controllers\Json\GroomingController
 Route::get('dog-hotel/{dogHotel}', '\App\Http\Controllers\Json\DogHotelController@show');
 
 Route::get('about-company', '\App\Http\Controllers\Json\AboutCompanyController@show');
+
+Route::get('contact', '\App\Http\Controllers\Json\ContactController@show');
 
 

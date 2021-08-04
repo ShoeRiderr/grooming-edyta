@@ -71,6 +71,11 @@ const routes = [
         name: 'admin.aboutCompany.edit',
         component: require('./components/AboutCompany/Edit.vue').default
     },
+    {
+        path: '/admin/contact/edit',
+        name: 'admin.contact.edit',
+        component: require('./components/Contact/Edit.vue').default
+    },
 ];
 
 const router = new VueRouter({

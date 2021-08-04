@@ -4,7 +4,7 @@
         :is-saved="isSaved"
         @input="onSubmit"
     >
-        Edycja wpisu do sekcji grooming
+        Edycja wpisu do sekcji o firmie
     </text-editor-view>
 </template>
 
@@ -26,7 +26,7 @@ export default {
         onSubmit(values) {
             this.loading = true;
 
-            axios.put(`/json/admin/grooming/${this.$route.params.groomingId}`, {
+            axios.put(`/json/admin/contact/${values.id}`, {
                 title: _.get(values, 'title', ''),
                 content: _.get(values, 'content', '')
             })
@@ -37,7 +37,6 @@ export default {
                     title: 'Sukces',
                     text: 'Pomyślnie dodano nową usługę.'
                 });
-                this.$router.push({ name: 'admin.grooming.index' });
             })
             .catch(_ => {
                 this.$notify({

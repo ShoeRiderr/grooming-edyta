@@ -26,9 +26,9 @@ export default {
         onSubmit(values) {
             this.loading = true;
 
-            axios.put(`/json/admin/about-company`, {
-                title: values.title,
-                content: values.content
+            axios.put(`/json/admin/about-company/${values.id}`, {
+                title: _.get(values, 'title', ''),
+                content: _.get(values, 'content', '')
             })
             .then(_ => {
                 this.isSaved = true
@@ -37,7 +37,6 @@ export default {
                     title: 'Sukces',
                     text: 'Pomyślnie dodano nową usługę.'
                 });
-                this.$router.push({ name: 'admin.aboutCompany.index' });
             })
             .catch(_ => {
                 this.$notify({

@@ -27,8 +27,8 @@ export default {
             this.loading = true;
 
             axios.put(`/json/admin/physiotherapy/${this.$route.params.physiotherapyId}`, {
-                title: values.title,
-                content: values.content
+                title: _.get(values, 'title', ''),
+                content: _.get(values, 'content', '')
             })
             .then(_ => {
                 this.isSaved = true

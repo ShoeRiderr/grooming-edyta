@@ -28,8 +28,8 @@ export default {
             this.loading = true;
 
             axios.post('/json/admin/dog-hotel', {
-                title: values.title,
-                content: values.content
+                title: _.get(values, 'title', ''),
+                content: _.get(values, 'content', '')
             })
             .then(_ => {
                 this.isSaved = true
