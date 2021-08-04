@@ -57,6 +57,11 @@ export default {
                 this.fetchDogHotel();
             }
         }
+
+        if (this.$route.name == 'admin.aboutCompany.edit') {
+            this.withTitle = true;
+            this.fetchAboutCompany();
+        }
     },
 
     computed: {

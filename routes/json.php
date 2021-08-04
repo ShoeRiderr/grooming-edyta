@@ -38,6 +38,9 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('dog-hotel', \App\Http\Controllers\Json\DogHotelController::class, [
         'except' => ['edit', 'show']
     ]);
+
+    Route::get('about-company/edit', '\App\Http\Controllers\Json\AboutCompanyController@edit');
+    Route::put('about-company', '\App\Http\Controllers\Json\AboutCompanyController@update');
 });
 
 Route::get('grooming-image/{groomingImage}', '\App\Http\Controllers\Json\GroomingImageController@show');
@@ -47,5 +50,7 @@ Route::get('physiotherapy/{physiotherapy}', '\App\Http\Controllers\Json\Physioth
 Route::get('grooming/{grooming}', '\App\Http\Controllers\Json\GroomingController@show');
 
 Route::get('dog-hotel/{dogHotel}', '\App\Http\Controllers\Json\DogHotelController@show');
+
+Route::get('about-company', '\App\Http\Controllers\Json\AboutCompanyController@show');
 
 

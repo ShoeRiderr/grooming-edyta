@@ -66,6 +66,11 @@ const routes = [
         name: 'admin.dog-hotel.edit',
         component: require('./components/DogHotel/Edit.vue').default
     },
+    {
+        path: '/admin/about-company/edit',
+        name: 'admin.aboutCompany.edit',
+        component: require('./components/AboutCompany/Edit.vue').default
+    },
 ];
 
 const router = new VueRouter({

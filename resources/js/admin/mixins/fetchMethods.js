@@ -9,10 +9,10 @@ export default {
     },
 
     methods: {
-        fetchAboutCompanyContent() {
-            axios.get('/api/about-company')
+        fetchAboutCompany() {
+            axios.get('/json/admin/about-company/edit')
             .then((response) => {
-                this.values.content = response.data
+                this.values = _.get(response.data, 'data', {})
             })
             .catch(_ => {
                 this.$notify({
