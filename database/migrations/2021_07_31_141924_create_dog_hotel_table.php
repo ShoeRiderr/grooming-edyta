@@ -17,6 +17,7 @@ class CreateDogHotelTable extends Migration
             $table->id();
             $table->string('title');
             $table->text('content');
+            $table->tinyInteger('type');
             $table->softDeletes();
             $table->timestamps();
         });

@@ -4,20 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Image extends Model
+class Post extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
-        'file_pathname',
-        'name',
-        'description',
+        'title',
+        'content',
+        'type',
     ];
 
-    // public $timestamps = false;
-
-    public function imageable()
+    public function postable()
     {
         return $this->morphTo();
     }

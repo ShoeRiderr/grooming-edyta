@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Grooming extends Model
 {
@@ -13,6 +13,12 @@ class Grooming extends Model
 
     protected $fillable = [
         'title',
-        'content'
+        'content',
+        'type',
     ];
+
+    public function posts()
+    {
+        return $this->morphMany(Post::class, 'postable');
+    }
 }

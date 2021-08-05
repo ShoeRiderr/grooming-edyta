@@ -7,4 +7,5 @@ use BenSampo\Enum\Enum;
 final class ContentType extends Enum
 {
     const CONSTANT = 0;
+    const POST     = 1;
 }

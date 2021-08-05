@@ -10,8 +10,11 @@
 
 <script>
 import TextEditorView from '#/admin/components/_partials/TextEditorView';
+import contentTypeMethods from '#/admin/mixins/contentTypeMethods.js'
 
 export default {
+    mixins: [contentTypeMethods],
+
     components: {
         TextEditorView
     },
