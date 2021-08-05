@@ -38,7 +38,7 @@ export default {
         },
 
         fetchDogHotel() {
-            axios.get(`/json/dog-hotel/${this.$route.params.dogHotelId}`)
+            axios.get(`/json/admin/dog-hotel/edit`)
             .then((response) => {
                 this.values = _.get(response.data, 'data', {})
             })
@@ -52,7 +52,7 @@ export default {
         },
 
         fetchGrooming() {
-            axios.get(`/json/grooming/${this.$route.params.groomingId}`)
+            axios.get(`/json/admin/grooming/edit`)
             .then((response) => {
                 this.values = _.get(response.data, 'data', {})
             })
@@ -66,7 +66,51 @@ export default {
         },
 
         fetchPhysiotherapy() {
-            axios.get(`/json/physiotherapy/${this.$route.params.physiotherapyId}`)
+            axios.get(`/json/admin/physiotherapy/edit`)
+            .then((response) => {
+                this.values = _.get(response.data, 'data', {})
+            })
+            .catch(_ => {
+                this.$notify({
+                    type: 'error',
+                    title: 'Error',
+                    text: 'Wystąpił nieoczekiwany błąd.'
+                });
+            });
+        }
+
+
+        //Posts
+        fetchDogHotelPost() {
+            axios.get(`/json/post/dog-hotel/${this.$route.params.dogHotelId}`)
+            .then((response) => {
+                this.values = _.get(response.data, 'data', {})
+            })
+            .catch(_ => {
+                this.$notify({
+                    type: 'error',
+                    title: 'Error',
+                    text: 'Wystąpił nieoczekiwany błąd.'
+                });
+            });
+        },
+
+        fetchGroomingPost() {
+            axios.get(`/json/post/grooming/${this.$route.params.groomingId}`)
+            .then((response) => {
+                this.values = _.get(response.data, 'data', {})
+            })
+            .catch(_ => {
+                this.$notify({
+                    type: 'error',
+                    title: 'Error',
+                    text: 'Wystąpił nieoczekiwany błąd.'
+                });
+            });
+        },
+
+        fetchPhysiotherapyPost() {
+            axios.get(`/json/post/physiotherapy/${this.$route.params.physiotherapyId}`)
             .then((response) => {
                 this.values = _.get(response.data, 'data', {})
             })

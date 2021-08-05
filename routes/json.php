@@ -27,35 +27,59 @@ Route::group(['prefix' => 'admin'], function () {
         'only' => ['index', 'store']
     ]);
 
-    Route::resource('physiotherapy', \App\Http\Controllers\Json\PhysiotherapyController::class, [
-        'except' => ['edit', 'show']
-    ]);
+    Route::group(['prefix' => 'post'], function () {
+        Route::resource('physiotherapy', \App\Http\Controllers\Json\Post\PhysiotherapyController::class, [
+            'except' => ['edit', 'show', 'index']
+        ]);
 
-    Route::resource('grooming', \App\Http\Controllers\Json\GroomingController::class, [
-        'except' => ['edit', 'show']
-    ]);
+        Route::resource('grooming', \App\Http\Controllers\Json\Post\GroomingController::class, [
+            'except' => ['edit', 'show', 'index']
+        ]);
 
-    Route::resource('dog-hotel', \App\Http\Controllers\Json\DogHotelController::class, [
-        'except' => ['edit', 'show']
-    ]);
+        Route::resource('dog-hotel', \App\Http\Controllers\Json\Post\DogHotelController::class, [
+            'except' => ['edit', 'show', 'index']
+        ]);
+    });
+
 
     Route::get('about-company/edit', '\App\Http\Controllers\Json\AboutCompanyController@edit');
     Route::put('about-company/{about_company}', '\App\Http\Controllers\Json\AboutCompanyController@update');
 
     Route::get('contact/edit', '\App\Http\Controllers\Json\ContactController@edit');
     Route::put('contact/{contact}', '\App\Http\Controllers\Json\ContactController@update');
+
+    Route::get('physiotherapy/edit', '\App\Http\Controllers\Json\PhysiotherapyController@edit');
+    Route::put('physiotherapy/{physiotherapy}', '\App\Http\Controllers\Json\PhysiotherapyController@update');
+
+    Route::get('grooming/edit', '\App\Http\Controllers\Json\GroomingController@edit');
+    Route::put('grooming/{grooming}', '\App\Http\Controllers\Json\GroomingController@update');
+
+    Route::get('dog-hotel/edit', '\App\Http\Controllers\Json\DogHotelController@edit');
+    Route::put('dog-hotel/{dog_hotel}', '\App\Http\Controllers\Json\DogHotelController@update');
 });
 
 Route::get('grooming-image/{grooming_image}', '\App\Http\Controllers\Json\GroomingImageController@show');
 
-Route::get('physiotherapy/{physiotherapy}', '\App\Http\Controllers\Json\PhysiotherapyController@show');
+Route::get('physiotherapy', '\App\Http\Controllers\Json\PhysiotherapyController@show');
 
-Route::get('grooming/{grooming}', '\App\Http\Controllers\Json\GroomingController@show');
+Route::get('grooming', '\App\Http\Controllers\Json\GroomingController@show');
 
-Route::get('dog-hotel/{dogHotel}', '\App\Http\Controllers\Json\DogHotelController@show');
+Route::get('dog-hotel', '\App\Http\Controllers\Json\DogHotelController@show');
 
 Route::get('about-company', '\App\Http\Controllers\Json\AboutCompanyController@show');
 
 Route::get('contact', '\App\Http\Controllers\Json\ContactController@show');
+
+Route::group(['prefix' => 'post'], function () {
+    Route::resource('physiotherapy', \App\Http\Controllers\Json\PhysiotherapyController::class, [
+        'only' => ['index', 'show']
+    ]);
+    Route::resource('grooming', \App\Http\Controllers\Json\GroomingController::class, [
+        'only' => ['index', 'show']
+    ]);
+    Route::resource('dog-hotel', \App\Http\Controllers\Json\DogHotelController::class, [
+        'only' => ['index', 'show']
+    ]);
+});
 
 

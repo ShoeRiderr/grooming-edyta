@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Json;
+namespace App\Http\Controllers\Json\Post;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PhysiotherapyRequest;
@@ -8,29 +8,25 @@ use App\Http\Resources\PhysiotherapyResource;
 use App\Models\Physiotherapy;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\JsonResponse;
-use App\Enums\ContentType;
 
 class PhysiotherapyController extends Controller
 {
-    public function show(): Responsable
+    public function index(): JsonResponse
     {
-        $physiotherapy = Physiotherapy::where('type', ContentType::CONSTANT)->get();
+        return new JsonResponse(Physiotherapy::paginate(10), 200);
+    }
 
-        $physiotherapy->load('posts');
-
+    public function show(Physiotherapy $physiotherapy): Responsable
+    {
         return PhysiotherapyResource::make($physiotherapy);
     }
 
-    public function edit(): Responsable
+    public function store(PhysiotherapyRequest $request): Responsable
     {
-        $physiotherapy = Physiotherapy::firstOrCreate(
-            ['type' => ContentType::CONSTANT],
-            [
-                'title'   => '',
-                'content' => '',
-                'type'    => ContentType::CONSTANT,
-            ]
-        );
+        $physiotherapy = Physiotherapy::create([
+            'title'   => $request->input('title'),
+            'content' => $request->input('content'),
+        ]);
 
         return PhysiotherapyResource::make($physiotherapy);
     }
@@ -43,5 +39,12 @@ class PhysiotherapyController extends Controller
         ]);
 
         return PhysiotherapyResource::make($physiotherapy);
+    }
+
+    public function destroy(Physiotherapy $physiotherapy): JsonResponse
+    {
+        $physiotherapy->delete();
+
+        return new JsonResponse('', 200);
     }
 }

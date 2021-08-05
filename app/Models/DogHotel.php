@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class DogHotel extends Model
 {
@@ -13,8 +13,14 @@ class DogHotel extends Model
 
     protected $fillable = [
         'title',
-        'content'
+        'content',
+        'type',
     ];
 
     protected $table = 'dog_hotel';
+
+    public function posts()
+    {
+        return $this->morphMany(Post::class, 'postable');
+    }
 }

@@ -7,7 +7,6 @@ use App\Http\Requests\Admin\GroomingImage\StoreRequest;
 use App\Http\Resources\GroomingImageResource;
 use App\Models\GroomingImage;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Http\Request;
 use Illuminate\Database\ConnectionInterface as Connection;
 use Illuminate\Support\Arr;
 
@@ -63,17 +62,16 @@ class GroomingImageController extends Controller
 
             foreach ($request->input('image') as $index => $attributes) {
                 /** @var \Illuminate\Http\UploadedFile */
-                $file     = $request->file("image.{$index}.file");
+                $file = $request->file("image.{$index}.file");
                 $pathname = $file->store("public/images/{$groomingImage->id}");
 
                 $images = $groomingImage->images()->make([
                     'file_pathname' => $pathname,
                     'name'          => Arr::get($attributes, 'name'),
-                    'description'   => Arr::get($attributes, 'description')
+                    'description'   => Arr::get($attributes, 'description'),
                 ]);
 
                 $images->save();
-
             }
 
             return $groomingImage;

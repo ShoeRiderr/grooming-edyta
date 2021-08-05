@@ -2,11 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Enums\ContentType;
-use BenSampo\Enum\Rules\EnumValue;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ContactRequest extends FormRequest
+class PostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

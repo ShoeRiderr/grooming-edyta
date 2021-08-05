@@ -3,6 +3,7 @@ const mix = require('laravel-mix');
 
 mix.alias({
     '#': path.join(__dirname, '/resources/js')
+    '@enum': path.join(__dirname, '/resources/js/admin/enums')
 });
 
 mix.js('resources/js/app.js', 'public/js')

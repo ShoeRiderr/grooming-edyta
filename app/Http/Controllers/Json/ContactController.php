@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Json;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\JsonResponse;
-use App\Http\Resources\ContactResource;
-use Illuminate\Contracts\Support\Responsable;
-use App\Models\Contact;
-use App\Http\Requests\ContactRequest;
 use App\Enums\ContentType;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\ContactRequest;
+use App\Http\Resources\ContactResource;
+use App\Models\Contact;
+use Illuminate\Contracts\Support\Responsable;
 
 class ContactController extends Controller
 {
@@ -22,9 +21,9 @@ class ContactController extends Controller
         $contact = Contact::firstOrCreate(
             ['type' => ContentType::CONSTANT],
             [
-                'title' => '',
+                'title'   => '',
                 'content' => '',
-                'type' => ContentType::CONSTANT,
+                'type'    => ContentType::CONSTANT,
             ]
         );
 
@@ -34,7 +33,7 @@ class ContactController extends Controller
     public function update(ContactRequest $request, Contact $contact): Responsable
     {
         $contact->update([
-            'title' => $request->input('title'),
+            'title'   => $request->input('title'),
             'content' => $request->input('content'),
         ]);
 

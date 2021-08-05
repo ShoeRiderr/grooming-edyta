@@ -4,18 +4,20 @@
         :is-saved="isSaved"
         @input="onSubmit"
     >
-        Tworzenie nowego wpisu do sekcji hotel dla psów
+        Edycja wpisu do sekcji fizjoterapia
     </text-editor-view>
 </template>
 
 <script>
 import TextEditorView from '#/admin/components/_partials/TextEditorView';
+import contentTypeMethods from '#/admin/mixins/contentTypeMethods.js'
 
 export default {
+    mixins: [contentTypeMethods],
+
     components: {
         TextEditorView
     },
-
     data() {
         return {
             loading: false,
@@ -27,7 +29,7 @@ export default {
         onSubmit(values) {
             this.loading = true;
 
-            axios.post('/json/admin/dog-hotel', {
+            axios.put(`/json/admin/physiotherapy/${this.$route.params.physiotherapyId}`, {
                 title: _.get(values, 'title', ''),
                 content: _.get(values, 'content', '')
             })
@@ -38,7 +40,7 @@ export default {
                     title: 'Sukces',
                     text: 'Pomyślnie dodano nową usługę.'
                 });
-                this.$router.push({ name: 'admin.dog-hotel.index' });
+                this.$router.push({ name: 'admin.physiotherapy.index' });
             })
             .catch(_ => {
                 this.$notify({
@@ -49,7 +51,7 @@ export default {
             })
             .then(_ => {
                 this.loading = false;
-                this.isSaved = false;
+                this.isSaved = false
             })
         },
     }

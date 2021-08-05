@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Json;
+namespace App\Http\Controllers\Json\Post;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\GroomingRequest;
@@ -8,29 +8,25 @@ use App\Http\Resources\GroomingResource;
 use App\Models\Grooming;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\JsonResponse;
-use App\Enums\ContentType;
 
 class GroomingController extends Controller
 {
-    public function show(): Responsable
+    public function index(): JsonResponse
     {
-        $grooming = Grooming::where('type', ContentType::CONSTANT)->get();
+        return new JsonResponse(Grooming::paginate(10), 200);
+    }
 
-        $grooming->load('posts');
-
+    public function show(Grooming $grooming): Responsable
+    {
         return GroomingResource::make($grooming);
     }
 
-    public function edit(): Responsable
+    public function store(GroomingRequest $request): Responsable
     {
-        $grooming = Grooming::firstOrCreate(
-            ['type' => ContentType::CONSTANT],
-            [
-                'title'   => '',
-                'content' => '',
-                'type'    => ContentType::CONSTANT,
-            ]
-        );
+        $grooming = Grooming::create([
+            'title'   => $request->input('title'),
+            'content' => $request->input('content'),
+        ]);
 
         return GroomingResource::make($grooming);
     }
@@ -43,5 +39,12 @@ class GroomingController extends Controller
         ]);
 
         return GroomingResource::make($grooming);
+    }
+
+    public function destroy(Grooming $grooming): JsonResponse
+    {
+        $grooming->delete();
+
+        return new JsonResponse('', 200);
     }
 }

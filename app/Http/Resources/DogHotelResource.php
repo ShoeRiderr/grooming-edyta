@@ -17,7 +17,9 @@ class DogHotelResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'content' => $this->content
+            'content' => $this->content,
+
+            'posts' => PostResource::collection($this->whenLoaded('posts'))
         ];
     }
 }
