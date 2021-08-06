@@ -2,48 +2,96 @@
 
 namespace App\Http\Controllers\Json\Post;
 
+use App\Enums\ContentType;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PhysiotherapyRequest;
-use App\Http\Resources\PhysiotherapyResource;
+use App\Http\Requests\PostRequest;
+use App\Http\Resources\PostResource;
 use App\Models\Physiotherapy;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\JsonResponse;
 
 class PhysiotherapyController extends Controller
 {
+    private ?Physiotherapy $physiotherapy;
+
+    public function __construct()
+    {
+        $this->physiotherapy = Physiotherapy::where('type', ContentType::CONSTANT)->first();
+    }
+
+    /**
+     * @return  \Illuminate\Http\JsonResponse
+     */
     public function index(): JsonResponse
     {
-        return new JsonResponse(Physiotherapy::paginate(10), 200);
+        if (!$this->physiotherapy) {
+            return new JsonResponse([], 404);
+        }
+
+        return new JsonResponse($this->physiotherapy->posts()->with('image')->paginate(10), 200);
     }
 
-    public function show(Physiotherapy $physiotherapy): Responsable
+    /**
+     * @param   \App\Models\Post    $post
+     * @return  \Illuminate\Http\JsonResponse|\Illuminate\Contracts\Support\Responsable
+     */
+    public function show(Post $post)
     {
-        return PhysiotherapyResource::make($physiotherapy);
+        if (!$this->physiotherapy) {
+            return new JsonResponse([], 404);
+        }
+
+        return PostResource::make($post);
     }
 
-    public function store(PhysiotherapyRequest $request): Responsable
+    /**
+     * @param   \App\Http\Requests\PostRequest  $request
+     * @return  \Illuminate\Http\JsonResponse|\Illuminate\Contracts\Support\Responsable
+     */
+    public function store(PostRequest $request)
     {
-        $physiotherapy = Physiotherapy::create([
+        if (!$this->physiotherapy) {
+            return new JsonResponse([], 404);
+        }
+
+        $post = $this->physiotherapy->posts()->create([
             'title'   => $request->input('title'),
             'content' => $request->input('content'),
         ]);
 
-        return PhysiotherapyResource::make($physiotherapy);
+        return PostResource::make($post);
     }
 
-    public function update(PhysiotherapyRequest $request, Physiotherapy $physiotherapy): Responsable
+    /**
+     * @param   \App\Http\Requests\PostRequest  $request
+     * @param   \App\Models\Post    $post
+     * @return  \Illuminate\Http\JsonResponse|\Illuminate\Contracts\Support\Responsable
+     */
+    public function update(PostRequest $request, Post $post): Responsable
     {
-        $physiotherapy->update([
+        if (!$this->physiotherapy) {
+            return new JsonResponse([], 404);
+        }
+
+        $this->physiotherapy->posts->where('id', $post->id)->update([
             'title'   => $request->input('title'),
             'content' => $request->input('content'),
         ]);
 
-        return PhysiotherapyResource::make($physiotherapy);
+        return PostResource::make($post);
     }
 
-    public function destroy(Physiotherapy $physiotherapy): JsonResponse
+    /**
+     * @param   \App\Models\Post    $post
+     * @return  \Illuminate\Http\JsonResponse
+     */
+    public function destroy(Post $post): JsonResponse
     {
-        $physiotherapy->delete();
+        if (!$this->physiotherapy) {
+            return new JsonResponse([], 404);
+        }
+
+        $this->physiotherapy->posts->where('id', $post->id)->delete();
 
         return new JsonResponse('', 200);
     }

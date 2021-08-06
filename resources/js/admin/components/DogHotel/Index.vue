@@ -6,9 +6,9 @@
                     <span>Lista wpisów w sekcji hotel dla psów</span>
                     <router-link
                         class="btn btn-outline-primary btn-sm ml-auto"
-                        :to="{ name: 'admin.dog-hotel.create' }"
+                        :to="{ name: 'admin.dogHotel.post.create' }"
                     >
-                        Dodaj nowy wpis
+                        Dodaj nowy post do hotelu dla psów
                     </router-link>
                 </div>
             </div>
@@ -23,7 +23,7 @@
                             <div class="ml-auto">
                                 <router-link
                                     class="btn btn-outline-primary btn-sm mr-2"
-                                    :to="{ name: 'admin.dog-hotel.edit', params: { dogHotelId: dogHotel.id } }"
+                                    :to="{ name: 'admin.dogHotel.edit', params: { dogHotelId: dogHotel.id } }"
                                 >
                                     Edytuj
                                 </router-link>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Json\Post;
 
+use App\Enums\ContentType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostRequest;
 use App\Http\Resources\PostResource;
@@ -9,7 +10,6 @@ use App\Models\DogHotel;
 use App\Models\Post;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\JsonResponse;
-use App\Enums\ContentType;
 
 class DogHotelController extends Controller
 {
@@ -29,7 +29,7 @@ class DogHotelController extends Controller
             return new JsonResponse([], 404);
         }
 
-        return new JsonResponse($this->dogHotel->posts()->paginate(10), 200);
+        return new JsonResponse($this->dogHotel->posts()->with('image')->paginate(10), 200);
     }
 
     /**

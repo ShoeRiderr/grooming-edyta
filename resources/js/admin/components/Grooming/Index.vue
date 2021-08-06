@@ -49,12 +49,14 @@ export default {
     data() {
         return {
             grooming: {},
+            groomingPost: {},
             loading: false
         }
     },
 
     mounted() {
         this.fetchGrooming();
+        this.fetchGroomingPost();
     },
 
     computed: {
@@ -65,9 +67,23 @@ export default {
 
     methods: {
         fetchGrooming(page = 1) {
-            axios.get('/json/admin/grooming?page=' + page)
+            axios.get('/json/admin/grooming')
             .then((response) => {
-                this.grooming = response.data;
+                this.grooming = _.get(response.data, 'data', {});
+            })
+            .catch(_ => {
+                 this.$notify({
+                    type: 'error',
+                    title: 'Error',
+                    text: 'Coś poszło nie tak podczas pobierania usług.'
+                });
+            })
+        },
+
+        fetchGroomingPost(page = 1) {
+            axios.get('/json/admin/post/grooming?page=' + page)
+            .then((response) => {
+                this.groomingPost = response.data;
             })
             .catch(_ => {
                  this.$notify({

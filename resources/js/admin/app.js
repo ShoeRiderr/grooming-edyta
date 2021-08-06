@@ -7,6 +7,7 @@ import Index from './Index';
 import VCalendar from 'v-calendar';
 import Notifications from 'vue-notification';
 import Pagination from 'laravel-vue-pagination';
+import { isLoggedIn } from '#/admin/auth/auth.js';
 
 require('./bootstrap');
 
@@ -21,10 +22,15 @@ Vue.prototype.$siteUrl = '/';
 const store = new Vuex.Store(storeElement);
 
 window.axios.interceptors.response.use(
-    response => response,
+    response => {
+        return response;
+    },
     error => {
         if (error.response.status === 401) {
-            store.dispatch('logout');
+            store.dispatch("logout");
+            if (router.currentRoute.name != "admin.login") {
+                window.location.href = '/';
+            }
         }
 
         return Promise.reject(error);
@@ -44,5 +50,15 @@ const admin = new Vue({
     },
     async beforeCreate() {
         this.$store.dispatch('loadUser');
+
+        if (!isLoggedIn() && this.$router.currentRoute.name != "admin.login") {
+                window.location.href = '/';
+        }
+
+        if (isLoggedIn() && this.$router.currentRoute.name == "admin.login") {
+            this.$router.push({
+                name: "admin.index"
+            });
+        }
     }
 });

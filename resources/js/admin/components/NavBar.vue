@@ -23,38 +23,35 @@
                             Usługi
                         </router-link>
                     </li> -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="">Posty</a>
-                    </li>
-                    <!-- <li class="nav-item" v-if="isLoggedIn">
+                    <li class="nav-item" v-if="isLoggedIn">
                         <a class="nav-link" href="" @click.prevent="logOut">Wyloguj</a>
-                    </li> -->
+                    </li>
                 </ul>
             </div>
         </nav>
     </div>
 </template>
-
 <script>
+import { mapState } from 'vuex';
 
 export default {
-    // props: {
-    //     isLoggedIn: {
-    //         required: true
-    //     }
-    // },
+    computed: {
+        ...mapState({
+            isLoggedIn: (state) => state.isLoggedIn
+        })
+    },
 
-    // methods: {
-    //     async logOut() {
-    //         try {
-    //             await axios.post('/logout');
-    //             this.$store.dispatch('logout');
-    //             this.$router.push({ name: 'index' });
-    //         } catch (error) {
-    //             this.$store.dispatch('logout');
-    //             this.$router.push({ name: 'index' });
-    //         }
-    //     }
-    // }
+    methods: {
+        async logOut() {
+            try {
+                await axios.post('/logout');
+                this.$store.dispatch('logout');
+                window.location.href = '/';
+            } catch (error) {
+                this.$store.dispatch('logout');
+                window.location.href = '/';
+            }
+        }
+    }
 };
 </script>
