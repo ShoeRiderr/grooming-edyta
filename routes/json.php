@@ -71,13 +71,13 @@ Route::get('about-company', '\App\Http\Controllers\Json\AboutCompanyController@s
 Route::get('contact', '\App\Http\Controllers\Json\ContactController@show');
 
 Route::group(['prefix' => 'post'], function () {
-    Route::resource('physiotherapy', \App\Http\Controllers\Json\PhysiotherapyController::class, [
+    Route::resource('physiotherapy', \App\Http\Controllers\Json\Post\PhysiotherapyController::class, [
         'only' => ['index', 'show']
     ]);
-    Route::resource('grooming', \App\Http\Controllers\Json\GroomingController::class, [
+    Route::resource('grooming', \App\Http\Controllers\Json\Post\GroomingController::class, [
         'only' => ['index', 'show']
     ]);
-    Route::resource('dog-hotel', \App\Http\Controllers\Json\DogHotelController::class, [
+    Route::resource('dog-hotel', \App\Http\Controllers\Json\Post\DogHotelController::class, [
         'only' => ['index', 'show']
     ]);
 });

@@ -20,15 +20,15 @@ class GroomingController extends Controller
     }
 
     /**
-     * @return  \Illuminate\Http\JsonResponse
+     * @return  \Illuminate\Http\JsonResponse|\Illuminate\Contracts\Support\Responsable
      */
-    public function index(): JsonResponse
+    public function index()
     {
         if (!$this->grooming) {
-            return new JsonResponse([], 404);
+            return new JsonResponse([], 400);
         }
 
-        return new JsonResponse($this->grooming->posts()->with('image')->paginate(10), 200);
+        return PostResource::collection($this->grooming->posts()->with('image')->get());
     }
 
     /**

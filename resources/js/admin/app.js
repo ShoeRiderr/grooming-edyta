@@ -52,7 +52,7 @@ const admin = new Vue({
         this.$store.dispatch('loadUser');
 
         if (!isLoggedIn() && this.$router.currentRoute.name != "admin.login") {
-                window.location.href = '/';
+            window.location.href = '/';
         }
 
         if (isLoggedIn() && this.$router.currentRoute.name == "admin.login") {

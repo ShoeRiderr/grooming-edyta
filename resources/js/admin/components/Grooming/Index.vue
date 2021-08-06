@@ -12,40 +12,22 @@
                     </router-link>
                 </div>
             </div>
+
             <div class="card">
-                <div v-if="!hasGrooming" class="alert alert-info">
-                    Brak wpisów.
-                </div>
-                <ul class="list-group list-group-flush" v-for="grooming in grooming.data" :key="grooming.id">
-                    <li class="list-group-item border-bottom">
-                        <div class="d-flex">
-                            <h4>{{grooming.title}}</h4>
-                            <div class="ml-auto">
-                                <router-link
-                                    class="btn btn-outline-primary btn-sm mr-2"
-                                    :to="{ name: 'admin.grooming.edit', params: { groomingId: grooming.id } }"
-                                >
-                                    Edytuj
-                                </router-link>
-                                <button
-                                    class="btn btn-outline-danger btn-sm"
-                                    @click.prevent="deleteGrooming(grooming.title, grooming.id)"
-                                    :disabled="loading"
-                                >
-                                    Usuń
-                                </button>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-                <pagination class="p-4 mb-0 float-right" :data="grooming" @pagination-change-page="fetchGrooming"></pagination>
+                <post-index></post-index>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import PostIndex from '#/admin/components/_partials/PostIndex';
+
 export default {
+    components: {
+        PostIndex
+    },
+
     data() {
         return {
             grooming: {},

@@ -16,13 +16,19 @@
 
 <script>
 import fetchMethods from '#/admin/mixins/fetchMethods';
+import postFetchMethod from '#/shared/mixins/postFetchMethod';
 import { VueEditor } from "vue2-editor";
+import ImageForm from '#/admin/components/_partials/ImageForm.vue';
 
 export default {
-    mixins: [fetchMethods],
+    mixins: [
+        fetchMethods,
+        postFetchMethod
+    ],
 
     components: {
-        VueEditor
+        VueEditor,
+        ImageForm
     },
 
     props: {
@@ -63,28 +69,39 @@ export default {
 
     mounted() {
         if (
-            this.$route.name == 'admin.physiotherapy.edit' || this.$route.name == 'admin.physiotherapy.create' ||
-            this.$route.name == 'admin.grooming.edit' || this.$route.name == 'admin.grooming.create' ||
-            this.$route.name == 'admin.dog-hotel.edit' || this.$route.name == 'admin.dog-hotel.create'
+            this.$route.name === 'admin.physiotherapy.edit' || this.$route.name === 'admin.physiotherapy.post.create' ||
+            this.$route.name === 'admin.grooming.edit' || this.$route.name === 'admin.grooming.post.create' ||
+            this.$route.name === 'admin.dogHotel.edit' || this.$route.name === 'admin.dogHotel.post.create' ||
+            this.$route.name === 'admin.physiotherapy.post.eidt' || this.$route.name === 'admin.grooming.post.eidt' ||
+            this.$route.name === 'admin.dogHotel.post.eidt'
             ) {
             this.withTitle = true;
-            if (this.$route.name == 'admin.physiotherapy.edit') {
+            if (this.$route.name === 'admin.physiotherapy.edit') {
                 this.fetchPhysiotherapy();
             }
-            if (this.$route.name == 'admin.grooming.edit') {
+            if (this.$route.name === 'admin.grooming.edit') {
                 this.fetchGrooming();
             }
-            if (this.$route.name == 'admin.dog-hotel.edit') {
+            if (this.$route.name === 'admin.dogHotel.edit') {
                 this.fetchDogHotel();
+            }
+            if (this.$route.name === 'admin.physiotherapy.post.edit') {
+                this.fetchPhysiotherapyPost();
+            }
+            if (this.$route.name === 'admin.grooming.post.edit') {
+                this.fetchGroomingPost();
+            }
+            if (this.$route.name === 'admin.dogHotel.post.edit') {
+                this.fetchDogHotelPost();
             }
         }
 
-        if (this.$route.name == 'admin.aboutCompany.edit') {
+        if (this.$route.name === 'admin.aboutCompany.edit') {
             this.withTitle = true;
             this.fetchAboutCompany();
         }
 
-        if (this.$route.name == 'admin.contact.edit') {
+        if (this.$route.name === 'admin.contact.edit') {
             this.withTitle = true;
             this.fetchContact();
         }

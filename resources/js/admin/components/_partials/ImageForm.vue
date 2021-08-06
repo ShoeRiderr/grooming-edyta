@@ -20,7 +20,7 @@
     </form>
 </template>
 <script>
-import GroomingImage from './GroomingImage.vue';
+import Image from './Image.vue';
 
 const validExtensions = [
     'jpg',
@@ -30,7 +30,7 @@ const validExtensions = [
 
 export default {
     components: {
-        GroomingImage,
+        Image,
     },
 
     props: {

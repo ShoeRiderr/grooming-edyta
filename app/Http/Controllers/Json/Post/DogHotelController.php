@@ -21,15 +21,15 @@ class DogHotelController extends Controller
     }
 
     /**
-     * @return  \Illuminate\Http\JsonResponse
+     * @return  \Illuminate\Http\JsonResponse|\Illuminate\Contracts\Support\Responsable
      */
-    public function index(): JsonResponse
+    public function index()
     {
         if (!$this->dogHotel) {
-            return new JsonResponse([], 404);
+            return new JsonResponse([], 400);
         }
 
-        return new JsonResponse($this->dogHotel->posts()->with('image')->paginate(10), 200);
+        return PostResource::collection($this->dogHotel->posts()->with('image')->get());
     }
 
     /**
@@ -39,7 +39,7 @@ class DogHotelController extends Controller
     public function show(Post $post)
     {
         if (!$this->dogHotel) {
-            return new JsonResponse([], 404);
+            return new JsonResponse([], 400);
         }
 
         return PostResource::make($post);
@@ -52,7 +52,7 @@ class DogHotelController extends Controller
     public function store(PostRequest $request)
     {
         if (!$this->dogHotel) {
-            return new JsonResponse([], 404);
+            return new JsonResponse([], 400);
         }
 
         $post = $this->dogHotel->posts()->create([
@@ -71,7 +71,7 @@ class DogHotelController extends Controller
     public function update(PostRequest $request, Post $post): Responsable
     {
         if (!$this->dogHotel) {
-            return new JsonResponse([], 404);
+            return new JsonResponse([], 400);
         }
 
         $this->dogHotel->posts->where('id', $post->id)->update([
@@ -89,7 +89,7 @@ class DogHotelController extends Controller
     public function destroy(Post $post): JsonResponse
     {
         if (!$this->dogHotel) {
-            return new JsonResponse([], 404);
+            return new JsonResponse([], 400);
         }
 
         $this->dogHotel->posts->where('id', $post->id)->delete();

@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Edyta Groomer</title>
+        <title>Pet Center</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -20,7 +20,7 @@
             <nav class="navbar navbar-expand-sm navbar-dark bg-dark flex-column align-items-stretch bg">
                 <div class="d-flex">
                     <a href="#" class="navbar-brand mx-sm-auto mr-auto" style="font-size:1.8em;">
-                        <img class="responsive" src="data:image/png;base64,{{ base64_encode(file_get_contents(resource_path('images/logo.png'))) }}">
+                        <img class="responsive" src="data:image/png;base64,{{ base64_encode(file_get_contents(resource_path('images/logo.png'))) }}" alt="Pet Center">
                     </a>
                     <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarMenu">
                         <span class="navbar-toggler-icon"></span>
@@ -46,6 +46,10 @@
             </nav>
 
              @yield('content')
+
+            <div class="navbar fixed-bottom" style="background-color: #191411; color: #ebebeb;">
+                <span class="mx-auto">© {{ now()->year }} Copyright: Pet Center</span>
+            </div>
         </div>
     </body>
 </html>

@@ -4,7 +4,7 @@
             <div class="content-header">
                 <h1>Dodaj zdjęcia psów</h1>
             </div>
-            <grooming-image-form
+            <image-form
                 id="grooming-image-form"
                 :errors="errors"
                 @submit="onSubmit"
@@ -28,7 +28,7 @@
                         :errors="getErrors(`dog_name`)"
                     ></field-errors>
                 </div>
-            </grooming-image-form>
+            </image-form>
             <div class="content-footer">
                 <div class="footer-actions">
                     <button form="grooming-image-form" type="submit" class="btn btn-primary">Dodaj zdjęcia</button>
@@ -39,13 +39,13 @@
 </template>
 <script>
 import validateErrors from '#/admin/mixins/validateErrors.js';
-import GroomingImageForm from '#/admin/components/_partials/GroomingImageForm.vue';
+import ImageForm from '#/admin/components/_partials/ImageForm.vue';
 
 export default {
     mixins: [validateErrors],
 
     components: {
-        GroomingImageForm,
+        ImageForm,
     },
 
     data: function() {

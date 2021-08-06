@@ -1,18 +1,16 @@
 export default {
     data() {
         return {
-            values: {
-                title: '',
-                content: ''
-            },
+            post: {}
         }
     },
 
+    //post
     methods: {
-        fetchAboutCompany() {
-            axios.get('/json/admin/about-company/edit')
+        fetchDogHotelPost() {
+            axios.get(`/json/post/dog-hotel/${this.id}`)
             .then((response) => {
-                this.values = _.get(response.data, 'data', {})
+                this.post = _.get(response.data, 'data', {})
             })
             .catch(_ => {
                 this.$notify({
@@ -23,10 +21,10 @@ export default {
             });
         },
 
-        fetchContact() {
-            axios.get('/json/admin/contact/edit')
+        fetchGroomingPost() {
+            axios.get(`/json/post/grooming/${this.id}`)
             .then((response) => {
-                this.values = _.get(response.data, 'data', {})
+                this.post = _.get(response.data, 'data', {})
             })
             .catch(_ => {
                 this.$notify({
@@ -37,10 +35,10 @@ export default {
             });
         },
 
-        fetchDogHotel() {
-            axios.get(`/json/admin/dog-hotel/edit`)
+        fetchPhysiotherapyPost() {
+            axios.get(`/json/post/physiotherapy/${this.id}`)
             .then((response) => {
-                this.values = _.get(response.data, 'data', {})
+                this.post = _.get(response.data, 'data', {})
             })
             .catch(_ => {
                 this.$notify({
@@ -51,10 +49,10 @@ export default {
             });
         },
 
-        fetchGrooming() {
-            axios.get(`/json/admin/grooming/edit`)
+        fetchDogHotelPosts() {
+            axios.get(`/json/post/dog-hotel`)
             .then((response) => {
-                this.values = _.get(response.data, 'data', {})
+                this.post = _.get(response.data, 'data', {})
             })
             .catch(_ => {
                 this.$notify({
@@ -65,10 +63,10 @@ export default {
             });
         },
 
-        fetchPhysiotherapy() {
-            axios.get(`/json/admin/physiotherapy/edit`)
+        fetchGroomingPosts() {
+            axios.get(`/json/post/grooming`)
             .then((response) => {
-                this.values = _.get(response.data, 'data', {})
+                this.post = _.get(response.data, 'data', {})
             })
             .catch(_ => {
                 this.$notify({
@@ -78,5 +76,19 @@ export default {
                 });
             });
         },
+
+        fetchPhysiotherapyPosts() {
+            axios.get(`/json/post/physiotherapy`)
+            .then((response) => {
+                this.post = _.get(response.data, 'data', {})
+            })
+            .catch(_ => {
+                this.$notify({
+                    type: 'error',
+                    title: 'Error',
+                    text: 'Wystąpił nieoczekiwany błąd.'
+                });
+            });
+        }
     }
 }

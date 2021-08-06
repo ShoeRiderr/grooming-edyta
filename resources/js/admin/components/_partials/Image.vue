@@ -62,13 +62,13 @@
 </template>
 <script>
 import validateErrors from '#/admin/mixins/validateErrors';
-import GroomingImagePreview from './GroomingImagePreview';
+import ImagePreview from './ImagePreview';
 
 export default {
     mixins: [validateErrors],
 
     components: {
-        GroomingImagePreview,
+        ImagePreview,
     },
 
     props: {

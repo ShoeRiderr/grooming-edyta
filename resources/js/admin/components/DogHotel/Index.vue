@@ -3,58 +3,40 @@
         <div class="card">
             <div class="card-header">
                 <div class="d-flex">
-                    <span>Lista wpisów w sekcji hotel dla psów</span>
+                    <h2>Lista wpisów w sekcji hotel dla psów</h2>
                     <router-link
-                        class="btn btn-outline-primary btn-sm ml-auto"
+                        class="btn btn-outline-primary ml-auto"
                         :to="{ name: 'admin.dogHotel.post.create' }"
                     >
                         Dodaj nowy post do hotelu dla psów
                     </router-link>
                 </div>
             </div>
+
             <div class="card">
-                <div v-if="!hasdogHotel" class="alert alert-info">
-                    Brak wpisów.
-                </div>
-                <ul class="list-group list-group-flush" v-for="dogHotel in dogHotel.data" :key="dogHotel.id">
-                    <li class="list-group-item border-bottom">
-                        <div class="d-flex">
-                            <h4>{{dogHotel.title}}</h4>
-                            <div class="ml-auto">
-                                <router-link
-                                    class="btn btn-outline-primary btn-sm mr-2"
-                                    :to="{ name: 'admin.dogHotel.edit', params: { dogHotelId: dogHotel.id } }"
-                                >
-                                    Edytuj
-                                </router-link>
-                                <button
-                                    class="btn btn-outline-danger btn-sm"
-                                    @click.prevent="deleteDogHotel(dogHotel.title, dogHotel.id)"
-                                    :disabled="loading"
-                                >
-                                    Usuń
-                                </button>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-                <pagination class="p-4 mb-0 float-right" :data="dogHotel" @pagination-change-page="fetchDogHotel"></pagination>
+                <post-index :posts="post"></post-index>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import PostIndex from '#/admin/components/_partials/PostIndex';
+
 export default {
+    components: {
+        PostIndex
+    },
+
     data() {
         return {
-            dogHotel: {},
+            post: {},
             loading: false
         }
     },
 
     mounted() {
-        this.fetchDogHotel();
+        this.fetchDogHotelPosts();
     },
 
     computed: {
@@ -64,10 +46,10 @@ export default {
     },
 
     methods: {
-        fetchDogHotel(page = 1) {
-            axios.get('/json/admin/dog-hotel?page=' + page)
+        fetchDogHotelPosts() {
+            axios.get('/json/post/dog-hotel')
             .then((response) => {
-                this.dogHotel = response.data;
+                this.post = _.get(response.data, 'data', {});
             })
             .catch(_ => {
                  this.$notify({

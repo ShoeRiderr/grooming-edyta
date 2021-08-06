@@ -12,40 +12,22 @@
                     </router-link>
                 </div>
             </div>
+
             <div class="card">
-                <div v-if="!hasPhysiotherapies" class="alert alert-info">
-                    Brak wpisów.
-                </div>
-                <ul class="list-group list-group-flush" v-for="physiotherapy in physiotherapy.data" :key="physiotherapy.id">
-                    <li class="list-group-item border-bottom">
-                        <div class="d-flex">
-                            <h4>{{physiotherapy.title}}</h4>
-                            <div class="ml-auto">
-                                <router-link
-                                    class="btn btn-outline-primary btn-sm mr-2"
-                                    :to="{ name: 'admin.physiotherapy.edit', params: { physiotherapyId: physiotherapy.id } }"
-                                >
-                                    Edytuj
-                                </router-link>
-                                <button
-                                    class="btn btn-outline-danger btn-sm"
-                                    @click.prevent="deletePhysiotherapy(physiotherapy.title, physiotherapy.id)"
-                                    :disabled="loading"
-                                >
-                                    Usuń
-                                </button>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-                <pagination class="p-4 mb-0 float-right" :data="physiotherapy" @pagination-change-page="fetchPhysiotherapies"></pagination>
+                <post-index></post-index>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import PostIndex from '#/admin/components/_partials/PostIndex';
+
 export default {
+    components: {
+        PostIndex
+    },
+
     data() {
         return {
             physiotherapy: {},
