@@ -6,8 +6,10 @@
             </div>
             <div class="card-body">
                 <text-editor-form
+                    id="editorContainer"
                     :loading="loading"
                     :is-saved="isSaved"
+                    :errors="errors"
                     @input="onSubmit"
                     class="p-4">
                 </text-editor-form>
@@ -26,6 +28,10 @@ export default {
         },
         isSaved: {
             default: false
+        },
+        errors: {
+            required: true,
+            type: Object,
         },
     },
 

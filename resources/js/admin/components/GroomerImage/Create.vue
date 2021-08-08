@@ -39,7 +39,7 @@
 </template>
 <script>
 import validateErrors from '#/admin/mixins/validateErrors.js';
-import ImageForm from '#/admin/components/_partials/ImageForm.vue';
+import ImageForm from '@admin/components/_partials/ImageForm.vue';
 
 export default {
     mixins: [validateErrors],

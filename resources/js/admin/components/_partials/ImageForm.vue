@@ -8,7 +8,7 @@
 
         <slot></slot>
 
-        <grooming-image
+        <image-details
             v-for="(file, index) in files"
             class="mb-3"
             :key="index"
@@ -16,101 +16,16 @@
             :file="file"
             :errors="errors"
             @remove="onGroomingImageRemove"
-        ></grooming-image>
+        ></image-details>
     </form>
 </template>
 <script>
-import Image from './Image.vue';
-
-const validExtensions = [
-    'jpg',
-    'jpeg',
-    'png',
-];
+import imageMethods from '@admin/mixins/imageMethods';
 
 export default {
-    components: {
-        Image,
-    },
-
-    props: {
-        errors: {
-            required: true,
-            type: Object,
-        },
-        imageData: {
-            default: null,
-            type: Object
-        }
-    },
-
-    data: function() {
-        return {
-            files: [],
-        };
-    },
-
-    computed: {
-        validExtensions() {
-            return validExtensions.map((extension) => {
-                return `.${extension}`;
-            }).join(',');
-        },
-    },
-
-    watch: {
-        imageData() {
-            if (this.imageData !== null) {
-                this.files = this.imageData;
-            }
-        }
-    },
+    mixins: [imageMethods],
 
     methods: {
-        trimExtension(fileName) {
-            return fileName.replace(/\.[^/.]+$/, '');
-        },
-
-        getExtension(fileName) {
-            return fileName.slice((fileName.lastIndexOf('.') - 1 >>> 0) + 2);
-        },
-
-        onFilesChange(event) {
-            const input = event.target;
-            const files = input.files;
-
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                const extension = this.getExtension(file.name);
-
-                if (!this.isValidExtension(extension)) {
-                    this.$notify({
-                        type: 'error',
-                        title: 'Wystąpił błąd podczas dodawania skanu.',
-                        text: `Plik ${file.name} posiada niepoprawne rozszerzenie.`,
-                    });
-
-                    continue;
-                }
-
-                this.files.push({
-                    name: this.trimExtension(file.name),
-                    extension: extension,
-                    source: file,
-                });
-            }
-
-            input.value = null;
-        },
-
-        isValidExtension(extension) {
-            return validExtensions.includes(extension);
-        },
-
-        onGroomingImageRemove(index) {
-            this.files.splice(index, 1);
-        },
-
         onSubmit() {
             this.$emit('submit', this.files);
         },

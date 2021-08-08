@@ -1,7 +1,7 @@
 <template>
-    <div class="card" id="editorContainer">
+    <div class="" id="editorContainer">
         <form @submit.prevent="onSubmit">
-            <div class="form-group" v-if="withTitle">
+            <div class="form-group">
                 <label for="service_name">Tytuł</label>
                 <input type="text" class="form-control" v-model="values.title">
                 <hr>
@@ -17,8 +17,6 @@
 <script>
 import fetchMethods from '#/admin/mixins/fetchMethods';
 import postFetchMethod from '#/shared/mixins/postFetchMethod';
-import { VueEditor } from "vue2-editor";
-import ImageForm from '#/admin/components/_partials/ImageForm.vue';
 
 export default {
     mixins: [
@@ -26,10 +24,6 @@ export default {
         postFetchMethod
     ],
 
-    components: {
-        VueEditor,
-        ImageForm
-    },
 
     props: {
         loading: {
@@ -42,7 +36,6 @@ export default {
 
     data() {
         return {
-            withTitle: false,
             editorToolbar: [[{
               header: [false, 1, 2, 3, 4, 5, 6]
             }], ["bold", "italic", "underline"],
@@ -68,42 +61,43 @@ export default {
     },
 
     mounted() {
-        if (
-            this.$route.name === 'admin.physiotherapy.edit' || this.$route.name === 'admin.physiotherapy.post.create' ||
-            this.$route.name === 'admin.grooming.edit' || this.$route.name === 'admin.grooming.post.create' ||
-            this.$route.name === 'admin.dogHotel.edit' || this.$route.name === 'admin.dogHotel.post.create' ||
-            this.$route.name === 'admin.physiotherapy.post.eidt' || this.$route.name === 'admin.grooming.post.eidt' ||
-            this.$route.name === 'admin.dogHotel.post.eidt'
-            ) {
-            this.withTitle = true;
-            if (this.$route.name === 'admin.physiotherapy.edit') {
-                this.fetchPhysiotherapy();
-            }
-            if (this.$route.name === 'admin.grooming.edit') {
-                this.fetchGrooming();
-            }
-            if (this.$route.name === 'admin.dogHotel.edit') {
-                this.fetchDogHotel();
-            }
-            if (this.$route.name === 'admin.physiotherapy.post.edit') {
-                this.fetchPhysiotherapyPost();
-            }
-            if (this.$route.name === 'admin.grooming.post.edit') {
-                this.fetchGroomingPost();
-            }
-            if (this.$route.name === 'admin.dogHotel.post.edit') {
-                this.fetchDogHotelPost();
-            }
+        if (this.$route.name === 'admin.physiotherapy.edit') {
+            this.fetchPhysiotherapy();
+        }
+        if (this.$route.name === 'admin.grooming.edit') {
+            this.fetchGrooming();
+        }
+        if (this.$route.name === 'admin.dogHotel.edit') {
+            this.fetchDogHotel();
+        }
+        if (this.$route.name === 'admin.physiotherapy.post.edit') {
+            this.fetchPhysiotherapyPost();
+        }
+        if (this.$route.name === 'admin.grooming.post.edit') {
+            this.fetchGroomingPost();
+        }
+        if (this.$route.name === 'admin.dogHotel.post.edit') {
+            this.fetchDogHotelPost();
         }
 
         if (this.$route.name === 'admin.aboutCompany.edit') {
-            this.withTitle = true;
             this.fetchAboutCompany();
         }
 
         if (this.$route.name === 'admin.contact.edit') {
-            this.withTitle = true;
             this.fetchContact();
+        }
+
+        if (this.$route.name === 'admin.physiotherapy.edit') {
+            this.fetchDogHotel();
+        }
+
+        if (this.$route.name === 'admin.grooming.edit') {
+            this.fetchGrooming();
+        }
+
+        if (this.$route.name === 'admin.dogHotel.edit') {
+            this.fetchPhysiotherapy();
         }
     },
 

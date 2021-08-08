@@ -1,60 +1,101 @@
 <template>
-    <text-editor-view
-        :loading="loading"
-        :is-saved="isSaved"
-        @input="onSubmit"
-    >
-        Tworzenie nowego wpisu do sekcji hotel dla psów
-    </text-editor-view>
+    <div class="container">
+        <div class="content">
+            <div class="content-header">
+                <h1>Dodaj zdjęcia psów</h1>
+            </div>
+            <image-form
+                id="grooming-image-form"
+                :errors="errors"
+                @submit="onSubmit"
+            >
+                <label for="service_name">Tytuł</label>
+                <input type="text" class="form-control" v-model="post.title">
+                <hr>
+                </div>
+                <vue-editor :editor-toolbar="editorToolbar" v-model="post.content"></vue-editor>
+            </image-form>
+            <div class="content-footer">
+                <div class="footer-actions">
+                    <button form="grooming-image-form" type="submit" class="btn btn-primary">Dodaj zdjęcia</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
-
 <script>
-import TextEditorView from '#/admin/components/_partials/TextEditorView';
-import contentTypeMethods from '#/admin/mixins/contentTypeMethods.js'
+import validateErrors from '#/admin/mixins/validateErrors.js';
+import ImageForm from '@admin/components/_partials/ImageForm.vue';
 
 export default {
-    mixins: [contentTypeMethods],
+    mixins: [validateErrors],
 
     components: {
-        TextEditorView
+        ImageForm,
     },
 
-    data() {
+    data: function() {
         return {
-            loading: false,
-            isSaved: false
-        }
+            errors: {},
+            groomingImageData: {},
+            post: {},
+            editorToolbar: [[{
+              header: [false, 1, 2, 3, 4, 5, 6]
+            }], ["bold", "italic", "underline"],
+            [{
+              align: ""
+            }, {
+              align: "center"
+            }, {
+              align: "right"
+            }, {
+              align: "justify"
+            }], [{
+              list: "ordered"
+            }, {
+              list: "bullet"
+            }],
+            [{
+              color: []
+            }],
+            ["image", "video"]
+            ]
+        };
     },
 
     methods: {
-        onSubmit(values) {
-            this.loading = true;
+        onSubmit(images) {
+            const data = new FormData();
 
-            axios.post('/json/admin/dog-hotel', {
-                title: _.get(values, 'title', ''),
-                content: _.get(values, 'content', '')
-            })
-            .then(_ => {
-                this.isSaved = true
+            images.forEach((image, index) => {
+                data.append(`image[${index}][file]`, _.get(image, 'source'));
+                data.append(`image[${index}][name]`, _.get(image, 'name'));
+                data.append(`image[${index}][description]`, _.get(image, 'description') || '');
+                data.append('dog_name', _.get(this.groomingImageData, 'dog_name') || '');
+                data.append('dog_race', _.get(this.groomingImageData, 'dog_race') || '');
+            });
+
+            axios.post(`/json/admin/grooming-image`, data, {
+                headers: { 'Content-Type': 'multipart/form-data' },
+            }).then((response) => {
                 this.$notify({
                     type: 'success',
-                    title: 'Sukces',
-                    text: 'Pomyślnie dodano nową usługę.'
+                    text: 'Dodano skany.',
                 });
-                this.$router.push({ name: 'admin.dog-hotel.index' });
-            })
-            .catch(_ => {
-                this.$notify({
-                    type: 'error',
-                    title: 'Error',
-                    text: 'Wystąpił nieoczekiwany błąd.'
-                });
-            })
-            .then(_ => {
-                this.loading = false;
-                this.isSaved = false;
-            })
+
+                this.$router.push({ name: 'admin.groomerImage.index' });
+            }).catch((error) => {
+                if (error.response.status === 422) {
+                    this.errors = _.get(error.response.data, 'errors', {});
+                } else {
+                    this.$notify({
+                        type: 'error',
+                        title: 'Błąd',
+                        text: 'Wystąpił nieoczekiwany błąd podczas dodawania zdjęć.',
+                    });
+                }
+            });
         },
-    }
+    },
 };
 </script>

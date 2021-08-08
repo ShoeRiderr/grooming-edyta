@@ -8,7 +8,7 @@
 
         <div class="card-body">
             <div class="row">
-                <grooming-image-preview
+                <image-preview
                     class="col-xl-6 d-flex align-items-center justify-content-center"
                     :file="file.source"
                     :file-name="file.source.name"

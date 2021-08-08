@@ -3,6 +3,7 @@ const mix = require('laravel-mix');
 
 mix.alias({
     '#': path.join(__dirname, '/resources/js'),
+    '@admin': path.join(__dirname, '/resources/js/admin'),
     '@enum': path.join(__dirname, '/resources/js/admin/enums')
 });
 
