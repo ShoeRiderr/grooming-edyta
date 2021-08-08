@@ -4,62 +4,32 @@
             <div class="content-header">
                 <h1>Dodaj zdjęcia psów</h1>
             </div>
-            <image-form
-                id="grooming-image-form"
+
+            <post-form
+                id="post-form"
                 :errors="errors"
                 @submit="onSubmit"
-            >
-                <label for="service_name">Tytuł</label>
-                <input type="text" class="form-control" v-model="post.title">
-                <hr>
-                </div>
-                <vue-editor :editor-toolbar="editorToolbar" v-model="post.content"></vue-editor>
-            </image-form>
-            <div class="content-footer">
-                <div class="footer-actions">
-                    <button form="grooming-image-form" type="submit" class="btn btn-primary">Dodaj zdjęcia</button>
-                </div>
+            />
+
+            <div class="form-group mt-2">
+                <button form="post-form" type="submit" class="btn btn-primary float-right">Dodaj zdjęcia</button>
             </div>
         </div>
     </div>
 </template>
 <script>
 import validateErrors from '#/admin/mixins/validateErrors.js';
-import ImageForm from '@admin/components/_partials/ImageForm.vue';
-
+import PostForm from '@admin/components/_partials/PostForm';
 export default {
     mixins: [validateErrors],
 
     components: {
-        ImageForm,
+        PostForm
     },
 
     data: function() {
         return {
             errors: {},
-            groomingImageData: {},
-            post: {},
-            editorToolbar: [[{
-              header: [false, 1, 2, 3, 4, 5, 6]
-            }], ["bold", "italic", "underline"],
-            [{
-              align: ""
-            }, {
-              align: "center"
-            }, {
-              align: "right"
-            }, {
-              align: "justify"
-            }], [{
-              list: "ordered"
-            }, {
-              list: "bullet"
-            }],
-            [{
-              color: []
-            }],
-            ["image", "video"]
-            ]
         };
     },
 
@@ -71,8 +41,8 @@ export default {
                 data.append(`image[${index}][file]`, _.get(image, 'source'));
                 data.append(`image[${index}][name]`, _.get(image, 'name'));
                 data.append(`image[${index}][description]`, _.get(image, 'description') || '');
-                data.append('dog_name', _.get(this.groomingImageData, 'dog_name') || '');
-                data.append('dog_race', _.get(this.groomingImageData, 'dog_race') || '');
+                data.append('title', _.get(this.post, 'title') || '');
+                data.append('content', _.get(this.post, 'content') || '');
             });
 
             axios.post(`/json/admin/grooming-image`, data, {

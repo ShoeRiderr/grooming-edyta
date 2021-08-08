@@ -8,7 +8,7 @@ import VCalendar from 'v-calendar';
 import Notifications from 'vue-notification';
 import Pagination from 'laravel-vue-pagination';
 import { isLoggedIn } from '#/admin/auth/auth.js';
-import VueEditor from 'vue2-editor';
+import Vue2Editor from 'vue2-editor';
 
 require('./bootstrap');
 
@@ -18,7 +18,7 @@ Vue.use(VCalendar);
 Vue.use(Notifications)
 Vue.use(VueRouter);
 Vue.use(Vuex);
-Vue.use(VueEditor);
+Vue.use(Vue2Editor);
 Vue.prototype.$siteUrl = '/';
 
 const store = new Vuex.Store(storeElement);
@@ -61,6 +61,10 @@ const admin = new Vue({
             this.$router.push({
                 name: "admin.index"
             });
+        }
+
+        if (!isLoggedIn() && this.$router.currentRoute.name.startsWith('admin') && this.$router.currentRoute.name !== 'admin.login') {
+            window.location.replace(this.$siteUrl);
         }
     }
 });

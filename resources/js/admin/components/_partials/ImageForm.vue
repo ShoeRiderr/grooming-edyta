@@ -6,8 +6,6 @@
             </div>
         </div>
 
-        <slot></slot>
-
         <image-details
             v-for="(file, index) in files"
             class="mb-3"
@@ -17,6 +15,7 @@
             :errors="errors"
             @remove="onGroomingImageRemove"
         ></image-details>
+        <slot></slot>
     </form>
 </template>
 <script>

@@ -21,11 +21,5 @@ export default {
             isLoggedIn: (state) => state.isLoggedIn
         })
     },
-
-    beforeCreate() {
-        if (!isLoggedIn() && this.$router.currentRoute.name.startsWith('admin') && this.$router.currentRoute.name !== 'admin.login') {
-            window.location.replace(this.$siteUrl);
-        }
-    },
 };
 </script>

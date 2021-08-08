@@ -32,6 +32,10 @@ export default {
         isSaved: {
             default: false
         },
+        errors: {
+            required: true,
+            type: Object,
+        },
     },
 
     data() {
@@ -51,9 +55,6 @@ export default {
               list: "ordered"
             }, {
               list: "bullet"
-            }],
-            [{
-              color: []
             }],
             ["image", "video"]
             ]

@@ -1,6 +1,7 @@
 <template>
     <text-editor-view
         :loading="loading"
+        :errors="errors"
         :is-saved="isSaved"
         @input="onSubmit"
     >
@@ -21,7 +22,8 @@ export default {
     data() {
         return {
             loading: false,
-            isSaved: false
+            isSaved: false,
+            errors: {}
         }
     },
 
