@@ -70,16 +70,20 @@ Route::get('about-company', '\App\Http\Controllers\Json\AboutCompanyController@s
 
 Route::get('contact', '\App\Http\Controllers\Json\ContactController@show');
 
+Route::get('image/{image}', \App\Http\Controllers\Json\ImageController::class);
+
 Route::group(['prefix' => 'post'], function () {
     Route::resource('physiotherapy', \App\Http\Controllers\Json\Post\PhysiotherapyController::class, [
-        'only' => ['index', 'show']
+        'only' => ['index']
     ]);
     Route::resource('grooming', \App\Http\Controllers\Json\Post\GroomingController::class, [
-        'only' => ['index', 'show']
+        'only' => ['index']
     ]);
     Route::resource('dog-hotel', \App\Http\Controllers\Json\Post\DogHotelController::class, [
-        'only' => ['index', 'show']
+        'only' => ['index']
     ]);
 });
+
+Route::get('dog-hotel/post/{post}', '\App\Http\Controllers\Json\Post\DogHotelController@show');
 
 

@@ -27,6 +27,7 @@
 </template>
 <script>
 import ImageDetails from '@admin/components/_partials/ImageDetails.vue';
+
 const validExtensions = [
     'jpg',
     'jpeg',
@@ -41,7 +42,6 @@ export default {
     props: {
         errors: {
             required: true,
-            type: Object,
         },
     },
 
@@ -78,7 +78,35 @@ export default {
         },
     },
 
+    mounted() {
+        this.fetchPost();
+    },
+
     methods: {
+        fetchPost() {
+            axios.get(`/json/dog-hotel/post/${this.$route.params.id}`)
+            .then((response) => {
+                // this.post = _.get(response.data, 'data', {});
+                this.post = {
+                    id: _.get(response.data, 'data.id', {}),
+                    content: _.get(response.data, 'data.content', {}),
+                    title: _.get(response.data, 'data.title', {}),
+                }
+                this.fetchImage(_.get(response.data, 'data.image', {}))
+            }).catch((error) => {
+                //
+            });
+        },
+
+        fetchImage(image)
+        {
+            axios.get(`/json/image/${image.id}`).then((response) => {
+                // this.files.source = response.data
+            }).catch((error) => {
+                //
+            })
+        },
+
         trimExtension(fileName) {
             return fileName.replace(/\.[^/.]+$/, '');
         },
@@ -125,7 +153,8 @@ export default {
         },
 
         onSubmit() {
-            this.$emit('submit', this.files);
+            const data = _.merge(this.files, this.post)
+            this.$emit('submit', data);
         },
     }
 };

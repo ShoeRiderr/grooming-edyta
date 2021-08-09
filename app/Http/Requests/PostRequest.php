@@ -26,7 +26,10 @@ class PostRequest extends FormRequest
         return [
             'title'   => ['required'],
             'content' => ['required'],
-            'type'    => ['required', new EnumValue(ContentType::class)],
+
+            'image.*.file'        => ['required', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],
+            'image.*.description' => ['nullable'],
+            'image.*.name'        => ['required'],
         ];
     }
 }

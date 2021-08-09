@@ -30,13 +30,14 @@ export default {
 
     data() {
         return {
+            dogHotel: {},
             post: {},
             loading: false
         }
     },
 
     mounted() {
-        this.fetchDogHotelPosts();
+        this.fetchDogHotel();
     },
 
     computed: {
@@ -46,6 +47,21 @@ export default {
     },
 
     methods: {
+        fetchDogHotel() {
+            axios.get(`/json/admin/dog-hotel/edit`)
+            .then((response) => {
+                this.dogHotel = _.get(response.data, 'data', {});
+                this.fetchDogHotelPosts();
+            })
+            .catch(_ => {
+                this.$notify({
+                    type: 'error',
+                    title: 'Error',
+                    text: 'Wystąpił nieoczekiwany błąd.'
+                });
+            });
+        },
+
         fetchDogHotelPosts() {
             axios.get('/json/post/dog-hotel')
             .then((response) => {

@@ -1,59 +1,71 @@
 <template>
-    <text-editor-view
-        :loading="loading"
-        :is-saved="isSaved"
-        @input="onSubmit"
-    >
-        Edycja wpisu do sekcji hotel dla psów
-    </text-editor-view>
+    <div class="container">
+        <div class="content">
+            <div class="content-header">
+                <h1>Edycja postu do sekcji hotel dla psów</h1>
+            </div>
+
+            <post-form
+                id="post-form"
+                :errors="errors"
+                @submit="onSubmit"
+            />
+
+            <div class="form-group mt-2">
+                <button form="post-form" type="submit" class="btn btn-primary float-right">Dodaj zdjęcia</button>
+            </div>
+        </div>
+    </div>
 </template>
-
 <script>
-import TextEditorView from '#/admin/components/_partials/TextEditorView';
-import contentTypeMethods from '#/admin/mixins/contentTypeMethods.js'
-
+import validateErrors from '#/admin/mixins/validateErrors.js';
+import PostForm from '@admin/components/_partials/PostForm';
 export default {
-    mixins: [contentTypeMethods],
+    mixins: [validateErrors],
 
     components: {
-        TextEditorView
+        PostForm
     },
-    data() {
+
+    data: function() {
         return {
-            loading: false,
-            isSaved: false
-        }
+            errors: {},
+        };
     },
 
     methods: {
-        onSubmit(values) {
-            this.loading = true;
+        onSubmit(images) {
+            const data = new FormData();
 
-            axios.put(`/json/admin/dog-hotel/${this.$route.params.dogHotelId}`, {
-                title: _.get(values, 'title', ''),
-                content: _.get(values, 'content', '')
-            })
-            .then(_ => {
-                this.isSaved = true
+            images.forEach((image, index) => {
+                data.append(`image[${index}][file]`, _.get(image, 'source'));
+                data.append(`image[${index}][name]`, _.get(image, 'name'));
+                data.append(`image[${index}][description]`, _.get(image, 'description') || '');
+            });
+            data.append('title', _.get(images, 'title') || '');
+            data.append('content', _.get(images, 'content') || '');
+
+            axios.post(`/json/admin/post/dog-hotel/${this.$route.param.id}`, data, {
+                headers: { 'Content-Type': 'multipart/form-data' },
+            }).then((response) => {
                 this.$notify({
                     type: 'success',
-                    title: 'Sukces',
-                    text: 'Pomyślnie dodano nową usługę.'
+                    text: 'Dodano skany.',
                 });
-                this.$router.push({ name: 'admin.dog-hotel.index' });
-            })
-            .catch(_ => {
-                this.$notify({
-                    type: 'error',
-                    title: 'Error',
-                    text: 'Wystąpił nieoczekiwany błąd.'
-                });
-            })
-            .then(_ => {
-                this.loading = false;
-                this.isSaved = false
-            })
+
+                this.$router.push({ name: 'admin.dogHotel.index' });
+            }).catch((error) => {
+                if (error.response.status === 422) {
+                    this.errors = _.get(error.response.data, 'errors', {});
+                } else {
+                    this.$notify({
+                        type: 'error',
+                        title: 'Błąd',
+                        text: 'Wystąpił nieoczekiwany błąd podczas dodawania zdjęć.',
+                    });
+                }
+            });
         },
-    }
+    },
 };
 </script>

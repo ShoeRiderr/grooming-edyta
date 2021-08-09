@@ -2,7 +2,7 @@
     <div class="container">
         <div class="content">
             <div class="content-header">
-                <h1>Dodaj zdjęcia psów</h1>
+                <h1>Nowy post do sekcji hotel dla psów</h1>
             </div>
 
             <post-form
@@ -40,12 +40,13 @@ export default {
             images.forEach((image, index) => {
                 data.append(`image[${index}][file]`, _.get(image, 'source'));
                 data.append(`image[${index}][name]`, _.get(image, 'name'));
+                data.append(`image[${index}][extension]`, _.get(image, 'extension'));
                 data.append(`image[${index}][description]`, _.get(image, 'description') || '');
-                data.append('title', _.get(this.post, 'title') || '');
-                data.append('content', _.get(this.post, 'content') || '');
             });
+            data.append('title', _.get(images, 'title') || '');
+            data.append('content', _.get(images, 'content') || '');
 
-            axios.post(`/json/admin/grooming-image`, data, {
+            axios.post(`/json/admin/post/dog-hotel`, data, {
                 headers: { 'Content-Type': 'multipart/form-data' },
             }).then((response) => {
                 this.$notify({
@@ -53,7 +54,7 @@ export default {
                     text: 'Dodano skany.',
                 });
 
-                this.$router.push({ name: 'admin.groomerImage.index' });
+                this.$router.push({ name: 'admin.dogHotel.index' });
             }).catch((error) => {
                 if (error.response.status === 422) {
                     this.errors = _.get(error.response.data, 'errors', {});

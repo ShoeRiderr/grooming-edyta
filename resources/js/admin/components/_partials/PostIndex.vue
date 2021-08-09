@@ -9,7 +9,6 @@
                 <post v-for="(post, index) in posts" v-bind:key="index" :post="post"></post>
             </section>
 
-            <pagination class="p-4 mb-0 float-right" :data="posts" @pagination-change-page="fetchDogHotel"></pagination>
             <post-carousele></post-carousele>
         </div>
     </div>

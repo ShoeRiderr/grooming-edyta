@@ -17,6 +17,8 @@ class CreateImagesTable extends Migration
             $table->id();
             $table->string('file_pathname');
             $table->string('name');
+            $table->string('extension');
+            $table->string('source');
             $table->text('description')->nullable();
             $table->morphs('imageable');
         });
