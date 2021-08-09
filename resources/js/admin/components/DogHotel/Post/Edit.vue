@@ -9,10 +9,11 @@
                 id="post-form"
                 :errors="errors"
                 @submit="onSubmit"
-            />
+            >
+            </post-form>
 
             <div class="form-group mt-2">
-                <button form="post-form" type="submit" class="btn btn-primary float-right">Dodaj zdjęcia</button>
+                <button form="post-form" type="submit" class="btn btn-primary float-right">Zmień post</button>
             </div>
         </div>
     </div>
@@ -45,12 +46,12 @@ export default {
             data.append('title', _.get(images, 'title') || '');
             data.append('content', _.get(images, 'content') || '');
 
-            axios.post(`/json/admin/post/dog-hotel/${this.$route.param.id}`, data, {
+            axios.put(`/json/admin/dog-hotel/post/${this.$route.params.id}`, data, {
                 headers: { 'Content-Type': 'multipart/form-data' },
             }).then((response) => {
                 this.$notify({
                     type: 'success',
-                    text: 'Dodano skany.',
+                    text: 'Dodano post.',
                 });
 
                 this.$router.push({ name: 'admin.dogHotel.index' });
@@ -61,7 +62,7 @@ export default {
                     this.$notify({
                         type: 'error',
                         title: 'Błąd',
-                        text: 'Wystąpił nieoczekiwany błąd podczas dodawania zdjęć.',
+                        text: 'Wystąpił nieoczekiwany błąd podczas dodawania posta.',
                     });
                 }
             });

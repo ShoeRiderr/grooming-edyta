@@ -24,3 +24,5 @@ Route::group(['prefix' => 'admin'], function () {
         return view('admin.app');
     })->where('any', '[\s\S]*');
 });
+
+Route::get('image/{image}', \App\Http\Controllers\Json\ImageController::class);

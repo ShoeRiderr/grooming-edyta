@@ -1,6 +1,26 @@
 <template>
         <form @submit.prevent="onSubmit">
-
+        <div v-if="isEditView" class="mb-3">
+            <h4>Zapisane zdjęcie</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nazwa pliku</th>
+                        <th>Opis</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ image.name }}</td>
+                        <td>{{ image.description }}</td>
+                        <td>
+                            <a href="#" @click="imageUrl">Podgląd</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <div class="form-group">
             <label for="service_name"><h4>Tytuł</h4></label>
             <input type="text" id="service_name" class="form-control" v-model="post.title">
@@ -49,6 +69,9 @@ export default {
         return {
             files: [],
             post: {},
+            image: {
+                id: ''
+            },
             editorToolbar: [[{
               header: [false, 1, 2, 3, 4, 5, 6]
             }], ["bold", "italic", "underline"],
@@ -76,23 +99,38 @@ export default {
                 return `.${extension}`;
             }).join(',');
         },
+
+        isEditView() {
+            if (this.$route.name === 'admin.physiotherapy.post.edit' ||
+                this.$route.name === 'admin.grooming.post.edit' ||
+                this.$route.name === 'admin.dogHotel.post.edit') {
+                return true;
+            }
+
+            return false;
+        }
     },
 
     mounted() {
-        this.fetchPost();
+        if (this.$route.name === 'admin.dogHotel.post.edit') {
+            this.fetchPost();
+        }
     },
 
     methods: {
+        imageUrl() {
+            window.location.href = `/image/${this.image.id}`
+        },
+
         fetchPost() {
             axios.get(`/json/dog-hotel/post/${this.$route.params.id}`)
             .then((response) => {
-                // this.post = _.get(response.data, 'data', {});
+                this.image = _.get(response.data, 'data.image', {})
                 this.post = {
                     id: _.get(response.data, 'data.id', {}),
                     content: _.get(response.data, 'data.content', {}),
                     title: _.get(response.data, 'data.title', {}),
                 }
-                this.fetchImage(_.get(response.data, 'data.image', {}))
             }).catch((error) => {
                 //
             });

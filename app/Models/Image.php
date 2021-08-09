@@ -12,8 +12,6 @@ class Image extends Model
     protected $fillable = [
         'file_pathname',
         'name',
-        'extension',
-        'source',
         'description',
     ];
 

@@ -12,7 +12,7 @@
             />
 
             <div class="form-group mt-2">
-                <button form="post-form" type="submit" class="btn btn-primary float-right">Dodaj zdjęcia</button>
+                <button form="post-form" type="submit" class="btn btn-primary float-right">Zapisz post</button>
             </div>
         </div>
     </div>
@@ -40,18 +40,17 @@ export default {
             images.forEach((image, index) => {
                 data.append(`image[${index}][file]`, _.get(image, 'source'));
                 data.append(`image[${index}][name]`, _.get(image, 'name'));
-                data.append(`image[${index}][extension]`, _.get(image, 'extension'));
                 data.append(`image[${index}][description]`, _.get(image, 'description') || '');
             });
             data.append('title', _.get(images, 'title') || '');
             data.append('content', _.get(images, 'content') || '');
 
-            axios.post(`/json/admin/post/dog-hotel`, data, {
+            axios.post(`/json/admin/dog-hotel/post`, data, {
                 headers: { 'Content-Type': 'multipart/form-data' },
             }).then((response) => {
                 this.$notify({
                     type: 'success',
-                    text: 'Dodano skany.',
+                    text: 'Dodano post.',
                 });
 
                 this.$router.push({ name: 'admin.dogHotel.index' });
@@ -62,7 +61,7 @@ export default {
                     this.$notify({
                         type: 'error',
                         title: 'Błąd',
-                        text: 'Wystąpił nieoczekiwany błąd podczas dodawania zdjęć.',
+                        text: 'Wystąpił nieoczekiwany błąd podczas dodawania posta.',
                     });
                 }
             });

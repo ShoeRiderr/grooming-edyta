@@ -36,11 +36,11 @@ Route::group(['prefix' => 'admin'], function () {
             'except' => ['edit', 'show', 'index']
         ]);
 
-        Route::resource('dog-hotel', \App\Http\Controllers\Json\Post\DogHotelController::class, [
-            'except' => ['edit', 'show', 'index']
-        ]);
     });
 
+    Route::resource('dog-hotel/post', \App\Http\Controllers\Json\Post\DogHotelController::class, [
+        'except' => ['edit', 'show', 'index']
+    ]);
 
     Route::get('about-company/edit', '\App\Http\Controllers\Json\AboutCompanyController@edit');
     Route::put('about-company/{about_company}', '\App\Http\Controllers\Json\AboutCompanyController@update');
@@ -69,8 +69,6 @@ Route::get('dog-hotel', '\App\Http\Controllers\Json\DogHotelController@show');
 Route::get('about-company', '\App\Http\Controllers\Json\AboutCompanyController@show');
 
 Route::get('contact', '\App\Http\Controllers\Json\ContactController@show');
-
-Route::get('image/{image}', \App\Http\Controllers\Json\ImageController::class);
 
 Route::group(['prefix' => 'post'], function () {
     Route::resource('physiotherapy', \App\Http\Controllers\Json\Post\PhysiotherapyController::class, [
