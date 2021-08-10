@@ -1,18 +1,20 @@
 <template>
     <div class="container">
-        <div class="content">
-            <div class="content-header">
+        <div class="card">
+            <div class="card-header">
                 <h1>Edycja postu do sekcji hotel dla psów</h1>
             </div>
 
-            <post-form
-                id="post-form"
-                :errors="errors"
-                @submit="onSubmit"
-            >
-            </post-form>
+            <div class="card-body">
+                <post-form
+                    id="post-form"
+                    :errors="errors"
+                    @submit="onSubmit"
+                >
+                </post-form>
+            </div>
 
-            <div class="form-group mt-2">
+            <div class="card-footer">
                 <button form="post-form" type="submit" class="btn btn-primary float-right">Zmień post</button>
             </div>
         </div>
@@ -46,7 +48,9 @@ export default {
             data.append('title', _.get(images, 'title') || '');
             data.append('content', _.get(images, 'content') || '');
 
-            axios.put(`/json/admin/dog-hotel/post/${this.$route.params.id}`, data, {
+            data.append('_method', 'PUT')
+
+            axios.post(`/json/admin/dog-hotel/post/${this.$route.params.id}`, data, {
                 headers: { 'Content-Type': 'multipart/form-data' },
             }).then((response) => {
                 this.$notify({

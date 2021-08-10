@@ -31,7 +31,7 @@ export default {
         onSubmit(values) {
             this.loading = true;
 
-            axios.put(`/json/admin/dog-hotel/${this.$route.params.dogHotelId}`, {
+            axios.put(`/json/admin/dog-hotel/update`, {
                 title: _.get(values, 'title', ''),
                 content: _.get(values, 'content', '')
             })
@@ -42,7 +42,7 @@ export default {
                     title: 'Sukces',
                     text: 'Pomyślnie dodano nową usługę.'
                 });
-                this.$router.push({ name: 'admin.dog-hotel.index' });
+                this.$router.push({ name: 'admin.dogHotel.index' });
             })
             .catch(_ => {
                 this.$notify({

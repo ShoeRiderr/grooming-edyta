@@ -1,17 +1,20 @@
 <template>
     <div class="container">
-        <div class="content">
-            <div class="content-header">
+        <div class="card">
+            <div class="card-header">
                 <h1>Nowy post do sekcji hotel dla psów</h1>
             </div>
 
-            <post-form
-                id="post-form"
-                :errors="errors"
-                @submit="onSubmit"
-            />
+            <div class="card-body">
+                <post-form
+                    id="post-form"
+                    :errors="errors"
+                    @submit="onSubmit"
+                >
+                </post-form>
+            </div>
 
-            <div class="form-group mt-2">
+            <div class="card-footer">
                 <button form="post-form" type="submit" class="btn btn-primary float-right">Zapisz post</button>
             </div>
         </div>

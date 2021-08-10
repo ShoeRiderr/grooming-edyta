@@ -63,7 +63,6 @@ class DogHotelController extends Controller
      */
     public function store(PostRequest $request)
     {
-        dd($request->all());
         if (!$this->dogHotel) {
             return new JsonResponse([], 400);
         }
@@ -77,7 +76,7 @@ class DogHotelController extends Controller
             foreach ($request->input('image') as $index => $attributes) {
                 /** @var \Illuminate\Http\UploadedFile */
                 $file = $request->file("image.{$index}.file");
-                $pathname = $file->store("public/images/DogHotel/{$post->id}");
+                $pathname = $file->store("public");
 
                 $image = $post->image()->make([
                     'file_pathname' => $pathname,
@@ -117,7 +116,7 @@ class DogHotelController extends Controller
             foreach ($request->input('image') as $index => $attributes) {
                 /** @var \Illuminate\Http\UploadedFile */
                 $file = $request->file("image.{$index}.file");
-                $pathname = $file->store("public/images/DogHotel/{$post->id}");
+                $pathname = $file->store("public");
 
                 $image = $post->image()->update([
                     'file_pathname' => $pathname,
@@ -142,14 +141,10 @@ class DogHotelController extends Controller
             return new JsonResponse([], 400);
         }
 
-        $this->dogHotel->posts->where('id', $post->id)->delete();
+        Storage::delete($post->image->file_pathname);
+
+        $this->dogHotel->posts()->where('id', $post->id)->delete();
 
         return new JsonResponse('', 200);
-    }
-
-    private function showImage($postImage)
-    {
-        $file = Storage::get($postImage->path_to_file); 
-        return new Response($file, 200, [ 'Content-type' => 'application/pdf']); 
     }
 }

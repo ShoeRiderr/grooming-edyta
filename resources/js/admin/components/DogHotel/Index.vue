@@ -5,67 +5,88 @@
                 <div class="d-flex">
                     <h2>Lista wpisów w sekcji hotel dla psów</h2>
                     <router-link
-                        class="btn btn-outline-primary ml-auto"
+                        class="btn btn-outline-primary btn-sm ml-auto"
                         :to="{ name: 'admin.dogHotel.post.create' }"
                     >
-                        Dodaj nowy post do hotelu dla psów
+                        Nowy post
                     </router-link>
                 </div>
             </div>
 
-            <div class="card">
-                <post-index :posts="post"></post-index>
+            <div class="card-body">
+                <div class="form-group d-flex">
+                    <router-link
+                        class="btn btn-outline-primary btn-lg mx-auto"
+                        :to="{ name: 'admin.dogHotel.edit' }"
+                    >
+                        Edytuj treść sekcji
+                    </router-link>
+                </div>
+
+                <div v-if="!hasPosts" class="alert alert-info">
+                    Brak postów.
+                </div>
+
+                <table v-else class="table">
+                    <thead>
+                        <tr>
+                            <th>Tytuł</th>
+                            <th>Zdjecie</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="post in posts">
+                            <td>{{ post.title }}</td>
+                            <td>
+                                <a href="#" @click="imageUrl(post.image.id)" class="mr-2">Podgląd</a>
+                            </td>
+                            <td>
+                                <div class="d-flex justify-content-end">
+                                    <router-link
+                                        class="btn btn-outline-primary ml-auto"
+                                        :to="{ name: 'admin.dogHotel.post.edit', params: { id: post.id } }"
+                                    >
+                                        Edytuj
+                                    </router-link>
+                                    <button type="button" class="btn btn-sm btn-outline-danger ml-2" @click="onDelete(post.id)">Usuń</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 </template>
-
 <script>
-import PostIndex from '#/admin/components/_partials/PostIndex';
-
 export default {
-    components: {
-        PostIndex
-    },
-
     data() {
         return {
-            dogHotel: {},
-            post: {},
+            posts: {},
             loading: false
         }
     },
 
     mounted() {
-        this.fetchDogHotel();
+        this.fetchDogHotelPosts();
     },
 
     computed: {
-        hasdogHotel() {
-            return this.dogHotel.data ? this.dogHotel.data.length > 0 : false;
+        hasPosts() {
+            return this.posts.length > 0;
         }
     },
 
     methods: {
-        fetchDogHotel() {
-            axios.get(`/json/admin/dog-hotel/edit`)
-            .then((response) => {
-                this.dogHotel = _.get(response.data, 'data', {});
-                this.fetchDogHotelPosts();
-            })
-            .catch(_ => {
-                this.$notify({
-                    type: 'error',
-                    title: 'Error',
-                    text: 'Wystąpił nieoczekiwany błąd.'
-                });
-            });
+        imageUrl(imageId) {
+            window.location.href = `/image/${imageId}`
         },
 
         fetchDogHotelPosts() {
             axios.get('/json/post/dog-hotel')
             .then((response) => {
-                this.post = _.get(response.data, 'data', {});
+                this.posts = _.get(response.data, 'data', {});
             })
             .catch(_ => {
                  this.$notify({
@@ -76,18 +97,18 @@ export default {
             })
         },
 
-        deleteDogHotel(dogHotel, id) {
+        onDelete(id) {
             this.loading = true;
 
-            if(confirm(`Czy na pewno chcesz usunąć wpis ${dogHotel}?`)) {
-                axios.delete(`/json/admin/dog-hotel/${id}`)
+            if(confirm(`Czy na pewno chcesz usunąć post?`)) {
+                axios.delete(`/json/admin/dog-hotel/post/${id}`)
                 .then(_ => {
                     this.$notify({
                         type: 'success',
                         title: 'Sukces',
-                        text: `Usuniętousługę ${dogHotel}.`
+                        text: `Usunięto post`
                     })
-                    this.fetchDogHotel();
+                    this.fetchDogHotelPosts();
                 })
                 .catch(_ => {
                     this.$notify({
@@ -100,7 +121,7 @@ export default {
                     this.loading = false;
                 })
             }
-        }
+        },
     }
 };
 </script>

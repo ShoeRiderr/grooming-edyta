@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Enums\ContentType;
-use BenSampo\Enum\Rules\EnumValue;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PhysiotherapyRequest extends FormRequest
@@ -28,7 +26,6 @@ class PhysiotherapyRequest extends FormRequest
         return [
             'title'   => ['required'],
             'content' => ['required'],
-            'type'    => ['required', new EnumValue(ContentType::class)],
         ];
     }
 }

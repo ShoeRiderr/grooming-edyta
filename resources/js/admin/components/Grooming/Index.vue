@@ -3,55 +3,90 @@
         <div class="card">
             <div class="card-header">
                 <div class="d-flex">
-                    <span>Lista wpisów w sekcji grooming</span>
+                    <h2>Lista wpisów w sekcji hotel dla psów</h2>
                     <router-link
                         class="btn btn-outline-primary btn-sm ml-auto"
-                        :to="{ name: 'admin.grooming.create' }"
+                        :to="{ name: 'admin.grooming.post.create' }"
                     >
-                        Dodaj nowy wpis
+                        Nowy post
                     </router-link>
                 </div>
             </div>
 
-            <div class="card">
-                <post-index></post-index>
+            <div class="card-body">
+                <div class="form-group d-flex">
+                    <router-link
+                        class="btn btn-outline-primary btn-lg mx-auto"
+                        :to="{ name: 'admin.grooming.edit' }"
+                    >
+                        Edytuj treść sekcji
+                    </router-link>
+                </div>
+
+                <div v-if="!hasPosts" class="alert alert-info">
+                    Brak postów.
+                </div>
+
+                <table v-else class="table">
+                    <thead>
+                        <tr>
+                            <th>Tytuł</th>
+                            <th>Zdjecie</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="post in posts">
+                            <td>{{ post.title }}</td>
+                            <td>
+                                <a href="#" @click="imageUrl(post.image.id)" class="mr-2">Podgląd</a>
+                            </td>
+                            <td>
+                                <div class="d-flex justify-content-end">
+                                    <router-link
+                                        class="btn btn-outline-primary ml-auto"
+                                        :to="{ name: 'admin.grooming.post.edit', params: { id: post.id } }"
+                                    >
+                                        Edytuj
+                                    </router-link>
+                                    <button type="button" class="btn btn-sm btn-outline-danger ml-2" @click="onDelete(post.id)">Usuń</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 </template>
-
 <script>
-import PostIndex from '#/admin/components/_partials/PostIndex';
-
 export default {
-    components: {
-        PostIndex
-    },
-
     data() {
         return {
-            grooming: {},
-            groomingPost: {},
+            posts: {},
             loading: false
         }
     },
 
     mounted() {
-        this.fetchGrooming();
-        this.fetchGroomingPost();
+        this.fetchGroomingPosts();
     },
 
     computed: {
-        hasGrooming() {
-            return this.grooming.data ? this.grooming.data.length > 0 : false;
+        hasPosts() {
+            return this.posts.length > 0;
         }
     },
 
     methods: {
-        fetchGrooming(page = 1) {
-            axios.get('/json/admin/grooming')
+        imageUrl(imageId) {
+            window.location.href = `/image/${imageId}`
+        },
+
+        fetchGroomingPosts() {
+            axios.get('/json/post/grooming')
             .then((response) => {
-                this.grooming = _.get(response.data, 'data', {});
+                this.posts = _.get(response.data, 'data', {});
             })
             .catch(_ => {
                  this.$notify({
@@ -62,32 +97,18 @@ export default {
             })
         },
 
-        fetchGroomingPost(page = 1) {
-            axios.get('/json/admin/post/grooming?page=' + page)
-            .then((response) => {
-                this.groomingPost = response.data;
-            })
-            .catch(_ => {
-                 this.$notify({
-                    type: 'error',
-                    title: 'Error',
-                    text: 'Coś poszło nie tak podczas pobierania usług.'
-                });
-            })
-        },
-
-        deleteGrooming(grooming, id) {
+        onDelete(id) {
             this.loading = true;
 
-            if(confirm(`Czy na pewno chcesz usunąć wpis ${grooming}?`)) {
-                axios.delete(`/json/admin/grooming/${id}`)
+            if(confirm(`Czy na pewno chcesz usunąć post?`)) {
+                axios.delete(`/json/admin/grooming/post/${id}`)
                 .then(_ => {
                     this.$notify({
                         type: 'success',
                         title: 'Sukces',
-                        text: `Usuniętousługę ${grooming}.`
+                        text: `Usunięto post`
                     })
-                    this.fetchGrooming();
+                    this.fetchGroomingPosts();
                 })
                 .catch(_ => {
                     this.$notify({
@@ -100,7 +121,7 @@ export default {
                     this.loading = false;
                 })
             }
-        }
+        },
     }
 };
 </script>

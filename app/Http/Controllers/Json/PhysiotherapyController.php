@@ -14,9 +14,9 @@ class PhysiotherapyController extends Controller
 {
     public function show(): Responsable
     {
-        $physiotherapy = Physiotherapy::where('type', ContentType::CONSTANT)->get();
+        $physiotherapy = Physiotherapy::where('type', ContentType::CONSTANT)->first();
 
-        $physiotherapy->load('posts');
+        $physiotherapy->load('posts.image');
 
         return PhysiotherapyResource::make($physiotherapy);
     }
@@ -32,15 +32,20 @@ class PhysiotherapyController extends Controller
             ]
         );
 
+        $physiotherapy->load('posts.image');
+
         return PhysiotherapyResource::make($physiotherapy);
     }
 
-    public function update(PhysiotherapyRequest $request, Physiotherapy $physiotherapy): Responsable
+    public function update(PhysiotherapyRequest $request): Responsable
     {
-        $physiotherapy->update([
-            'title'   => $request->input('title'),
-            'content' => $request->input('content'),
-        ]);
+        $physiotherapy = Physiotherapy::updateOrCreate(
+            ['type' => ContentType::CONSTANT],
+            [
+                'title'   => $request->input('title'),
+                'content' => $request->input('content'),
+            ]
+        );
 
         return PhysiotherapyResource::make($physiotherapy);
     }

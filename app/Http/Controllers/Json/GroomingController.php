@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Json;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\GroomingRequest;
-use App\Http\Resources\GroomingResource;
-use App\Models\Grooming;
+use App\Http\Requests\GroomerRequest;
+use App\Http\Resources\GroomerResource;
+use App\Models\Groomer;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\JsonResponse;
 use App\Enums\ContentType;
@@ -14,16 +14,16 @@ class GroomingController extends Controller
 {
     public function show(): Responsable
     {
-        $grooming = Grooming::where('type', ContentType::CONSTANT)->get();
+        $groomer = Groomer::where('type', ContentType::CONSTANT)->first();
 
-        $grooming->load('posts');
+        $groomer->load('posts.image');
 
-        return GroomingResource::make($grooming);
+        return GroomerResource::make($groomer);
     }
 
     public function edit(): Responsable
     {
-        $grooming = Grooming::firstOrCreate(
+        $groomer = Groomer::firstOrCreate(
             ['type' => ContentType::CONSTANT],
             [
                 'title'   => '',
@@ -32,16 +32,21 @@ class GroomingController extends Controller
             ]
         );
 
-        return GroomingResource::make($grooming);
+        $groomer->load('posts.image');
+
+        return GroomerResource::make($groomer);
     }
 
-    public function update(GroomingRequest $request, Grooming $grooming): Responsable
+    public function update(GroomerRequest $request): Responsable
     {
-        $grooming->update([
-            'title'   => $request->input('title'),
-            'content' => $request->input('content'),
-        ]);
+        $groomer = Groomer::updateOrCreate(
+            ['type' => ContentType::CONSTANT],
+            [
+                'title'   => $request->input('title'),
+                'content' => $request->input('content'),
+            ]
+        );
 
-        return GroomingResource::make($grooming);
+        return GroomerResource::make($groomer);
     }
 }

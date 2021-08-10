@@ -1,9 +1,10 @@
 <template>
     <text-editor-view
         :loading="loading"
+        :errors="errors"
         :is-saved="isSaved"
         @input="onSubmit"
-    >
+    > 
         Edycja wpisu do sekcji grooming
     </text-editor-view>
 </template>
@@ -21,7 +22,8 @@ export default {
     data() {
         return {
             loading: false,
-            isSaved: false
+            isSaved: false,
+            errors: {}
         }
     },
 

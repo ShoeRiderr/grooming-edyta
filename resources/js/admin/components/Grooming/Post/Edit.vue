@@ -1,59 +1,76 @@
 <template>
-    <text-editor-view
-        :loading="loading"
-        :is-saved="isSaved"
-        @input="onSubmit"
-    >
-        Edycja wpisu do sekcji grooming
-    </text-editor-view>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h1>Edycja postu do sekcji grooming</h1>
+            </div>
+
+            <div class="card-body">
+                <post-form
+                    id="post-form"
+                    :errors="errors"
+                    @submit="onSubmit"
+                >
+                </post-form>
+            </div>
+
+            <div class="card-footer">
+                <button form="post-form" type="submit" class="btn btn-primary float-right">Zmień post</button>
+            </div>
+        </div>
+    </div>
 </template>
-
 <script>
-import TextEditorView from '#/admin/components/_partials/TextEditorView';
-import contentTypeMethods from '#/admin/mixins/contentTypeMethods.js'
-
+import validateErrors from '#/admin/mixins/validateErrors.js';
+import PostForm from '@admin/components/_partials/PostForm';
 export default {
-    mixins: [contentTypeMethods],
+    mixins: [validateErrors],
 
     components: {
-        TextEditorView
+        PostForm
     },
-    data() {
+
+    data: function() {
         return {
-            loading: false,
-            isSaved: false
-        }
+            errors: {},
+        };
     },
 
     methods: {
-        onSubmit(values) {
-            this.loading = true;
+        onSubmit(images) {
+            const data = new FormData();
 
-            axios.put(`/json/admin/grooming/${this.$route.params.groomingId}`, {
-                title: _.get(values, 'title', ''),
-                content: _.get(values, 'content', '')
-            })
-            .then(_ => {
-                this.isSaved = true
+            images.forEach((image, index) => {
+                data.append(`image[${index}][file]`, _.get(image, 'source'));
+                data.append(`image[${index}][name]`, _.get(image, 'name'));
+                data.append(`image[${index}][description]`, _.get(image, 'description') || '');
+            });
+            data.append('title', _.get(images, 'title') || '');
+            data.append('content', _.get(images, 'content') || '');
+
+            data.append('_method', 'PUT')
+
+            axios.post(`/json/admin/grooming/post/${this.$route.params.id}`, data, {
+                headers: { 'Content-Type': 'multipart/form-data' },
+            }).then((response) => {
                 this.$notify({
                     type: 'success',
-                    title: 'Sukces',
-                    text: 'Pomyślnie dodano nową usługę.'
+                    text: 'Dodano post.',
                 });
+
                 this.$router.push({ name: 'admin.grooming.index' });
-            })
-            .catch(_ => {
-                this.$notify({
-                    type: 'error',
-                    title: 'Error',
-                    text: 'Wystąpił nieoczekiwany błąd.'
-                });
-            })
-            .then(_ => {
-                this.loading = false;
-                this.isSaved = false
-            })
+            }).catch((error) => {
+                if (error.response.status === 422) {
+                    this.errors = _.get(error.response.data, 'errors', {});
+                } else {
+                    this.$notify({
+                        type: 'error',
+                        title: 'Błąd',
+                        text: 'Wystąpił nieoczekiwany błąd podczas dodawania posta.',
+                    });
+                }
+            });
         },
-    }
+    },
 };
 </script>

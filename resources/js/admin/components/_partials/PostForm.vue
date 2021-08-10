@@ -1,7 +1,7 @@
 <template>
-        <form @submit.prevent="onSubmit">
+    <form @submit.prevent="onSubmit">
         <div v-if="isEditView" class="mb-3">
-            <h4>Zapisane zdjęcie</h4>
+            <h3>Zapisane zdjęcie</h3>
             <table class="table">
                 <thead>
                     <tr>
@@ -21,6 +21,7 @@
                 </tbody>
             </table>
         </div>
+
         <div class="form-group">
             <label for="service_name"><h4>Tytuł</h4></label>
             <input type="text" id="service_name" class="form-control" v-model="post.title">
