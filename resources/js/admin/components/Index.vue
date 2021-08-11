@@ -1,6 +1,5 @@
 <template>
     <div class="container-fluid">
-        <modal class="bd-example-modal-lg" :title="title"></modal>
         <div class="row">
             <div class="col-md-4">
                 <div class="card">
@@ -47,39 +46,40 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        Strona główna szczegóły
+                        Strona główna
                     </div>
                     <div class="card-body">
-                        <div class="row mb-5">
-                            <div class="col-xl-4">
-                                <div class="card mb-3">
-                                    <img class="card-img-top" style="height: 250px;" id="title" :src="images.title" alt="Tytuł strony">
-                                    <div class="card-body d-flex justify-content-center align-items-center">
-                                        <button class="btn btn-outline-secondary btn-lg" @click="changeTitle" data-toggle="modal" data-target=".bd-example-modal-lg">Zmień tytuł strony</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4">
-                                <div class="card mb-3">
-                                    <img class="card-img-top" style="height: 250px;" id="description" :src="images.description" alt="Opis na slajderze">
-                                    <div class="card-body d-flex justify-content-center align-items-center">
-                                        <button class="btn btn-outline-secondary btn-lg" @click="changeDescription" data-toggle="modal" data-target=".bd-example-modal-lg">Zmień opis na slajdzie</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4">
-                                <div class="card mb-3">
-                                    <img class="card-img-top" style="height: 250px;" id="slider_photos" :src="images.slider_photos" alt="Zdjęcia do slajdera">
-                                    <div class="card-body d-flex justify-content-center align-items-center">
-                                        <router-link
-                                            :to="{ name: 'admin.upload-files' }"
-                                            class="btn btn-outline-secondary btn-lg"
-                                            >
-                                                Aktualizuj zdjęcia na slajdach
-                                            </router-link>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="d-flex flex-wrap">
+                            <router-link
+                                class="btn btn-outline-primary ml-2 mb-2 btn-lg"
+                                :to="{ name: 'admin.grooming.index' }"
+                            >
+                                Grooming
+                            </router-link>
+                            <router-link
+                                class="btn btn-outline-primary ml-2 mb-2 btn-lg"
+                                :to="{ name: 'admin.dogHotel.index' }"
+                            >
+                                Hotel dla psów
+                            </router-link>
+                            <router-link
+                                class="btn btn-outline-primary ml-2 mb-2 btn-lg"
+                                :to="{ name: 'admin.physiotherapy.index' }"
+                            >
+                                Fizjoterapia
+                            </router-link>
+                            <router-link
+                                class="btn btn-outline-primary ml-2 mb-2 btn-lg"
+                                :to="{ name: 'admin.aboutCompany.edit' }"
+                            >
+                                O sobie
+                            </router-link>
+                            <router-link
+                                class="btn btn-outline-primary ml-2 mb-2 btn-lg"
+                                :to="{ name: 'admin.contact.edit' }"
+                            >
+                                Kontakt
+                            </router-link>
                         </div>
                     </div>
                 </div>
@@ -89,25 +89,14 @@
 </template>
 <script>
 import { mapState } from 'vuex';
-import Modal from './_partials/Modal';
 
 export default {
-    components: {
-        Modal
-    },
-
     data() {
         return {
             canEditUser: false,
             loading: false,
             password: '',
             password_confirmation: '',
-            title: '',
-            images: {
-                title: '/images/static/title.png',
-                description: '/images/static/description.png',
-                slider_photos: '/images/static/slider_photos.png'
-            }
         }
     },
 
@@ -156,14 +145,6 @@ export default {
                 this.password_confirmation = '';
             })
         },
-
-        changeTitle() {
-            this.title = 'tytułu strony'
-        },
-
-        changeDescription() {
-            this.title = 'opisu na slajdzie'
-        }
     }
 };
 </script>

@@ -84,9 +84,9 @@ export default {
         },
 
         fetchGroomingPosts() {
-            axios.get('/json/post/grooming')
+            axios.get('/json/admin/grooming/edit')
             .then((response) => {
-                this.posts = _.get(response.data, 'data', {});
+                this.posts = _.get(response.data, 'data.posts', {});
             })
             .catch(_ => {
                  this.$notify({

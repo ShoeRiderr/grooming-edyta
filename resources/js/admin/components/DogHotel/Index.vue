@@ -84,9 +84,9 @@ export default {
         },
 
         fetchDogHotelPosts() {
-            axios.get('/json/post/dog-hotel')
+            axios.get('/json/admin/dog-hotel/edit')
             .then((response) => {
-                this.posts = _.get(response.data, 'data', {});
+                this.posts = _.get(response.data, 'data.posts', {});
             })
             .catch(_ => {
                  this.$notify({

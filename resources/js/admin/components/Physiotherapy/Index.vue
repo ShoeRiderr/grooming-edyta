@@ -84,9 +84,9 @@ export default {
         },
 
         fetchPhysiotherapyPosts() {
-            axios.get('/json/post/physiotherapy')
+            axios.get('/json/admin/physiotherapy/edit')
             .then((response) => {
-                this.posts = _.get(response.data, 'data', {});
+                this.posts = _.get(response.data, 'data.posts', {});
             })
             .catch(_ => {
                  this.$notify({
