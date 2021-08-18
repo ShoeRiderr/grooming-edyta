@@ -7,6 +7,7 @@ use App\Models\Grooming;
 use App\Models\Contact;
 use App\Models\Post;
 use App\Models\DogHotel;
+use App\Models\Physiotherapy;
 use App\Enums\ContentType;
 
 class PageController extends Controller
@@ -51,6 +52,23 @@ class PageController extends Controller
         return view('grooming', [
             'grooming' => $grooming,
             'posts' => $grooming->posts ? $grooming->posts()->paginate(5) : []
+        ]);
+    }
+
+    public function physiotherapy()
+    {
+        $physiotherapy = Physiotherapy::firstOrCreate(
+            ['type' => ContentType::CONSTANT],
+            [
+                'title'   => '',
+                'content' => '',
+                'type'    => ContentType::CONSTANT,
+            ]
+        );
+
+        return view('physiotherapy', [
+            'physiotherapy' => $physiotherapy,
+            'posts' => $physiotherapy->posts ? $physiotherapy->posts()->paginate(5) : []
         ]);
     }
 

@@ -20,6 +20,7 @@ Auth::routes();
 Route::get('/', '\App\Http\Controllers\PageController@index')->name('main');
 Route::get('/grooming', '\App\Http\Controllers\PageController@grooming')->name('grooming');
 Route::get('/dog-hotel', '\App\Http\Controllers\PageController@dogHotel')->name('dog-hotel');
+Route::get('/physiotherapy', '\App\Http\Controllers\PageController@physiotherapy')->name('physiotherapy');
 Route::get('/post/{post}', '\App\Http\Controllers\PageController@post')->name('post');
 
 Route::group(['prefix' => 'admin'], function () {

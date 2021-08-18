@@ -36,10 +36,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <p><a href="#" class="nav-link">Fizjoterapia</a></p>
-                        </li>
-                        <li class="nav-item">
-                            <p><a href="#" class="nav-link">Kontakt</a></p>
+                            <p><a href="{{ route('physiotherapy') }}" class="nav-link">Fizjoterapia</a></p>
                         </li>
                     </ul>
                 </div>
