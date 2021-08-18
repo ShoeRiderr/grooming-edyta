@@ -31,7 +31,7 @@ export default {
         onSubmit(values) {
             this.loading = true;
 
-            axios.put(`/json/admin/physiotherapy/${this.$route.params.physiotherapyId}`, {
+            axios.put(`/json/admin/physiotherapy/update`, {
                 title: _.get(values, 'title', ''),
                 content: _.get(values, 'content', '')
             })

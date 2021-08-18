@@ -46,7 +46,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::put('contact/{contact}', '\App\Http\Controllers\Json\ContactController@update');
 
     Route::get('physiotherapy/edit', '\App\Http\Controllers\Json\PhysiotherapyController@edit');
-    Route::put('physiotherapy/{physiotherapy}', '\App\Http\Controllers\Json\PhysiotherapyController@update');
+    Route::put('physiotherapy/update', '\App\Http\Controllers\Json\PhysiotherapyController@update');
 
     Route::get('grooming/edit', '\App\Http\Controllers\Json\GroomingController@edit');
     Route::put('grooming/update', '\App\Http\Controllers\Json\GroomingController@update');

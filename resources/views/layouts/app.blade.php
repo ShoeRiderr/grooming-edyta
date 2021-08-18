@@ -19,7 +19,7 @@
         <div id="app">
             <nav class="navbar navbar-expand-sm navbar-dark bg-dark flex-column align-items-stretch bg">
                 <div class="d-flex">
-                    <a href="#" class="navbar-brand mx-sm-auto mr-auto" style="font-size:1.8em;">
+                    <a href="{{ route('main') }}" class="navbar-brand mx-sm-auto mr-auto" style="font-size:1.8em;">
                         <img class="responsive" src="data:image/png;base64,{{ base64_encode(file_get_contents(resource_path('images/logo.png'))) }}" alt="Pet Center">
                     </a>
                     <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarMenu">
@@ -32,7 +32,7 @@
                             <p><a href="#" class="nav-link">Hotel dla psów</a></p>
                         </li>
                         <li class="nav-item">
-                            <p><a href="#" class="nav-link">Grooming</a></p>
+                            <p><a href="{{ route('grooming') }}" class="nav-link">Grooming</a></p>
                         </li>
 
                         <li class="nav-item">

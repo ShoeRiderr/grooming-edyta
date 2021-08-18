@@ -12,6 +12,7 @@ use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Database\ConnectionInterface as Connection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Response;
 
@@ -79,7 +80,7 @@ class DogHotelController extends Controller
                 $pathname = $file->store("public");
 
                 $image = $post->image()->make([
-                    'file_pathname' => $pathname,
+                    'file_pathname' => Str::replace('public/', '', $pathname),
                     'name'          => Arr::get($attributes, 'name'),
                     'description'   => Arr::get($attributes, 'description'),
                 ]);
@@ -119,7 +120,7 @@ class DogHotelController extends Controller
                 $pathname = $file->store("public");
 
                 $image = $post->image()->update([
-                    'file_pathname' => $pathname,
+                    'file_pathname' => Str::replace('public/', '', $pathname),
                     'name'          => Arr::get($attributes, 'name'),
                     'description'   => Arr::get($attributes, 'description'),
                 ]);

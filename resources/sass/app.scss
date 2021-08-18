@@ -9,6 +9,7 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+
 .responsive {
   width: 100%;
   max-width: 400px;
@@ -16,7 +17,8 @@
 }
 
 body, html {
-  height: 100%;
+    height: 100%;
+    background-color: #fcfcfc;
 }
 .bg {
   background-color: #191411 !important;
@@ -28,4 +30,40 @@ body, html {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+/* Parent Container */
+.content_img{
+ position: relative;
+ width: 200px;
+ height: 200px;
+ float: left;
+ margin-right: 10px;
+}
+
+/* Child Text Container */
+.content_img div{
+ position: absolute;
+ bottom: 0;
+ right: 0;
+ background: black;
+ color: white;
+ margin-bottom: 5px;
+ font-family: sans-serif;
+ opacity: 0;
+ visibility: hidden;
+ -webkit-transition: visibility 0s, opacity 0.5s linear; 
+ transition: visibility 0s, opacity 0.5s linear;
+}
+
+/* Hover on Parent Container */
+.content_img:hover{
+ cursor: pointer;
+}
+
+.content_img:hover div{
+ width: 150px;
+ padding: 8px 15px;
+ visibility: visible;
+ opacity: 0.7; 
 }

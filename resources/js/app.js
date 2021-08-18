@@ -12,3 +12,5 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     el: '#app',
 });
+
+$("a.image").each(function(){$(this).attr('title',$(this).find("img").attr('title'))});

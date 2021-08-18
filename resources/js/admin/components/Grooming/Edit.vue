@@ -31,7 +31,7 @@ export default {
         onSubmit(values) {
             this.loading = true;
 
-            axios.put(`/json/admin/grooming/${this.$route.params.groomingId}`, {
+            axios.put(`/json/admin/grooming/update`, {
                 title: _.get(values, 'title', ''),
                 content: _.get(values, 'content', '')
             })

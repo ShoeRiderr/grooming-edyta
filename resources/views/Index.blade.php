@@ -4,22 +4,14 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6">
-                <div class="mt-4">
-                    <h3 class="text-center">{{ $aboutCompany->title }}</h3>
-                </div>
-                <hr>
-                <div class="ql-editor">
-                    {!! $aboutCompany->content !!}
-                </div>
+                @include('_partials/section-content', [
+                    'content' => $aboutCompany
+                    ])
             </div>
             <div class="col-md-6">
-                <div class="mt-4">
-                    <h3 class="text-center">{{ $aboutCompany->title }}</h3>
-                </div>
-                <hr>
-                <div class="ql-editor">
-                    {!! $contact->content !!}
-                </div>
+                @include('_partials/section-content', [
+                    'content' => $contact
+                    ])
             </div>
         </div>
     </div>
