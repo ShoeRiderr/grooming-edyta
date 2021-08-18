@@ -6,6 +6,7 @@ use App\Models\AboutCompany;
 use App\Models\Grooming;
 use App\Models\Contact;
 use App\Models\Post;
+use App\Models\DogHotel;
 use App\Enums\ContentType;
 
 class PageController extends Controller
@@ -50,6 +51,23 @@ class PageController extends Controller
         return view('grooming', [
             'grooming' => $grooming,
             'posts' => $grooming->posts ? $grooming->posts()->paginate(5) : []
+        ]);
+    }
+
+    public function dogHotel()
+    {
+        $dogHotel = DogHotel::firstOrCreate(
+            ['type' => ContentType::CONSTANT],
+            [
+                'title'   => '',
+                'content' => '',
+                'type'    => ContentType::CONSTANT,
+            ]
+        );
+
+        return view('dog-hotel', [
+            'dogHotel' => $dogHotel,
+            'posts' => $dogHotel->posts ? $dogHotel->posts()->paginate(5) : []
         ]);
     }
 

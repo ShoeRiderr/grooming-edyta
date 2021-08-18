@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         @include('_partials/section-content', [
-            'content' => $grooming
+            'content' => $dogHotel
             ])
         <hr>
         @include('_partials/post-slider', [

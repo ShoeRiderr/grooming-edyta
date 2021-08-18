@@ -29,7 +29,7 @@
                 <div class="collapse navbar-collapse w-100 sticky-top" id="navbarMenu"  style="font-size:1.2em;">
                     <ul class="navbar-nav mx-sm-auto">
                         <li class="nav-item">
-                            <p><a href="#" class="nav-link">Hotel dla psów</a></p>
+                            <p><a href="{{ route('dog-hotel') }}" class="nav-link">Hotel dla psów</a></p>
                         </li>
                         <li class="nav-item">
                             <p><a href="{{ route('grooming') }}" class="nav-link">Grooming</a></p>
