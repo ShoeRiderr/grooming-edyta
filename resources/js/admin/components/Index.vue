@@ -70,6 +70,12 @@
                             </router-link>
                             <router-link
                                 class="btn btn-outline-primary ml-2 mb-2 btn-lg"
+                                :to="{ name: 'admin.handling.index' }"
+                            >
+                                Handling
+                            </router-link>
+                            <router-link
+                                class="btn btn-outline-primary ml-2 mb-2 btn-lg"
                                 :to="{ name: 'admin.aboutCompany.edit' }"
                             >
                                 O sobie

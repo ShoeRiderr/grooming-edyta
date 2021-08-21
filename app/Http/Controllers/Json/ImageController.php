@@ -26,7 +26,7 @@ class ImageController extends Controller
      */
     public function __invoke(Image $image)
     {
-        $file = Storage::get($image->file_pathname);
+        $file = Storage::get('public/' . $image->file_pathname);
         return new Response($file, 200, [ 'Content-type' => 'image/png']); 
     }
 }

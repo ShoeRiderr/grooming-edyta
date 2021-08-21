@@ -34,19 +34,24 @@
                         <li class="nav-item">
                             <p><a href="{{ route('grooming') }}" class="nav-link">Grooming</a></p>
                         </li>
-
                         <li class="nav-item">
                             <p><a href="{{ route('physiotherapy') }}" class="nav-link">Fizjoterapia</a></p>
+                        </li>
+                        <li class="nav-item">
+                            <p><a href="{{ route('handling') }}" class="nav-link">Handling</a></p>
+                        </li>
+                        <li class="nav-item">
+                            <p><a href="{{ route('contact') }}" class="nav-link">Kontakt</a></p>
                         </li>
                     </ul>
                 </div>
             </nav>
 
              @yield('content')
-
-            <div class="navbar fixed-bottom" style="background-color: #191411; color: #ebebeb;">
-                <span class="mx-auto">© {{ now()->year }} Copyright: Pet Center</span>
-            </div>
+             <div class="push"></div>
         </div>
+        <footer class="navbar" style="background-color: #191411; color: #ebebeb;">
+            <span class="mx-auto">© {{ now()->year }} Copyright: Pet Center</span>
+        </footer>
     </body>
 </html>

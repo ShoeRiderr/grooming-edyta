@@ -16,12 +16,10 @@
 
 <script>
 import fetchMethods from '#/admin/mixins/fetchMethods';
-import postFetchMethod from '#/shared/mixins/postFetchMethod';
 
 export default {
     mixins: [
         fetchMethods,
-        postFetchMethod
     ],
 
 
@@ -70,6 +68,9 @@ export default {
         }
         if (this.$route.name === 'admin.dogHotel.edit') {
             this.fetchDogHotel();
+        }
+        if (this.$route.name === 'admin.handling.edit') {
+            this.fetchHandling();
         }
 
         if (this.$route.name === 'admin.aboutCompany.edit') {

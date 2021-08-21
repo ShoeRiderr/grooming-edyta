@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AboutCompany;
 use App\Models\Grooming;
 use App\Models\Contact;
+use App\Models\Handling;
 use App\Models\Post;
 use App\Models\DogHotel;
 use App\Models\Physiotherapy;
@@ -23,18 +24,8 @@ class PageController extends Controller
             ]
         );
 
-        $contact = Contact::firstOrCreate(
-            ['type' => ContentType::CONSTANT],
-            [
-                'title'   => '',
-                'content' => '',
-                'type'    => ContentType::CONSTANT,
-            ]
-        );
-
         return view('Index', [
-            'aboutCompany' => $aboutCompany,
-            'contact' => $contact
+            'aboutCompany' => $aboutCompany
         ]);
     }
 
@@ -72,6 +63,23 @@ class PageController extends Controller
         ]);
     }
 
+    public function handling()
+    {
+        $handling = Handling::firstOrCreate(
+            ['type' => ContentType::CONSTANT],
+            [
+                'title'   => '',
+                'content' => '',
+                'type'    => ContentType::CONSTANT,
+            ]
+        );
+
+        return view('handling', [
+            'handling' => $handling,
+            'posts' => $handling->posts ? $handling->posts()->paginate(5) : []
+        ]);
+    }
+
     public function dogHotel()
     {
         $dogHotel = DogHotel::firstOrCreate(
@@ -86,6 +94,22 @@ class PageController extends Controller
         return view('dog-hotel', [
             'dogHotel' => $dogHotel,
             'posts' => $dogHotel->posts ? $dogHotel->posts()->paginate(5) : []
+        ]);
+    }
+
+    public function contact()
+    {
+        $contact = Contact::firstOrCreate(
+            ['type' => ContentType::CONSTANT],
+            [
+                'title'   => '',
+                'content' => '',
+                'type'    => ContentType::CONSTANT,
+            ]
+        );
+
+        return view('contact', [
+            'contact' => $contact
         ]);
     }
 

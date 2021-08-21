@@ -35,6 +35,10 @@ Route::group(['prefix' => 'admin'], function () {
         'except' => ['edit', 'show', 'index']
     ]);
 
+    Route::resource('handling/post', \App\Http\Controllers\Json\Post\HandlingController::class, [
+        'except' => ['edit', 'show', 'index']
+    ]);
+
     Route::resource('dog-hotel/post', \App\Http\Controllers\Json\Post\DogHotelController::class, [
         'except' => ['edit', 'show', 'index']
     ]);
@@ -51,6 +55,9 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('grooming/edit', '\App\Http\Controllers\Json\GroomingController@edit');
     Route::put('grooming/update', '\App\Http\Controllers\Json\GroomingController@update');
 
+    Route::get('handling/edit', '\App\Http\Controllers\Json\HandlingController@edit');
+    Route::put('handling/update', '\App\Http\Controllers\Json\HandlingController@update');
+
     Route::get('dog-hotel/edit', '\App\Http\Controllers\Json\DogHotelController@edit');
     Route::put('dog-hotel/update', '\App\Http\Controllers\Json\DogHotelController@update');
 });
@@ -60,6 +67,8 @@ Route::get('grooming-image/{grooming_image}', '\App\Http\Controllers\Json\Groomi
 Route::get('physiotherapy', '\App\Http\Controllers\Json\PhysiotherapyController@show');
 
 Route::get('grooming', '\App\Http\Controllers\Json\GroomingController@show');
+
+Route::get('handling', '\App\Http\Controllers\Json\HandlingController@show');
 
 Route::get('dog-hotel', '\App\Http\Controllers\Json\DogHotelController@show');
 
@@ -77,6 +86,9 @@ Route::group(['prefix' => 'post'], function () {
     Route::resource('grooming', \App\Http\Controllers\Json\Post\GroomingController::class, [
         'only' => ['index']
     ]);
+    Route::resource('handling', \App\Http\Controllers\Json\Post\HandlingController::class, [
+        'only' => ['index']
+    ]);
     Route::resource('dog-hotel', \App\Http\Controllers\Json\Post\DogHotelController::class, [
         'only' => ['index']
     ]);
@@ -85,6 +97,8 @@ Route::group(['prefix' => 'post'], function () {
 Route::get('dog-hotel/post/{post}', '\App\Http\Controllers\Json\Post\DogHotelController@show');
 
 Route::get('grooming/post/{post}', '\App\Http\Controllers\Json\Post\GroomingController@show');
+
+Route::get('handling/post/{post}', '\App\Http\Controllers\Json\Post\HandlingController@show');
 
 Route::get('physiotherapy/post/{post}', '\App\Http\Controllers\Json\Post\PhysiotherapyController@show');
 

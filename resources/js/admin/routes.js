@@ -46,6 +46,17 @@ const routes = [
     },
 
     {
+        path: '/admin/handling',
+        name: 'admin.handling.index',
+        component: require('./components/Handling/Index.vue').default
+    },
+    {
+        path: '/admin/handling/edit',
+        name: 'admin.handling.edit',
+        component: require('./components/Handling/Edit.vue').default
+    },
+
+    {
         path: '/admin/dog-hotel',
         name: 'admin.dogHotel.index',
         component: require('./components/DogHotel/Index.vue').default
@@ -89,6 +100,17 @@ const routes = [
         path: '/admin/grooming/post/:id',
         name: 'admin.grooming.post.edit',
         component: require('./components/Grooming/Post/Edit.vue').default
+    },
+
+    {
+        path: '/admin/handling/post/create',
+        name: 'admin.handling.post.create',
+        component: require('./components/Handling/Post/Create.vue').default
+    },
+    {
+        path: '/admin/handling/post/:id',
+        name: 'admin.handling.post.edit',
+        component: require('./components/Handling/Post/Edit.vue').default
     },
 
     {

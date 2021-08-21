@@ -20,6 +20,19 @@ body, html {
     height: 100%;
     background-color: #fcfcfc;
 }
+#app {
+
+  min-height: 100%;
+
+  /* Equal to height of footer */
+  /* But also accounting for potential margin-bottom of last child */
+  margin-bottom: -45px;
+}
+
+.footer,
+.push {
+  height: 50px;
+}
 .bg {
   background-color: #191411 !important;
 

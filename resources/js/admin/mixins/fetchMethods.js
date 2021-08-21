@@ -78,5 +78,19 @@ export default {
                 });
             });
         },
+
+        fetchHandling() {
+            axios.get(`/json/admin/handling/edit`)
+            .then((response) => {
+                this.values = _.get(response.data, 'data', {})
+            })
+            .catch(_ => {
+                this.$notify({
+                    type: 'error',
+                    title: 'Error',
+                    text: 'Wystąpił nieoczekiwany błąd.'
+                });
+            });
+        },
     }
 }
