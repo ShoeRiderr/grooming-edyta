@@ -7,7 +7,7 @@
             ])
         <hr>
         @include('_partials/post-slider', [
-            'posts' => $posts
+            'images' => $images
             ])
     </div>
 @endsection

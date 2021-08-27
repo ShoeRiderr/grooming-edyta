@@ -42,7 +42,7 @@ class PageController extends Controller
 
         return view('grooming', [
             'grooming' => $grooming,
-            'posts' => $grooming->posts ? $grooming->posts()->paginate(5) : []
+            'images' => $grooming->images ? $grooming->images()->paginate(5) : []
         ]);
     }
 

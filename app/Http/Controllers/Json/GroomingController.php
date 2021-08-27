@@ -16,7 +16,7 @@ class GroomingController extends Controller
     {
         $grooming = Grooming::where('type', ContentType::CONSTANT)->first();
 
-        $grooming->load('posts.image');
+        $grooming->load('posts.image', 'images');
 
         return GroomingResource::make($grooming);
     }
@@ -32,7 +32,7 @@ class GroomingController extends Controller
             ]
         );
 
-        $grooming->load('posts.image');
+        $grooming->load('posts.image', 'images');
 
         return GroomingResource::make($grooming);
     }

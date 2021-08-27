@@ -60,6 +60,10 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::get('dog-hotel/edit', '\App\Http\Controllers\Json\DogHotelController@edit');
     Route::put('dog-hotel/update', '\App\Http\Controllers\Json\DogHotelController@update');
+
+    // Images
+    Route::post('grooming/image', '\App\Http\Controllers\Json\Image\GroomingController@store');
+    Route::delete('grooming/image/{image}', '\App\Http\Controllers\Json\Image\GroomingController@destroy');
 });
 
 Route::get('grooming-image/{grooming_image}', '\App\Http\Controllers\Json\GroomingImageController@show');

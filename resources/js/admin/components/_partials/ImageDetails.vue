@@ -40,6 +40,23 @@
                     </div>
 
                     <div class="form-group">
+                        <label :for="`title-${iteration}`">Tytuł</label>
+
+                        <input
+                            :id="`title-${iteration}`"
+                            type="text"
+                            class="form-control"
+                            required
+                            v-model="file.title"
+                        />
+
+                        <field-errors
+                            :class="[{ 'is-invalid': hasErrors(`image.${index}.title`) }]"
+                            :errors="getErrors(`image.title`)"
+                        ></field-errors>
+                    </div>
+
+                    <div class="form-group">
                         <label :for="`description-${iteration}`">Opis</label>
 
                         <textarea

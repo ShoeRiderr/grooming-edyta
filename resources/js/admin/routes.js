@@ -91,16 +91,16 @@ const routes = [
         component: require('./components/Physiotherapy/Post/Edit.vue').default
     },
 
-    {
-        path: '/admin/grooming/post/create',
-        name: 'admin.grooming.post.create',
-        component: require('./components/Grooming/Post/Create.vue').default
-    },
-    {
-        path: '/admin/grooming/post/:id',
-        name: 'admin.grooming.post.edit',
-        component: require('./components/Grooming/Post/Edit.vue').default
-    },
+    // {
+    //     path: '/admin/grooming/post/create',
+    //     name: 'admin.grooming.post.create',
+    //     component: require('./components/Grooming/Post/Create.vue').default
+    // },
+    // {
+    //     path: '/admin/grooming/post/:id',
+    //     name: 'admin.grooming.post.edit',
+    //     component: require('./components/Grooming/Post/Edit.vue').default
+    // },
 
     {
         path: '/admin/handling/post/create',
@@ -123,6 +123,13 @@ const routes = [
         name: 'admin.dogHotel.post.edit',
         component: require('./components/DogHotel/Post/Edit.vue').default
     },
+
+    // Image
+    {
+        path: '/admin/grooming/image/create',
+        name: 'admin.grooming.image.create',
+        component: require('./components/Grooming/Image/Create.vue').default
+    }
 ];
 
 const router = new VueRouter({
