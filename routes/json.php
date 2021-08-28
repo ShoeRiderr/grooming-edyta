@@ -62,8 +62,17 @@ Route::group(['prefix' => 'admin'], function () {
     Route::put('dog-hotel/update', '\App\Http\Controllers\Json\DogHotelController@update');
 
     // Images
+    Route::post('dog-hotel/image', '\App\Http\Controllers\Json\Image\DogHotelController@store');
+    Route::delete('dog-hotel/image/{image}', '\App\Http\Controllers\Json\Image\DogHotelController@destroy');
+
     Route::post('grooming/image', '\App\Http\Controllers\Json\Image\GroomingController@store');
     Route::delete('grooming/image/{image}', '\App\Http\Controllers\Json\Image\GroomingController@destroy');
+
+    Route::post('handling/image', '\App\Http\Controllers\Json\Image\HandlingController@store');
+    Route::delete('handling/image/{image}', '\App\Http\Controllers\Json\Image\HandlingController@destroy');
+
+    Route::post('physiotherapy/image', '\App\Http\Controllers\Json\Image\PhysiotherapyController@store');
+    Route::delete('physiotherapy/image/{image}', '\App\Http\Controllers\Json\Image\PhysiotherapyController@destroy');
 });
 
 Route::get('grooming-image/{grooming_image}', '\App\Http\Controllers\Json\GroomingImageController@show');

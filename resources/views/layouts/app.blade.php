@@ -50,7 +50,7 @@
              @yield('content')
              <div class="push"></div>
         </div>
-        <footer class="navbar" style="background-color: #191411; color: #ebebeb;">
+        <footer class="navbar" style="background-color: #29221e; color: #ebebeb;">
             <span class="mx-auto">© {{ now()->year }} Copyright: Pet Center</span>
         </footer>
     </body>

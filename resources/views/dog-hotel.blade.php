@@ -6,8 +6,8 @@
             'content' => $dogHotel
             ])
         <hr>
-        @include('_partials/post-slider', [
-            'posts' => $posts
+        @include('_partials/image-slider', [
+            'images' => $images
             ])
     </div>
 @endsection

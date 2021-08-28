@@ -12,5 +12,3 @@ Vue.component('example-component', require('./components/ImageModal.vue').defaul
 const app = new Vue({
     el: '#app',
 });
-
-$("a.image").each(function(){$(this).attr('title',$(this).find("img").attr('title'))});

@@ -24,7 +24,7 @@
                 </div>
 
                 <div v-if="!hasImages" class="alert alert-info">
-                    Brak imageów.
+                    Brak zdjęć.
                 </div>
 
                 <table v-else class="table">

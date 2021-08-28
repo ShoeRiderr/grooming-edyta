@@ -42,7 +42,7 @@ class PageController extends Controller
 
         return view('grooming', [
             'grooming' => $grooming,
-            'images' => $grooming->images ? $grooming->images()->paginate(5) : []
+            'images' => $grooming->images ? $grooming->images()->get() : []
         ]);
     }
 
@@ -59,7 +59,7 @@ class PageController extends Controller
 
         return view('physiotherapy', [
             'physiotherapy' => $physiotherapy,
-            'posts' => $physiotherapy->posts ? $physiotherapy->posts()->paginate(5) : []
+            'images' => $physiotherapy->images ? $physiotherapy->images()->get() : []
         ]);
     }
 
@@ -76,7 +76,7 @@ class PageController extends Controller
 
         return view('handling', [
             'handling' => $handling,
-            'posts' => $handling->posts ? $handling->posts()->paginate(5) : []
+            'images' => $handling->images ? $handling->images()->get() : []
         ]);
     }
 
@@ -93,7 +93,7 @@ class PageController extends Controller
 
         return view('dog-hotel', [
             'dogHotel' => $dogHotel,
-            'posts' => $dogHotel->posts ? $dogHotel->posts()->paginate(5) : []
+            'images' => $dogHotel->images ? $dogHotel->images()->get() : []
         ]);
     }
 

@@ -6,7 +6,7 @@
             'content' => $grooming
             ])
         <hr>
-        @include('_partials/post-slider', [
+        @include('_partials/image-slider', [
             'images' => $images
             ])
     </div>

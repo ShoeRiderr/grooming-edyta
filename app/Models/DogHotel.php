@@ -23,4 +23,9 @@ class DogHotel extends Model
     {
         return $this->morphMany(Post::class, 'postable');
     }
+
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'imageable');
+    }
 }
