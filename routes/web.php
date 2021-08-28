@@ -23,6 +23,7 @@ Route::get('/dog-hotel', '\App\Http\Controllers\PageController@dogHotel')->name(
 Route::get('/physiotherapy', '\App\Http\Controllers\PageController@physiotherapy')->name('physiotherapy');
 Route::get('/contact', '\App\Http\Controllers\PageController@contact')->name('contact');
 Route::get('/handling', '\App\Http\Controllers\PageController@handling')->name('handling');
+Route::get('/news', '\App\Http\Controllers\PageController@news')->name('news');
 Route::get('/post/{post}', '\App\Http\Controllers\PageController@post')->name('post');
 
 Route::group(['prefix' => 'admin'], function () {

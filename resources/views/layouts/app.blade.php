@@ -43,6 +43,9 @@
                         <li class="nav-item">
                             <p><a href="{{ route('contact') }}" class="nav-link">Kontakt</a></p>
                         </li>
+                        <li class="nav-item">
+                            <p><a href="{{ route('news') }}" class="nav-link">Aktualności</a></p>
+                        </li>
                     </ul>
                 </div>
             </nav>

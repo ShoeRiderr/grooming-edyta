@@ -29,74 +29,6 @@ class PageController extends Controller
         ]);
     }
 
-    public function grooming()
-    {
-        $grooming = Grooming::firstOrCreate(
-            ['type' => ContentType::CONSTANT],
-            [
-                'title'   => '',
-                'content' => '',
-                'type'    => ContentType::CONSTANT,
-            ]
-        );
-
-        return view('grooming', [
-            'grooming' => $grooming,
-            'images' => $grooming->images ? $grooming->images()->get() : []
-        ]);
-    }
-
-    public function physiotherapy()
-    {
-        $physiotherapy = Physiotherapy::firstOrCreate(
-            ['type' => ContentType::CONSTANT],
-            [
-                'title'   => '',
-                'content' => '',
-                'type'    => ContentType::CONSTANT,
-            ]
-        );
-
-        return view('physiotherapy', [
-            'physiotherapy' => $physiotherapy,
-            'images' => $physiotherapy->images ? $physiotherapy->images()->get() : []
-        ]);
-    }
-
-    public function handling()
-    {
-        $handling = Handling::firstOrCreate(
-            ['type' => ContentType::CONSTANT],
-            [
-                'title'   => '',
-                'content' => '',
-                'type'    => ContentType::CONSTANT,
-            ]
-        );
-
-        return view('handling', [
-            'handling' => $handling,
-            'images' => $handling->images ? $handling->images()->get() : []
-        ]);
-    }
-
-    public function dogHotel()
-    {
-        $dogHotel = DogHotel::firstOrCreate(
-            ['type' => ContentType::CONSTANT],
-            [
-                'title'   => '',
-                'content' => '',
-                'type'    => ContentType::CONSTANT,
-            ]
-        );
-
-        return view('dog-hotel', [
-            'dogHotel' => $dogHotel,
-            'images' => $dogHotel->images ? $dogHotel->images()->get() : []
-        ]);
-    }
-
     public function contact()
     {
         $contact = Contact::firstOrCreate(
@@ -113,10 +45,101 @@ class PageController extends Controller
         ]);
     }
 
+    public function dogHotel()
+    {
+        return view('dog-hotel', [
+            'dogHotel' => $this->dogHotelModel(),
+            'images' => $this->dogHotelModel()->images ? $this->dogHotelModel()->images()->get() : []
+        ]);
+    }
+
+    public function grooming()
+    {
+        return view('grooming', [
+            'grooming' => $this->groomingModel(),
+            'images' => $this->groomingModel()->images ? $this->groomingModel()->images()->get() : []
+        ]);
+    }
+
+    public function handling()
+    {
+        return view('handling', [
+            'handling' => $this->handlingModel(),
+            'images' => $this->handlingModel()->images ? $this->handlingModel()->images()->get() : []
+        ]);
+    }
+
+    public function physiotherapy()
+    {
+        return view('physiotherapy', [
+            'physiotherapy' => $this->physiotherapyModel(),
+            'images' => $this->physiotherapyModel()->images ? $this->physiotherapyModel()->images()->get() : []
+        ]);
+    }
+
+    public function news()
+    {
+        // dd($this->physiotherapyModel()->posts()->get());
+        return view('news', [
+            'dogHotel' => $this->dogHotelModel()->posts ,
+            'grooming' => $this->groomingModel()->posts ,
+            'handling' => $this->handlingModel()->posts ,
+            'physiotherapy' => $this->physiotherapyModel()->posts ,
+        ]);
+    }
+
     public function post(Post $post)
     {
         return view('post', [
             'post' => $post
         ]);
+    }
+
+    private function dogHotelModel()
+    {
+        return DogHotel::firstOrCreate(
+            ['type' => ContentType::CONSTANT],
+            [
+                'title'   => '',
+                'content' => '',
+                'type'    => ContentType::CONSTANT,
+            ]
+        );
+    }
+
+    private function groomingModel()
+    {
+        return Grooming::firstOrCreate(
+            ['type' => ContentType::CONSTANT],
+            [
+                'title'   => '',
+                'content' => '',
+                'type'    => ContentType::CONSTANT,
+            ]
+        );
+    }
+
+    private function handlingModel()
+    {
+        return Handling::firstOrCreate(
+            ['type' => ContentType::CONSTANT],
+            [
+                'title'   => '',
+                'content' => '',
+                'type'    => ContentType::CONSTANT,
+            ]
+        );
+    }
+
+    private function physiotherapyModel()
+    {
+        return Physiotherapy::firstOrCreate(
+            ['type' => ContentType::CONSTANT],
+            [
+                'title'   => '',
+                'content' => '',
+                'type'    => ContentType::CONSTANT,
+            ]
+        );
     }
 }
