@@ -79,50 +79,56 @@ const routes = [
         component: require('./components/Contact/Edit.vue').default
     },
 
+    {
+        path: '/admin/news',
+        name: 'admin.news.index',
+        component: require('./components/News/Index.vue').default
+    },
+
     // Post
-    // {
-    //     path: '/admin/physiotherapy/post/create',
-    //     name: 'admin.physiotherapy.post.create',
-    //     component: require('./components/Physiotherapy/Post/Create.vue').default
-    // },
-    // {
-    //     path: '/admin/physiotherapy/post/:id',
-    //     name: 'admin.physiotherapy.post.edit',
-    //     component: require('./components/Physiotherapy/Post/Edit.vue').default
-    // },
+    {
+        path: '/admin/physiotherapy/post/create',
+        name: 'admin.physiotherapy.post.create',
+        component: require('./components/Physiotherapy/Post/Create.vue').default
+    },
+    {
+        path: '/admin/physiotherapy/post/:id',
+        name: 'admin.physiotherapy.post.edit',
+        component: require('./components/Physiotherapy/Post/Edit.vue').default
+    },
 
-    // {
-    //     path: '/admin/grooming/post/create',
-    //     name: 'admin.grooming.post.create',
-    //     component: require('./components/Grooming/Post/Create.vue').default
-    // },
-    // {
-    //     path: '/admin/grooming/post/:id',
-    //     name: 'admin.grooming.post.edit',
-    //     component: require('./components/Grooming/Post/Edit.vue').default
-    // },
+    {
+        path: '/admin/grooming/post/create',
+        name: 'admin.grooming.post.create',
+        component: require('./components/Grooming/Post/Create.vue').default
+    },
+    {
+        path: '/admin/grooming/post/:id',
+        name: 'admin.grooming.post.edit',
+        component: require('./components/Grooming/Post/Edit.vue').default
+    },
 
-    // {
-    //     path: '/admin/handling/post/create',
-    //     name: 'admin.handling.post.create',
-    //     component: require('./components/Handling/Post/Create.vue').default
-    // },
-    // {
-    //     path: '/admin/handling/post/:id',
-    //     name: 'admin.handling.post.edit',
-    //     component: require('./components/Handling/Post/Edit.vue').default
-    // },
+    {
+        path: '/admin/handling/post/create',
+        name: 'admin.handling.post.create',
+        component: require('./components/Handling/Post/Create.vue').default
+    },
+    {
+        path: '/admin/handling/post/:id',
+        name: 'admin.handling.post.edit',
+        component: require('./components/Handling/Post/Edit.vue').default
+    },
 
-    // {
-    //     path: '/admin/dog-hotel/post/create',
-    //     name: 'admin.dogHotel.post.create',
-    //     component: require('./components/DogHotel/Post/Create.vue').default
-    // },
-    // {
-    //     path: '/admin/dog-hotel/post/:id',
-    //     name: 'admin.dogHotel.post.edit',
-    //     component: require('./components/DogHotel/Post/Edit.vue').default
-    // },
+    {
+        path: '/admin/dog-hotel/post/create',
+        name: 'admin.dogHotel.post.create',
+        component: require('./components/DogHotel/Post/Create.vue').default
+    },
+    {
+        path: '/admin/dog-hotel/post/:id',
+        name: 'admin.dogHotel.post.edit',
+        component: require('./components/DogHotel/Post/Edit.vue').default
+    },
 
     // Image
     {

@@ -14,7 +14,14 @@ class DogHotelController extends Controller
 {
     public function show(): Responsable
     {
-        $dogHotel = DogHotel::where('type', ContentType::CONSTANT)->first();
+        $dogHotel = DogHotel::firstOrCreate(
+            ['type' => ContentType::CONSTANT],
+            [
+                'title'   => '',
+                'content' => '',
+                'type'    => ContentType::CONSTANT,
+            ]
+        );
 
         $dogHotel->load('posts.image');
 

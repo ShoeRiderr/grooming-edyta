@@ -1,9 +1,13 @@
 <div class="row">
     @foreach ($posts as $key => $post)
-        @if ($post->image)
+        @if ($post->image !== null && count($post->image))
             <div class="content_img">
                 <a href="{{ route('post', $post) }}"><img src="{{ asset('storage/'.$post->image->file_pathname) }}" width='100%' height='100%'></a>
                 <div>{{ $post->title }}</div>
+            </div>
+        @else 
+            <div class="alert-info">
+                Brak nowych wydarzeń.
             </div>
         @endif
     @endforeach

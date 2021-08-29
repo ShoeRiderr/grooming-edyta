@@ -41,8 +41,9 @@ export default {
             const data = new FormData();
 
             images.forEach((image, index) => {
-                data.append(`image[${index}][file]`, _.get(image, 'source'));
                 data.append(`image[${index}][name]`, _.get(image, 'name'));
+                data.append(`image[${index}][title]`, _.get(image, 'title'));
+                data.append(`image[${index}][file]`, _.get(image, 'source'));
                 data.append(`image[${index}][description]`, _.get(image, 'description') || '');
             });
             data.append('title', _.get(images, 'title') || '');
@@ -56,7 +57,7 @@ export default {
                     text: 'Dodano post.',
                 });
 
-                this.$router.push({ name: 'admin.dogHotel.index' });
+                this.$router.push({ name: 'admin.news.index' });
             }).catch((error) => {
                 if (error.response.status === 422) {
                     this.errors = _.get(error.response.data, 'errors', {});

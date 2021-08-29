@@ -81,6 +81,7 @@ class DogHotelController extends Controller
 
                 $image = $post->image()->make([
                     'file_pathname' => Str::replace('public/', '', $pathname),
+                    'title'          => Arr::get($attributes, 'title'),
                     'name'          => Arr::get($attributes, 'name'),
                     'description'   => Arr::get($attributes, 'description'),
                 ]);
@@ -121,6 +122,7 @@ class DogHotelController extends Controller
 
                 $image = $post->image()->update([
                     'file_pathname' => Str::replace('public/', '', $pathname),
+                    'title' => Arr::get($attributes, 'title'),
                     'name'          => Arr::get($attributes, 'name'),
                     'description'   => Arr::get($attributes, 'description'),
                 ]);

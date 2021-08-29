@@ -64,6 +64,7 @@ class HandlingController extends Controller
      */
     public function store(PostRequest $request)
     {
+        dd($request->all());
         if (!$this->handling) {
             return new JsonResponse([], 400);
         }
@@ -81,6 +82,7 @@ class HandlingController extends Controller
 
                 $image = $post->image()->make([
                     'file_pathname' => Str::replace('public/', '', $pathname),
+                    'title' => Arr::get($attributes, 'title'),
                     'name'          => Arr::get($attributes, 'name'),
                     'description'   => Arr::get($attributes, 'description'),
                 ]);
@@ -121,6 +123,7 @@ class HandlingController extends Controller
 
                 $image = $post->image()->update([
                     'file_pathname' => Str::replace('public/', '', $pathname),
+                    'title' => Arr::get($attributes, 'title'),
                     'name'          => Arr::get($attributes, 'name'),
                     'description'   => Arr::get($attributes, 'description'),
                 ]);

@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="d-flex">
-                    <h2>Lista wpisów w sekcji hotel dla psów</h2>
+                    <h2>Lista wpisów w sekcji grooming</h2>
                     <router-link
                         class="btn btn-outline-primary btn-sm ml-auto"
                         :to="{ name: 'admin.grooming.image.create' }"

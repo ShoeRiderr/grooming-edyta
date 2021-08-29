@@ -86,6 +86,12 @@
                             >
                                 Kontakt
                             </router-link>
+                            <router-link
+                                class="btn btn-outline-primary ml-2 mb-2 btn-lg"
+                                :to="{ name: 'admin.news.index' }"
+                            >
+                                Aktualności
+                            </router-link>
                         </div>
                     </div>
                 </div>
