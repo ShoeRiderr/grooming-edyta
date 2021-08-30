@@ -87,14 +87,14 @@ const routes = [
 
     // Post
     {
-        path: '/admin/physiotherapy/post/create',
-        name: 'admin.physiotherapy.post.create',
-        component: require('./components/Physiotherapy/Post/Create.vue').default
+        path: '/admin/dog-hotel/post/create',
+        name: 'admin.dogHotel.post.create',
+        component: require('./components/DogHotel/Post/Create.vue').default
     },
     {
-        path: '/admin/physiotherapy/post/:id',
-        name: 'admin.physiotherapy.post.edit',
-        component: require('./components/Physiotherapy/Post/Edit.vue').default
+        path: '/admin/dog-hotel/post/:id',
+        name: 'admin.dogHotel.post.edit',
+        component: require('./components/DogHotel/Post/Edit.vue').default
     },
 
     {
@@ -120,14 +120,14 @@ const routes = [
     },
 
     {
-        path: '/admin/dog-hotel/post/create',
-        name: 'admin.dogHotel.post.create',
-        component: require('./components/DogHotel/Post/Create.vue').default
+        path: '/admin/physiotherapy/post/create',
+        name: 'admin.physiotherapy.post.create',
+        component: require('./components/Physiotherapy/Post/Create.vue').default
     },
     {
-        path: '/admin/dog-hotel/post/:id',
-        name: 'admin.dogHotel.post.edit',
-        component: require('./components/DogHotel/Post/Edit.vue').default
+        path: '/admin/physiotherapy/post/:id',
+        name: 'admin.physiotherapy.post.edit',
+        component: require('./components/Physiotherapy/Post/Edit.vue').default
     },
 
     // Image

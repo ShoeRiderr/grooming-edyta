@@ -11,11 +11,6 @@ use Illuminate\Contracts\Support\Responsable;
 
 class ContactController extends Controller
 {
-    public function show(): Responsable
-    {
-        return ContactResource::make(Contact::where('type', ContentType::CONSTANT)->get());
-    }
-
     public function edit(): Responsable
     {
         $contact = Contact::firstOrCreate(

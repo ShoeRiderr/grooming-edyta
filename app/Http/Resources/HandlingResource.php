@@ -19,7 +19,8 @@ class HandlingResource extends JsonResource
             'title' => $this->title,
             'content' => $this->content,
 
-            'posts' => PostResource::collection($this->whenLoaded('posts'))
+            'posts' => PostResource::collection($this->whenLoaded('posts')),
+            'images' => ImageResource::collection($this->whenLoaded('images'))
         ];
     }
 }

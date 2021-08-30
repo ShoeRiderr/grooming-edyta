@@ -5,13 +5,8 @@
                 Aktualności
             </div>
             <div class="card-body">
+                <h2>Sekcja dodawania postów:</h2>
                 <div class="d-flex flex-wrap justify-content-center mb-5">
-                    <router-link
-                        class="btn btn-outline-primary ml-2 mb-2 btn-lg"
-                        :to="{ name: 'admin.grooming.post.create' }"
-                    >
-                        Grooming
-                    </router-link>
                     <router-link
                         class="btn btn-outline-primary ml-2 mb-2 btn-lg"
                         :to="{ name: 'admin.dogHotel.post.create' }"
@@ -20,15 +15,21 @@
                     </router-link>
                     <router-link
                         class="btn btn-outline-primary ml-2 mb-2 btn-lg"
-                        :to="{ name: 'admin.physiotherapy.post.create' }"
+                        :to="{ name: 'admin.grooming.post.create' }"
                     >
-                        Fizjoterapia
+                        Grooming
                     </router-link>
                     <router-link
                         class="btn btn-outline-primary ml-2 mb-2 btn-lg"
                         :to="{ name: 'admin.handling.post.create' }"
                     >
                         Handling
+                    </router-link>
+                    <router-link
+                        class="btn btn-outline-primary ml-2 mb-2 btn-lg"
+                        :to="{ name: 'admin.physiotherapy.post.create' }"
+                    >
+                        Fizjoterapia
                     </router-link>
                 </div>
                 <post-list></post-list>

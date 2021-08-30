@@ -23,7 +23,7 @@ class DogHotelController extends Controller
             ]
         );
 
-        $dogHotel->load('posts.image');
+        $dogHotel->load('posts.image', 'images');
 
         return DogHotelResource::make($dogHotel);
     }

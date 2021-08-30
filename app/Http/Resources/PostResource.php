@@ -17,6 +17,8 @@ class PostResource extends JsonResource
         return [
             'id'      => $this->id,
             'title'   => $this->title,
+            'date'    => $this->date->format('d.m.Y'),
+            'time'    => $this->date->format('H:i'),
             'content' => $this->content,
 
             'image' => ImageResource::make($this->whenLoaded('image')),

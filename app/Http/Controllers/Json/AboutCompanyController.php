@@ -11,11 +11,6 @@ use Illuminate\Contracts\Support\Responsable;
 
 class AboutCompanyController extends Controller
 {
-    public function show(): Responsable
-    {
-        return AboutCompanyResource::make(AboutCompany::where('type', ContentType::CONSTANT)->get());
-    }
-
     public function edit(): Responsable
     {
         $aboutCompany = AboutCompany::firstOrCreate(

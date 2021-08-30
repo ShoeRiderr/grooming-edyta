@@ -16,7 +16,7 @@ class HandlingController extends Controller
     {
         $handling = Handling::where('type', ContentType::CONSTANT)->first();
 
-        $handling->load('posts.image');
+        $handling->load('posts.image', 'images');
 
         return HandlingResource::make($handling);
     }

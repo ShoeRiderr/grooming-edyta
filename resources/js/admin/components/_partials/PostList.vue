@@ -22,7 +22,12 @@
                     </td>
                     <td>
                         <div class="d-flex justify-content-end">
-                            <slot></slot>
+                            <router-link
+                                class="btn btn-outline-primary btn-sm ml-auto"
+                                :to="{ name: 'admin.dogHotel.post.edit', params: {id: post.id} }"
+                            >
+                                Edytuj post
+                            </router-link>
                             <button type="button" class="btn btn-sm btn-outline-danger ml-2" @click="onDelete(post.id)">Usuń</button>
                         </div>
                     </td>
@@ -52,7 +57,12 @@
                     </td>
                     <td>
                         <div class="d-flex justify-content-end">
-                            <slot></slot>
+                            <router-link
+                                class="btn btn-outline-primary ml-2 mb-2 btn-lg"
+                                :to="{ name: 'admin.handling.post.edit', params: { id: post.id } }"
+                            >
+                                Edytuj post
+                            </router-link>
                             <button type="button" class="btn btn-sm btn-outline-danger ml-2" @click="onDelete(post.id)">Usuń</button>
                         </div>
                     </td>
@@ -82,7 +92,12 @@
                     </td>
                     <td>
                         <div class="d-flex justify-content-end">
-                            <slot></slot>
+                            <router-link
+                                class="btn btn-outline-primary ml-2 mb-2 btn-lg"
+                                :to="{ name: 'admin.grooming.post.edit', params: { id: post.id } }"
+                            >
+                                Edytuj post
+                            </router-link>
                             <button type="button" class="btn btn-sm btn-outline-danger ml-2" @click="onDelete(post.id)">Usuń</button>
                         </div>
                     </td>
@@ -112,7 +127,12 @@
                     </td>
                     <td>
                         <div class="d-flex justify-content-end">
-                            <slot></slot>
+                            <router-link
+                                class="btn btn-outline-primary ml-2 mb-2 btn-lg"
+                                :to="{ name: 'admin.physiotherapy.post.edit', params: { id: post.id } }"
+                            >
+                                Edytuj post
+                            </router-link>
                             <button type="button" class="btn btn-sm btn-outline-danger ml-2" @click="onDelete(post.id)">Usuń</button>
                         </div>
                     </td>

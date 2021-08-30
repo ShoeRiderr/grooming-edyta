@@ -29,19 +29,6 @@ class PhysiotherapyController extends Controller
     }
 
     /**
-     * @return  \Illuminate\Http\JsonResponse|\Illuminate\Contracts\Support\Responsable
-     */
-    public function index()
-    {
-        if (!$this->physiotherapy) {
-            return new JsonResponse([], 400);
-        }
-
-        return PostResource::collection($this->physiotherapy->posts()->with('image')->get());
-    }
-
- 
-    /**
      * @param   \App\Models\Post    $post
      * @return  \Illuminate\Http\JsonResponse|\Illuminate\Contracts\Support\Responsable
      */
@@ -56,8 +43,6 @@ class PhysiotherapyController extends Controller
         return PostResource::make($post);
     }
 
-
-
     /**
      * @param   \App\Http\Requests\PostRequest  $request
      * @return  \Illuminate\Http\JsonResponse|\Illuminate\Contracts\Support\Responsable
@@ -71,6 +56,7 @@ class PhysiotherapyController extends Controller
         $post = $this->connection->transaction(function () use ($request) {
             $post = $this->physiotherapy->posts()->create([
                 'title'   => $request->input('title'),
+                'end_date' => sprintf('%s %s', $request->input('date'), $request->input('time')),
                 'content' => $request->input('content'),
             ]);
 

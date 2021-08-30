@@ -1,6 +1,6 @@
-<div class="row">
+<div class="row"> 
     @foreach ($posts as $key => $post)
-        @if ($post->image !== null && count($post->image))
+        @if ($post->image !== null && $post->image)
             <div class="content_img">
                 <a href="{{ route('post', $post) }}"><img src="{{ asset('storage/'.$post->image->file_pathname) }}" width='100%' height='100%'></a>
                 <div>{{ $post->title }}</div>

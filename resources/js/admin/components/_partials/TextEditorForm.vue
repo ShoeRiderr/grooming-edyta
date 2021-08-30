@@ -2,8 +2,8 @@
     <div class="" id="editorContainer">
         <form @submit.prevent="onSubmit">
             <div class="form-group">
-                <label for="service_name">Tytuł</label>
-                <input type="text" class="form-control" v-model="values.title">
+                <label for="title">Tytuł</label>
+                <input type="text" id="title" class="form-control input-lg" v-model="values.title">
                 <hr>
             </div>
             <vue-editor :editor-toolbar="editorToolbar" v-model="values.content"></vue-editor>

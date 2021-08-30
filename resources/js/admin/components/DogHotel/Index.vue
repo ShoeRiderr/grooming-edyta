@@ -69,7 +69,7 @@ export default {
     },
 
     computed: {
-        hasPosts() {
+        hasImages() {
             return this.images.length > 0;
         }
     },
@@ -80,7 +80,7 @@ export default {
         },
 
         fetchDogHotelImages() {
-            axios.get('/json/dog-hotel')
+            axios.get('/json/admin/dog-hotel')
             .then((response) => {
                 this.images = _.get(response.data, 'data.images', {});
             })

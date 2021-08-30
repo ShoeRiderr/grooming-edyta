@@ -27,6 +27,23 @@
             <input type="text" id="service_name" class="form-control" v-model="post.title">
         </div>
         <hr>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="date">Data zakończenia wydarzenia</label>
+                    <input type="date" id="date" class="form-control input-lg" v-model="post.date">
+                    <hr>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="time">Godzina</label>
+                    <input type="text" id="time" class="form-control input-lg" v-model="post.time">
+                    <hr>
+                </div>
+            </div>
+        </div>
+        <hr>
         <div class="border-bottom mb-4">
             <div class="form-group">
                 <input type="file" :accept="validExtensions" @change="onFilesChange"/>
@@ -124,7 +141,7 @@ export default {
         },
 
         fetchPost() {
-            axios.get(`/json/dog-hotel/post/${this.$route.params.id}`)
+            axios.get(`/json/admin/dog-hotel/post/${this.$route.params.id}`)
             .then((response) => {
                 this.image = _.get(response.data, 'data.image', {})
                 this.post = {

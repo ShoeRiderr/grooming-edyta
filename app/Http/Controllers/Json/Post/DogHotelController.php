@@ -29,19 +29,6 @@ class DogHotelController extends Controller
     }
 
     /**
-     * @return  \Illuminate\Http\JsonResponse|\Illuminate\Contracts\Support\Responsable
-     */
-    public function index()
-    {
-        if (!$this->dogHotel) {
-            return new JsonResponse([], 400);
-        }
-
-        return PostResource::collection($this->dogHotel->posts()->with('image')->get());
-    }
-
- 
-    /**
      * @param   \App\Models\Post    $post
      * @return  \Illuminate\Http\JsonResponse|\Illuminate\Contracts\Support\Responsable
      */
@@ -56,8 +43,6 @@ class DogHotelController extends Controller
         return PostResource::make($post);
     }
 
-
-
     /**
      * @param   \App\Http\Requests\PostRequest  $request
      * @return  \Illuminate\Http\JsonResponse|\Illuminate\Contracts\Support\Responsable
@@ -70,8 +55,9 @@ class DogHotelController extends Controller
 
         $post = $this->connection->transaction(function () use ($request) {
             $post = $this->dogHotel->posts()->create([
-                'title'   => $request->input('title'),
-                'content' => $request->input('content'),
+                'title'    => $request->input('title'),
+                'end_date' => sprintf('%s %s', $request->input('date'), $request->input('time')),
+                'content'  => $request->input('content'),
             ]);
 
             foreach ($request->input('image') as $index => $attributes) {

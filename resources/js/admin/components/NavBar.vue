@@ -3,27 +3,16 @@
         <notifications position="top center" width="50%"/>
         <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark mb-4">
             <router-link class="navbar-brand" :to="{ name: 'admin.index' }">
-                CMS Admin Panel
+                Panel Admina
             </router-link>
-
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse" id="navbarNav" v-if="isLoggedIn">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="/" class="nav-link">Strona główna</a>
+                    </li>
+                </ul>
                 <ul class="navbar-nav ml-auto">
-                    <!-- <li class="nav-item">
-                        <router-link class="nav-link" :to="{ name: 'admin.contact' }">
-                            Kontakt
-                        </router-link>
-                    </li>
                     <li class="nav-item">
-                        <router-link class="nav-link" :to="{ name: 'admin.about-company' }">
-                            O firmie
-                        </router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link class="nav-link" :to="{ name: 'admin.service.index' }">
-                            Usługi
-                        </router-link>
-                    </li> -->
-                    <li class="nav-item" v-if="isLoggedIn">
                         <a class="nav-link" href="" @click.prevent="logOut">Wyloguj</a>
                     </li>
                 </ul>

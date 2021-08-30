@@ -1,12 +1,12 @@
-<template>
+4<template>
     <div class="container">
         <div class="card">
             <div class="card-header">
                 <div class="d-flex">
-                    <h2>Lista wpisów w sekcji hotel dla psów</h2>
+                    <h2>Lista wpisów w sekcji fizjoterapia</h2>
                     <router-link
                         class="btn btn-outline-primary btn-sm ml-auto"
-                        :to="{ name: 'admin.grooming.image.create' }"
+                        :to="{ name: 'admin.physiotherapy.image.create' }"
                     >
                         Dodaj zdjęcia
                     </router-link>
@@ -69,7 +69,7 @@ export default {
     },
 
     computed: {
-        hasPosts() {
+        hasImages() {
             return this.images.length > 0;
         }
     },
@@ -80,7 +80,7 @@ export default {
         },
 
         fetchPhysiotherapyImages() {
-            axios.get('/json/physiotherapy')
+            axios.get('/json/admin/physiotherapy')
             .then((response) => {
                 this.images = _.get(response.data, 'data.images', {});
             })

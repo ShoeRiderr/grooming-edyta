@@ -16,7 +16,7 @@ class PhysiotherapyController extends Controller
     {
         $physiotherapy = Physiotherapy::where('type', ContentType::CONSTANT)->first();
 
-        $physiotherapy->load('posts.image');
+        $physiotherapy->load('posts.image', 'images');
 
         return PhysiotherapyResource::make($physiotherapy);
     }

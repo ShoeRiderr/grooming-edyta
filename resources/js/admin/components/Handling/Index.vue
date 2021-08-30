@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="d-flex">
-                    <h2>Lista wpisów w sekcji hotel dla psów</h2>
+                    <h2>Lista wpisów w sekcji handling</h2>
                     <router-link
                         class="btn btn-outline-primary btn-sm ml-auto"
                         :to="{ name: 'admin.handling.image.create' }"
@@ -69,7 +69,7 @@ export default {
     },
 
     computed: {
-        hasPosts() {
+        hasImages() {
             return this.images.length > 0;
         }
     },
@@ -80,7 +80,7 @@ export default {
         },
 
         fetchHandlingImages() {
-            axios.get('/json/handling')
+            axios.get('/json/admin/handling')
             .then((response) => {
                 this.images = _.get(response.data, 'data.images', {});
             })

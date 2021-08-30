@@ -80,7 +80,7 @@ export default {
         },
 
         fetchGroomingImages() {
-            axios.get('/json/grooming')
+            axios.get('/json/admin/grooming')
             .then((response) => {
                 this.images = _.get(response.data, 'data.images', {});
             })

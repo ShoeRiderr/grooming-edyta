@@ -29,19 +29,6 @@ class GroomingController extends Controller
     }
 
     /**
-     * @return  \Illuminate\Http\JsonResponse|\Illuminate\Contracts\Support\Responsable
-     */
-    public function index()
-    {
-        if (!$this->grooming) {
-            return new JsonResponse([], 400);
-        }
-
-        return PostResource::collection($this->grooming->posts()->with('image')->get());
-    }
-
- 
-    /**
      * @param   \App\Models\Post    $post
      * @return  \Illuminate\Http\JsonResponse|\Illuminate\Contracts\Support\Responsable
      */
@@ -55,8 +42,6 @@ class GroomingController extends Controller
 
         return PostResource::make($post);
     }
-
-
 
     /**
      * @param   \App\Http\Requests\PostRequest  $request

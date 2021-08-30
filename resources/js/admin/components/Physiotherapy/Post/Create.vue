@@ -47,6 +47,8 @@ export default {
                 data.append(`image[${index}][description]`, _.get(image, 'description') || '');
             });
             data.append('title', _.get(images, 'title') || '');
+            data.append('date', _.get(images, 'date') || '');
+            data.append('time', _.get(images, 'time') || '');
             data.append('content', _.get(images, 'content') || '');
 
             axios.post(`/json/admin/physiotherapy/post`, data, {

@@ -25,6 +25,8 @@ class PostRequest extends FormRequest
     {
         return [
             'title'   => ['required'],
+            'date'    => ['required', 'date_format:Y-m-d'],
+            'time'    => ['required', 'date_format:H:i'],
             'content' => ['required'],
 
             'image.*.file'        => ['required', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],
