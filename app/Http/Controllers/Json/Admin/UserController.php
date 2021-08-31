@@ -16,8 +16,13 @@ class UserController extends Controller
         $user->update([
             'name'     => $request->input('name'),
             'email'    => $request->input('email'),
-            'password' => Hash::make($request->input('password')),
         ]);
+
+        if ($request->filled('password')) {
+            $user->update([
+                'password' => Hash::make($request->input('password')),
+            ]);
+        }
 
         return UserResource::make($user);
     }

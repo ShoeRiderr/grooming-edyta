@@ -107,8 +107,8 @@ export default {
         return {
             canEditUser: false,
             loading: false,
-            password: '',
-            password_confirmation: '',
+            password: null,
+            password_confirmation: null,
         }
     },
 
