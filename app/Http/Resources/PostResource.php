@@ -15,11 +15,10 @@ class PostResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'      => $this->id,
-            'title'   => $this->title,
-            'date'    => $this->date ? $this->date->format('d.m.Y') : '',
-            'time'    => $this->date ? $this->date->format('H:i') : '',
-            'content' => $this->content,
+            'id'       => $this->id,
+            'title'    => $this->title,
+            'end_date' => $this->end_date,
+            'content'  => $this->content,
 
             'image' => ImageResource::make($this->whenLoaded('image')),
         ];

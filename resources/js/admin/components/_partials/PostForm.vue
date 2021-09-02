@@ -121,6 +121,7 @@ export default {
         isEditView() {
             if (this.$route.name === 'admin.physiotherapy.post.edit' ||
                 this.$route.name === 'admin.grooming.post.edit' ||
+                this.$route.name === 'admin.handling.post.edit' ||
                 this.$route.name === 'admin.dogHotel.post.edit') {
                 return true;
             }
@@ -130,7 +131,10 @@ export default {
     },
 
     mounted() {
-        if (this.$route.name === 'admin.dogHotel.post.edit') {
+        if (this.$route.name === 'admin.physiotherapy.post.edit' ||
+                this.$route.name === 'admin.grooming.post.edit' ||
+                this.$route.name === 'admin.handling.post.edit' ||
+                this.$route.name === 'admin.dogHotel.post.edit') {
             this.fetchPost();
         }
     },
@@ -143,11 +147,17 @@ export default {
         fetchPost() {
             axios.get(`/json/admin/dog-hotel/post/${this.$route.params.id}`)
             .then((response) => {
-                this.image = _.get(response.data, 'data.image', {})
+                const post = _.get(response.data, 'data', {});
+                const date = dayjs(_.get(post, 'end_date', {})).format('YYYY-MM-DD');
+                const time = dayjs(_.get(post, 'end_date', {})).format('HH:mm');
+
+                this.image = _.get(post, 'image', {})
                 this.post = {
-                    id: _.get(response.data, 'data.id', {}),
-                    content: _.get(response.data, 'data.content', {}),
-                    title: _.get(response.data, 'data.title', {}),
+                    id: _.get(post, 'id', {}),
+                    content: _.get(post, 'content', {}),
+                    date: date,
+                    time: time,
+                    title: _.get(post, 'title', {}),
                 }
             }).catch((error) => {
                 //

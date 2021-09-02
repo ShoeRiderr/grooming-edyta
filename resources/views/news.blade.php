@@ -2,52 +2,48 @@
 
 @section('content')
     <div class="container">
-        <h2>Hotel dla psów:</h2>
-        @if (!$dogHotel->isEmpty())
+        <div class="mb-3 mt-3">
+            @if (!$dogHotel->isEmpty())
+                <h2>Hotel dla psów:</h2>
+                <hr>
+                @include('_partials/post-slider', [
+                    'posts' => $dogHotel
+                    ])
             <hr>
-            @include('_partials/post-slider', [
-                'posts' => $dogHotel
-                ])
-        @else
-            <div class="alert alert-primary" role="alert">
-                Brak nowych wydarzeń dla hotelu dla psów.
-            </div>
-        @endif
+            @endif
+        </div>
 
-        <h2>Grooming:</h2>
-        @if (!$grooming->isEmpty())
+        <div class="mb-3">
+            @if (!$grooming->isEmpty())
+                <h2>Grooming:</h2>
+                <hr>
+                @include('_partials/post-slider', [
+                    'posts' => $grooming
+                    ])
             <hr>
-            @include('_partials/post-slider', [
-                'posts' => $grooming
-                ])
-        @else
-            <div class="alert alert-primary" role="alert">
-                Brak nowych wydarzeń dla groomingu.
-            </div>
-        @endif
+            @endif
+        </div>
 
-        <h2>Fizjoterapia zwierząt:</h2>
-        @if (!$physiotherapy->isEmpty())
+        <div class="mb-3">
+            @if (!$physiotherapy->isEmpty())
+                <h2>Fizjoterapia zwierząt:</h2>
+                <hr>
+                @include('_partials/post-slider', [
+                    'posts' => $physiotherapy
+                    ])
             <hr>
-            @include('_partials/post-slider', [
-                'posts' => $physiotherapy
-                ])
-        @else
-            <div class="alert alert-primary" role="alert">
-                Brak nowych wydarzeń dla fizjoterapii zwierząt.
-            </div>
-        @endif
+            @endif
+        </div>
 
-        <h2>Zajęcia handlingu::</h2>
-        @if (!$handling->isEmpty())
+        <div class="mb-3">
+            @if (!$handling->isEmpty())
+                <h2>Zajęcia handlingu:</h2>
+                <hr>
+                @include('_partials/post-slider', [
+                    'posts' => $handling
+                    ])
             <hr>
-            @include('_partials/post-slider', [
-                'posts' => $handling
-                ])
-        @else
-            <div class="alert alert-primary" role="alert">
-                Brak nowych wydarzeń dla zajęć handlingu.
-            </div>
-        @endif
+            @endif
+        </div>
     </div>
 @endsection

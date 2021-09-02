@@ -56,6 +56,7 @@ class GroomingController extends Controller
         $post = $this->connection->transaction(function () use ($request) {
             $post = $this->grooming->posts()->create([
                 'title'   => $request->input('title'),
+                'end_date' => sprintf('%s %s', $request->input('date'), $request->input('time')),
                 'content' => $request->input('content'),
             ]);
 

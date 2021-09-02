@@ -11,6 +11,7 @@
                 <tr>
                     <th>Tytuł</th>
                     <th>Zdjecie</th>
+                    <th>Data zakończenia</th>
                     <th></th>
                 </tr>
             </thead>
@@ -20,10 +21,11 @@
                     <td>
                         <a href="#" @click="imageUrl(post.image.id)" class="mr-2">Podgląd</a>
                     </td>
+                    <td>{{ post.end_date }}</td>
                     <td>
                         <div class="d-flex justify-content-end">
                             <router-link
-                                class="btn btn-outline-primary btn-sm ml-auto"
+                                class="btn btn-outline-primary btn-sm"
                                 :to="{ name: 'admin.dogHotel.post.edit', params: {id: post.id} }"
                             >
                                 Edytuj post
@@ -46,6 +48,7 @@
                 <tr>
                     <th>Tytuł</th>
                     <th>Zdjecie</th>
+                    <th>Data zakończenia</th>
                     <th></th>
                 </tr>
             </thead>
@@ -55,10 +58,11 @@
                     <td>
                         <a href="#" @click="imageUrl(post.image.id)" class="mr-2">Podgląd</a>
                     </td>
+                    <td>{{ post.end_date }}</td>
                     <td>
                         <div class="d-flex justify-content-end">
                             <router-link
-                                class="btn btn-outline-primary ml-2 mb-2 btn-lg"
+                                class="btn btn-outline-primary btn-sm"
                                 :to="{ name: 'admin.handling.post.edit', params: { id: post.id } }"
                             >
                                 Edytuj post
@@ -81,6 +85,7 @@
                 <tr>
                     <th>Tytuł</th>
                     <th>Zdjecie</th>
+                    <th>Data zakończenia</th>
                     <th></th>
                 </tr>
             </thead>
@@ -90,10 +95,11 @@
                     <td>
                         <a href="#" @click="imageUrl(post.image.id)" class="mr-2">Podgląd</a>
                     </td>
+                    <td>{{ post.end_date }}</td>
                     <td>
                         <div class="d-flex justify-content-end">
                             <router-link
-                                class="btn btn-outline-primary ml-2 mb-2 btn-lg"
+                                class="btn btn-outline-primary btn-sm"
                                 :to="{ name: 'admin.grooming.post.edit', params: { id: post.id } }"
                             >
                                 Edytuj post
@@ -116,6 +122,7 @@
                 <tr>
                     <th>Tytuł</th>
                     <th>Zdjecie</th>
+                    <th>Data zakończenia</th>
                     <th></th>
                 </tr>
             </thead>
@@ -125,10 +132,11 @@
                     <td>
                         <a href="#" @click="imageUrl(post.image.id)" class="mr-2">Podgląd</a>
                     </td>
+                    <td>{{ post.end_date }}</td>
                     <td>
                         <div class="d-flex justify-content-end">
                             <router-link
-                                class="btn btn-outline-primary ml-2 mb-2 btn-lg"
+                                class="btn btn-outline-primary btn-sm"
                                 :to="{ name: 'admin.physiotherapy.post.edit', params: { id: post.id } }"
                             >
                                 Edytuj post

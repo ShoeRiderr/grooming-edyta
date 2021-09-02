@@ -39,7 +39,7 @@ class HandlingController extends Controller
         }
 
         $post->load('image');
-
+        dd($post);
         return PostResource::make($post);
     }
 
@@ -49,7 +49,6 @@ class HandlingController extends Controller
      */
     public function store(PostRequest $request)
     {
-        dd($request->all());
         if (!$this->handling) {
             return new JsonResponse([], 400);
         }
@@ -57,6 +56,7 @@ class HandlingController extends Controller
         $post = $this->connection->transaction(function () use ($request) {
             $post = $this->handling->posts()->create([
                 'title'   => $request->input('title'),
+                'end_date' => sprintf('%s %s', $request->input('date'), $request->input('time')),
                 'content' => $request->input('content'),
             ]);
 

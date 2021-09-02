@@ -17,7 +17,7 @@ class CreatePostsTable extends Migration
             $table->id();
             $table->string('title');
             $table->text('content');
-            $table->date('end_date');
+            $table->timestamp('end_date');
             $table->morphs('postable');
             $table->softDeletes();
             $table->timestamps();

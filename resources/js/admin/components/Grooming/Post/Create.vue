@@ -48,6 +48,8 @@ export default {
             });
             data.append('title', _.get(images, 'title') || '');
             data.append('content', _.get(images, 'content') || '');
+            data.append('date', _.get(images, 'date') || '');
+            data.append('time', _.get(images, 'time') || '');
 
             axios.post(`/json/admin/grooming/post`, data, {
                 headers: { 'Content-Type': 'multipart/form-data' },
