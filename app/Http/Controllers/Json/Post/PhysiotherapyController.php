@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Json\Post;
 
 use App\Enums\ContentType;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PostRequest;
+use App\Http\Requests\Post\StoreRequest;
+use App\Http\Requests\Post\UpdateRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Physiotherapy;
 use App\Models\Post;
@@ -12,9 +13,8 @@ use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Database\ConnectionInterface as Connection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Http\Response;
+use Illuminate\Support\Str;
 
 class PhysiotherapyController extends Controller
 {
@@ -24,7 +24,7 @@ class PhysiotherapyController extends Controller
 
     public function __construct(Connection $connection)
     {
-        $this->connection = $connection;
+        $this->connection    = $connection;
         $this->physiotherapy = Physiotherapy::where('type', ContentType::CONSTANT)->first();
     }
 
@@ -44,10 +44,10 @@ class PhysiotherapyController extends Controller
     }
 
     /**
-     * @param   \App\Http\Requests\PostRequest  $request
+     * @param   \App\Http\Requests\Post\StoreRequest  $request
      * @return  \Illuminate\Http\JsonResponse|\Illuminate\Contracts\Support\Responsable
      */
-    public function store(PostRequest $request)
+    public function store(StoreRequest $request)
     {
         if (!$this->physiotherapy) {
             return new JsonResponse([], 400);
@@ -55,19 +55,19 @@ class PhysiotherapyController extends Controller
 
         $post = $this->connection->transaction(function () use ($request) {
             $post = $this->physiotherapy->posts()->create([
-                'title'   => $request->input('title'),
+                'title'    => $request->input('title'),
                 'end_date' => sprintf('%s %s', $request->input('date'), $request->input('time')),
-                'content' => $request->input('content'),
+                'content'  => $request->input('content'),
             ]);
 
             foreach ($request->input('image') as $index => $attributes) {
                 /** @var \Illuminate\Http\UploadedFile */
                 $file = $request->file("image.{$index}.file");
-                $pathname = $file->store("public");
+                $pathname = $file->store('public');
 
                 $image = $post->image()->make([
                     'file_pathname' => Str::replace('public/', '', $pathname),
-                    'title' => Arr::get($attributes, 'title'),
+                    'title'         => Arr::get($attributes, 'title'),
                     'name'          => Arr::get($attributes, 'name'),
                     'description'   => Arr::get($attributes, 'description'),
                 ]);
@@ -82,37 +82,38 @@ class PhysiotherapyController extends Controller
     }
 
     /**
-     * @param   \App\Http\Requests\PostRequest  $request
+     * @param   \App\Http\Requests\Post\UpdateRequest  $request
      * @param   \App\Models\Post    $post
      * @return  \Illuminate\Http\JsonResponse|\Illuminate\Contracts\Support\Responsable
      */
-    public function update(PostRequest $request, Post $post): Responsable
+    public function update(UpdateRequest $request, Post $post): Responsable
     {
-        /**
-         * @todo delete file from storage
-         */
         if (!$this->physiotherapy) {
             return new JsonResponse([], 400);
         }
 
         $this->connection->transaction(function () use ($request, $post) {
             $post->update([
-                'title'   => $request->input('title'),
+                'title'    => $request->input('title'),
                 'end_date' => sprintf('%s %s', $request->input('date'), $request->input('time')),
-                'content' => $request->input('content'),
+                'content'  => $request->input('content'),
             ]);
 
-            foreach ($request->input('image') as $index => $attributes) {
-                /** @var \Illuminate\Http\UploadedFile */
-                $file = $request->file("image.{$index}.file");
-                $pathname = $file->store("public");
+            if ($request->input('image') !== null) {
+                Storage::delete($post->image->file_pathname);
 
-                $image = $post->image()->update([
-                    'file_pathname' => Str::replace('public/', '', $pathname),
-                    'title' => Arr::get($attributes, 'title'),
-                    'name'          => Arr::get($attributes, 'name'),
-                    'description'   => Arr::get($attributes, 'description'),
-                ]);
+                foreach ($request->input('image') as $index => $attributes) {
+                    /** @var \Illuminate\Http\UploadedFile */
+                    $file = $request->file("image.{$index}.file");
+                    $pathname = $file->store('public');
+
+                    $image = $post->image()->update([
+                        'file_pathname' => Str::replace('public/', '', $pathname),
+                        'title'         => Arr::get($attributes, 'title'),
+                        'name'          => Arr::get($attributes, 'name'),
+                        'description'   => Arr::get($attributes, 'description'),
+                    ]);
+                }
             }
 
             return $post;
