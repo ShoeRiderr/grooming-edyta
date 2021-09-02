@@ -1,5 +1,5 @@
-<div class="mt-4">
-    <h3>{{ $content->title }}</h3>
+<div class="mt-3">
+    <h2>{{ $content->title }}</h2>
 </div>
 <hr>
 <div class="ql-editor mb-5">
