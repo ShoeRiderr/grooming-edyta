@@ -39,7 +39,7 @@ class HandlingController extends Controller
         }
 
         $post->load('image');
-        dd($post);
+
         return PostResource::make($post);
     }
 
@@ -98,6 +98,7 @@ class HandlingController extends Controller
         $this->connection->transaction(function () use ($request, $post) {
             $post->update([
                 'title'   => $request->input('title'),
+                'end_date' => sprintf('%s %s', $request->input('date'), $request->input('time')),
                 'content' => $request->input('content'),
             ]);
 
