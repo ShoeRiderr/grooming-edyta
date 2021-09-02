@@ -188,7 +188,7 @@ export default {
         },
 
         fetchDogHotelPosts() {
-            axios.get('/json/admin/dog-hotel/edit')
+            axios.get('/json/admin/dog-hotel')
             .then((response) => {
                 this.dogHotelPosts = _.get(response.data, 'data.posts', {});
             })
@@ -202,7 +202,7 @@ export default {
         },
 
         fetchHandlinglPosts() {
-            axios.get('/json/admin/handling/edit')
+            axios.get('/json/admin/handling')
             .then((response) => {
                 this.handlingPosts = _.get(response.data, 'data.posts', {});
             })
@@ -216,7 +216,7 @@ export default {
         },
 
         fetchGroomingPosts() {
-            axios.get('/json/admin/grooming/edit')
+            axios.get('/json/admin/grooming')
             .then((response) => {
                 this.groomingPosts = _.get(response.data, 'data.posts', {});
             })
@@ -230,7 +230,7 @@ export default {
         },
 
         fetchPhysiotherapyPosts() {
-            axios.get('/json/admin/physiotherapy/edit')
+            axios.get('/json/admin/physiotherapy')
             .then((response) => {
                 this.physiotherapyPosts = _.get(response.data, 'data.posts', {});
             })

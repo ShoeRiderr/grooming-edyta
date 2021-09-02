@@ -10,7 +10,7 @@ export default {
 
     methods: {
         fetchAboutCompany() {
-            axios.get('/json/admin/about-company/edit')
+            axios.get('/json/admin/about-company')
             .then((response) => {
                 this.values = _.get(response.data, 'data', {})
             })
@@ -24,7 +24,7 @@ export default {
         },
 
         fetchContact() {
-            axios.get('/json/admin/contact/edit')
+            axios.get('/json/admin/contact')
             .then((response) => {
                 this.values = _.get(response.data, 'data', {})
             })
@@ -38,7 +38,7 @@ export default {
         },
 
         fetchDogHotel() {
-            axios.get(`/json/admin/dog-hotel/edit`)
+            axios.get(`/json/admin/dog-hotel`)
             .then((response) => {
                 this.values = _.get(response.data, 'data', {})
             })
@@ -52,7 +52,7 @@ export default {
         },
 
         fetchGrooming() {
-            axios.get(`/json/admin/grooming/edit`)
+            axios.get(`/json/admin/grooming`)
             .then((response) => {
                 this.values = _.get(response.data, 'data', {})
             })
@@ -66,7 +66,7 @@ export default {
         },
 
         fetchPhysiotherapy() {
-            axios.get(`/json/admin/physiotherapy/edit`)
+            axios.get(`/json/admin/physiotherapy`)
             .then((response) => {
                 this.values = _.get(response.data, 'data', {})
             })
@@ -80,7 +80,7 @@ export default {
         },
 
         fetchHandling() {
-            axios.get(`/json/admin/handling/edit`)
+            axios.get(`/json/admin/handling`)
             .then((response) => {
                 this.values = _.get(response.data, 'data', {})
             })

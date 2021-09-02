@@ -45,26 +45,22 @@ Route::group(['prefix' => 'admin'], function () {
     ]);
 
     // Sections
-    Route::get('about-company/edit', '\App\Http\Controllers\Json\AboutCompanyController@edit');
+    Route::get('about-company', '\App\Http\Controllers\Json\AboutCompanyController@show');
     Route::put('about-company/{about_company}', '\App\Http\Controllers\Json\AboutCompanyController@update');
 
-    Route::get('contact/edit', '\App\Http\Controllers\Json\ContactController@edit');
+    Route::get('contact', '\App\Http\Controllers\Json\ContactController@show');
     Route::put('contact/{contact}', '\App\Http\Controllers\Json\ContactController@update');
 
     Route::get('dog-hotel', '\App\Http\Controllers\Json\DogHotelController@show');
-    Route::get('dog-hotel/edit', '\App\Http\Controllers\Json\DogHotelController@edit');
     Route::put('dog-hotel/update', '\App\Http\Controllers\Json\DogHotelController@update');
 
     Route::get('grooming', '\App\Http\Controllers\Json\GroomingController@show');
-    Route::get('grooming/edit', '\App\Http\Controllers\Json\GroomingController@edit');
     Route::put('grooming/update', '\App\Http\Controllers\Json\GroomingController@update');
 
     Route::get('handling', '\App\Http\Controllers\Json\HandlingController@show');
-    Route::get('handling/edit', '\App\Http\Controllers\Json\HandlingController@edit');
     Route::put('handling/update', '\App\Http\Controllers\Json\HandlingController@update');
 
     Route::get('physiotherapy', '\App\Http\Controllers\Json\PhysiotherapyController@show');
-    Route::get('physiotherapy/edit', '\App\Http\Controllers\Json\PhysiotherapyController@edit');
     Route::put('physiotherapy/update', '\App\Http\Controllers\Json\PhysiotherapyController@update');
 
     // Images

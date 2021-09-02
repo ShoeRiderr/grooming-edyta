@@ -14,15 +14,6 @@ class GroomingController extends Controller
 {
     public function show(): Responsable
     {
-        $grooming = Grooming::where('type', ContentType::CONSTANT)->first();
-
-        $grooming->load('posts.image', 'images');
-
-        return GroomingResource::make($grooming);
-    }
-
-    public function edit(): Responsable
-    {
         $grooming = Grooming::firstOrCreate(
             ['type' => ContentType::CONSTANT],
             [

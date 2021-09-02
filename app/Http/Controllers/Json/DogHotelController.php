@@ -28,22 +28,6 @@ class DogHotelController extends Controller
         return DogHotelResource::make($dogHotel);
     }
 
-    public function edit(): Responsable
-    {
-        $dogHotel = DogHotel::firstOrCreate(
-            ['type' => ContentType::CONSTANT],
-            [
-                'title'   => '',
-                'content' => '',
-                'type'    => ContentType::CONSTANT,
-            ]
-        );
-
-        $dogHotel->load('posts.image');
-
-        return DogHotelResource::make($dogHotel);
-    }
-
     public function update(DogHotelRequest $request): Responsable
     {
         $dogHotel = DogHotel::updateOrCreate(

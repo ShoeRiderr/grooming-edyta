@@ -11,7 +11,7 @@ use Illuminate\Contracts\Support\Responsable;
 
 class AboutCompanyController extends Controller
 {
-    public function edit(): Responsable
+    public function show(): Responsable
     {
         $aboutCompany = AboutCompany::firstOrCreate(
             ['type' => ContentType::CONSTANT],

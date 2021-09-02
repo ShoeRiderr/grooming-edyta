@@ -14,15 +14,6 @@ class HandlingController extends Controller
 {
     public function show(): Responsable
     {
-        $handling = Handling::where('type', ContentType::CONSTANT)->first();
-
-        $handling->load('posts.image', 'images');
-
-        return HandlingResource::make($handling);
-    }
-
-    public function edit(): Responsable
-    {
         $handling = Handling::firstOrCreate(
             ['type' => ContentType::CONSTANT],
             [
@@ -32,7 +23,7 @@ class HandlingController extends Controller
             ]
         );
 
-        $handling->load('posts.image');
+        $handling->load('posts.image', 'images');
 
         return HandlingResource::make($handling);
     }
