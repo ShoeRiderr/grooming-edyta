@@ -10,6 +10,7 @@ use App\Models\Grooming;
 use App\Models\Handling;
 use App\Models\Physiotherapy;
 use App\Models\Post;
+use Carbon\Carbon;
 
 class PageController extends Controller
 {
@@ -104,10 +105,10 @@ class PageController extends Controller
     public function news()
     {
         return view('news', [
-            'dogHotel'      => $this->dogHotelModel()->posts,
-            'grooming'      => $this->groomingModel()->posts,
-            'handling'      => $this->handlingModel()->posts,
-            'physiotherapy' => $this->physiotherapyModel()->posts,
+            'dogHotel'      => $this->dogHotelModel()->posts()->where('end_date', '>', Carbon::now())->get(),
+            'grooming'      => $this->groomingModel()->posts()->where('end_date', '>', Carbon::now())->get(),
+            'handling'      => $this->handlingModel()->posts()->where('end_date', '>', Carbon::now())->get(),
+            'physiotherapy' => $this->physiotherapyModel()->posts()->where('end_date', '>', Carbon::now())->get(),
         ]);
     }
 
