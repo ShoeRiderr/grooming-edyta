@@ -6,8 +6,6 @@
             'content' => $handling
             ])
         <hr>
-        @include('_partials/image-slider', [
-            'images' => $images
-            ])
+        <image-gallery :images="{{ json_encode($images) }}"></image-gallery>
     </div>
 @endsection

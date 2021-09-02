@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AboutCompany;
-use App\Models\Grooming;
-use App\Models\Contact;
-use App\Models\Handling;
-use App\Models\Post;
-use App\Models\DogHotel;
-use App\Models\Physiotherapy;
 use App\Enums\ContentType;
+use App\Models\AboutCompany;
+use App\Models\Contact;
+use App\Models\DogHotel;
+use App\Models\Grooming;
+use App\Models\Handling;
+use App\Models\Physiotherapy;
+use App\Models\Post;
 
 class PageController extends Controller
 {
@@ -25,7 +25,7 @@ class PageController extends Controller
         );
 
         return view('Index', [
-            'aboutCompany' => $aboutCompany
+            'aboutCompany' => $aboutCompany,
         ]);
     }
 
@@ -41,57 +41,80 @@ class PageController extends Controller
         );
 
         return view('contact', [
-            'contact' => $contact
+            'contact' => $contact,
         ]);
     }
 
     public function dogHotel()
     {
+        $images = [];
+
+        if ($this->dogHotelModel()->images) {
+            $images = $this->dogHotelModel()->images()->pluck('file_pathname')->toArray();
+        }
+
         return view('dog-hotel', [
             'dogHotel' => $this->dogHotelModel(),
-            'images' => $this->dogHotelModel()->images ? $this->dogHotelModel()->images()->get() : []
+            'images'   => $this->getImages($images),
         ]);
     }
 
     public function grooming()
     {
+        $images = [];
+
+        if ($this->groomingModel()->images) {
+            $images = $this->groomingModel()->images()->pluck('file_pathname')->toArray();
+        }
+
         return view('grooming', [
             'grooming' => $this->groomingModel(),
-            'images' => $this->groomingModel()->images ? $this->groomingModel()->images()->get() : []
+            'images'   => $this->getImages($images),
         ]);
     }
 
     public function handling()
     {
+        $images = [];
+
+        if ($this->handlingModel()->images) {
+            $images = $this->handlingModel()->images()->pluck('file_pathname')->toArray();
+        }
+
         return view('handling', [
             'handling' => $this->handlingModel(),
-            'images' => $this->handlingModel()->images ? $this->handlingModel()->images()->get() : []
+            'images'   => $this->getImages($images),
         ]);
     }
 
     public function physiotherapy()
     {
+        $images = [];
+
+        if ($this->physiotherapyModel()->images) {
+            $images = $this->physiotherapyModel()->images()->pluck('file_pathname')->toArray();
+        }
+
         return view('physiotherapy', [
             'physiotherapy' => $this->physiotherapyModel(),
-            'images' => $this->physiotherapyModel()->images ? $this->physiotherapyModel()->images()->get() : []
+            'images'        => $this->getImages($images),
         ]);
     }
 
     public function news()
     {
-        // dd($this->physiotherapyModel()->posts()->get());
         return view('news', [
-            'dogHotel' => $this->dogHotelModel()->posts ,
-            'grooming' => $this->groomingModel()->posts ,
-            'handling' => $this->handlingModel()->posts ,
-            'physiotherapy' => $this->physiotherapyModel()->posts ,
+            'dogHotel'      => $this->dogHotelModel()->posts,
+            'grooming'      => $this->groomingModel()->posts,
+            'handling'      => $this->handlingModel()->posts,
+            'physiotherapy' => $this->physiotherapyModel()->posts,
         ]);
     }
 
     public function post(Post $post)
     {
         return view('post', [
-            'post' => $post
+            'post' => $post,
         ]);
     }
 
@@ -141,5 +164,16 @@ class PageController extends Controller
                 'type'    => ContentType::CONSTANT,
             ]
         );
+    }
+
+    private function getImages(array $images)
+    {
+        $result = [];
+
+        foreach ($images as $image) {
+            array_push($result, sprintf('%s/storage/%s', url(''), $image));
+        }
+
+        return $result;
     }
 }

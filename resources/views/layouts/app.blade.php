@@ -9,9 +9,27 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
-        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
         <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+
+        <link
+          href="https://cdn.jsdelivr.net/npm/morioh@1.0.9/dist/css/morioh.min.css"
+          rel="stylesheet"
+        />
+        <link
+          href="https://cdn.morioh.net/fa/v5.13.0/css/fontawesome.min.css"
+          rel="stylesheet"
+        />
+        <link
+          href="https://cdn.morioh.net/fa/v5.13.0/css/regular.min.css"
+          rel="stylesheet"
+        />
+        <link
+          href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"
+          rel="stylesheet"
+        />
+
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
         <script src="{{ asset('js/app.js') }}" defer></script>
     </head>
