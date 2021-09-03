@@ -2,6 +2,14 @@
 
 @section('content')
     <div class="container">
+        @if ($dogHotel->isEmpty()
+            && $grooming->isEmpty()
+            && $physiotherapy->isEmpty()
+            && $handling->isEmpty())
+            <div class="alert alert-info mt-3" role="alert">
+                Brak wydarzeń.
+            </div>
+        @endif
         <div class="mb-3 mt-3">
             @if (!$dogHotel->isEmpty())
                 <h2>Hotel dla psów:</h2>
