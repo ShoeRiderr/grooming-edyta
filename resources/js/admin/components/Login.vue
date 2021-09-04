@@ -4,8 +4,8 @@
             <div class="card card-body">
                 <form @submit.prevent="login">
                     <div class="form-group">
-                        <label for="email">Email</label>
-                        <input class="form-control" type="email" v-model="email">
+                        <label for="name">name</label>
+                        <input class="form-control" type="text" v-model="name">
                     </div>
                     <div class="form-group">
                         <label for="password">Hasło</label>
@@ -23,7 +23,7 @@ import { logIn } from './../auth/auth.js'
 export default {
     data() {
         return {
-            email: '',
+            name: '',
             password: '',
             loading: false,
         }
@@ -34,7 +34,7 @@ export default {
             this.loading = true;
             axios.get('/sanctum/csrf-cookie').then(_ => {
                 axios.post('/login', {
-                    email: this.email,
+                    name: this.name,
                     password: this.password
                 })
                 .then(_ => {
