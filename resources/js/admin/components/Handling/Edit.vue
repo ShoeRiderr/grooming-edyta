@@ -31,7 +31,8 @@ export default {
         onSubmit(values) {
             this.loading = true;
 
-            axios.put(`/json/admin/handling/update`, {
+            axios.post(`/json/admin/handling/update`, {
+                _method: 'PUT',
                 title: _.get(values, 'title', ''),
                 content: _.get(values, 'content', '')
             })

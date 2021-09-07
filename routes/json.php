@@ -46,10 +46,10 @@ Route::group(['prefix' => 'admin'], function () {
 
     // Sections
     Route::get('about-company', '\App\Http\Controllers\Json\AboutCompanyController@show');
-    Route::put('about-company/{about_company}', '\App\Http\Controllers\Json\AboutCompanyController@update');
+    Route::post('about-company/update', '\App\Http\Controllers\Json\AboutCompanyController@update');
 
     Route::get('contact', '\App\Http\Controllers\Json\ContactController@show');
-    Route::put('contact/{contact}', '\App\Http\Controllers\Json\ContactController@update');
+    Route::post('contact/update', '\App\Http\Controllers\Json\ContactController@update');
 
     Route::get('dog-hotel', '\App\Http\Controllers\Json\DogHotelController@show');
     Route::put('dog-hotel/update', '\App\Http\Controllers\Json\DogHotelController@update');

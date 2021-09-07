@@ -31,7 +31,8 @@ export default {
         onSubmit(values) {
             this.loading = true;
 
-            axios.put(`/json/admin/physiotherapy/update`, {
+            axios.post(`/json/admin/physiotherapy/update`, {
+                _method: 'PUT',
                 title: _.get(values, 'title', ''),
                 content: _.get(values, 'content', '')
             })

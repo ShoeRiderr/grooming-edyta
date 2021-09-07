@@ -130,7 +130,8 @@ export default {
         updateUser() {
             this.loading = true;
 
-            axios.put(`/json/admin/user/${this.user.id}`, {
+            axios.post(`/json/admin/user/${this.user.id}`, {
+                _method: 'PATCH',
                 name: this.user.name,
                 email: this.user.email,
                 password: this.password,

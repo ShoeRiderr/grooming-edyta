@@ -25,12 +25,15 @@ class AboutCompanyController extends Controller
         return AboutCompanyResource::make($aboutCompany);
     }
 
-    public function update(AboutCompanyRequest $request, AboutCompany $aboutCompany): Responsable
+    public function update(AboutCompanyRequest $request): Responsable
     {
-        $aboutCompany->update([
-            'title'   => $request->input('title'),
-            'content' => $request->input('content'),
-        ]);
+        AboutCompany::updateOrCreate(
+            ['type' => ContentType::CONSTANT],
+            [
+                'title'   => $request->input('title'),
+                'content' => $request->input('content'),
+            ]
+        );
 
         return AboutCompanyResource::make($aboutCompany);
     }

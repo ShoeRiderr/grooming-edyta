@@ -25,12 +25,15 @@ class ContactController extends Controller
         return ContactResource::make($contact);
     }
 
-    public function update(ContactRequest $request, Contact $contact): Responsable
+    public function update(ContactRequest $request): Responsable
     {
-        $contact->update([
-            'title'   => $request->input('title'),
-            'content' => $request->input('content'),
-        ]);
+        Contact::updateOrCreate(
+            ['type' => ContentType::CONSTANT],
+            [
+                'title'   => $request->input('title'),
+                'content' => $request->input('content'),
+            ]
+        );
 
         return ContactResource::make($contact);
     }
