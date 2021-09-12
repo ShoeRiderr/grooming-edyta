@@ -4,7 +4,7 @@
             <div class="card card-body">
                 <form @submit.prevent="login">
                     <div class="form-group">
-                        <label for="name">name</label>
+                        <label for="name">Login</label>
                         <input class="form-control" type="text" v-model="name">
                     </div>
                     <div class="form-group">

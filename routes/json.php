@@ -29,19 +29,19 @@ Route::group(['prefix' => 'admin'], function () {
 
     // Section posts
     Route::resource('physiotherapy/post', \App\Http\Controllers\Json\Post\PhysiotherapyController::class, [
-        'only' => ['show', 'store', 'update']
+        'only' => ['show', 'store', 'update', 'destroy']
     ]);
 
     Route::resource('grooming/post', \App\Http\Controllers\Json\Post\GroomingController::class, [
-        'only' => ['show', 'store', 'update']
+        'only' => ['show', 'store', 'update', 'destroy']
     ]);
 
     Route::resource('handling/post', \App\Http\Controllers\Json\Post\HandlingController::class, [
-        'only' => ['show', 'store', 'update']
+        'only' => ['show', 'store', 'update', 'destroy']
     ]);
 
     Route::resource('dog-hotel/post', \App\Http\Controllers\Json\Post\DogHotelController::class, [
-        'only' => ['show', 'store', 'update']
+        'only' => ['show', 'store', 'update', 'destroy']
     ]);
 
     // Sections

@@ -32,7 +32,6 @@ export default {
             this.loading = true;
 
             axios.post(`/json/admin/contact/update`, {
-                _method: "PUT",
                 title: _.get(values, 'title', ''),
                 content: _.get(values, 'content', '')
             })

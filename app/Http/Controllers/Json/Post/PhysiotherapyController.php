@@ -13,7 +13,7 @@ use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Database\ConnectionInterface as Connection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
 class PhysiotherapyController extends Controller
@@ -25,7 +25,14 @@ class PhysiotherapyController extends Controller
     public function __construct(Connection $connection)
     {
         $this->connection    = $connection;
-        $this->physiotherapy = Physiotherapy::where('type', ContentType::CONSTANT)->first();
+        $this->physiotherapy = Physiotherapy::firstOrCreate(
+            ['type' => ContentType::CONSTANT],
+            [
+                'title'   => '',
+                'content' => '',
+                'type'    => ContentType::CONSTANT,
+            ]
+        );
     }
 
     /**
@@ -63,11 +70,11 @@ class PhysiotherapyController extends Controller
             foreach ($request->input('image') as $index => $attributes) {
                 /** @var \Illuminate\Http\UploadedFile */
                 $file = $request->file("image.{$index}.file");
-                $pathname = $file->store('public');
+                $file->move(public_path().'/storage/', $img = 'img_'.time().'.jpg');
 
                 $image = $post->image()->make([
-                    'file_pathname' => Str::replace('public/', '', $pathname),
-                    'title'         => Arr::get($attributes, 'title'),
+                    'title' => Arr::get($attributes, 'title'),
+                    'file_pathname' => $img,
                     'name'          => Arr::get($attributes, 'name'),
                     'description'   => Arr::get($attributes, 'description'),
                 ]);
@@ -100,16 +107,16 @@ class PhysiotherapyController extends Controller
             ]);
 
             if ($request->input('image') !== null) {
-                Storage::delete($post->image->file_pathname);
+                File::delete(public_path().'/storage/' . $post->image->file_pathname);
 
                 foreach ($request->input('image') as $index => $attributes) {
                     /** @var \Illuminate\Http\UploadedFile */
                     $file = $request->file("image.{$index}.file");
-                    $pathname = $file->store('public');
+                    $file->move(public_path().'/storage/', $img = 'img_'.time().'.jpg');
 
                     $image = $post->image()->update([
-                        'file_pathname' => Str::replace('public/', '', $pathname),
-                        'title'         => Arr::get($attributes, 'title'),
+                        'title' => Arr::get($attributes, 'title'),
+                        'file_pathname' => $img,
                         'name'          => Arr::get($attributes, 'name'),
                         'description'   => Arr::get($attributes, 'description'),
                     ]);
@@ -132,9 +139,13 @@ class PhysiotherapyController extends Controller
             return new JsonResponse([], 400);
         }
 
-        Storage::delete($post->image->file_pathname);
+        File::delete(public_path().'/storage/' . $post->image->file_pathname);
 
-        $this->physiotherapy->posts()->where('id', $post->id)->delete();
+        $relatedPost = $this->physiotherapy->posts->where('id', $post->id)->first();
+
+        $relatedPost->image->delete();
+
+        $relatedPost->delete();
 
         return new JsonResponse('', 200);
     }

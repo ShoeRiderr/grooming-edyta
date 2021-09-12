@@ -19,7 +19,7 @@
                 <tr v-for="post in dogHotelPosts">
                     <td>{{ post.title }}</td>
                     <td>
-                        <a href="#" @click="imageUrl(post.image.id)" class="mr-2">Podgląd</a>
+                        <img :src="imageSrc(post.image.file_pathname)" alt="photo">
                     </td>
                     <td>{{ post.end_date }}</td>
                     <td>
@@ -30,7 +30,7 @@
                             >
                                 Edytuj post
                             </router-link>
-                            <button type="button" class="btn btn-sm btn-outline-danger ml-2" @click="onDelete(post.id)">Usuń</button>
+                            <button type="button" class="btn btn-sm btn-outline-danger ml-2" @click="onDelete(post.id, 1)">Usuń</button>
                         </div>
                     </td>
                 </tr>
@@ -56,7 +56,7 @@
                 <tr v-for="post in handlingPosts">
                     <td>{{ post.title }}</td>
                     <td>
-                        <a href="#" @click="imageUrl(post.image.id)" class="mr-2">Podgląd</a>
+                        <img :src="imageSrc(post.image.file_pathname)" alt="photo">
                     </td>
                     <td>{{ post.end_date }}</td>
                     <td>
@@ -67,7 +67,7 @@
                             >
                                 Edytuj post
                             </router-link>
-                            <button type="button" class="btn btn-sm btn-outline-danger ml-2" @click="onDelete(post.id)">Usuń</button>
+                            <button type="button" class="btn btn-sm btn-outline-danger ml-2" @click="onDelete(post.id, 2)">Usuń</button>
                         </div>
                     </td>
                 </tr>
@@ -93,7 +93,7 @@
                 <tr v-for="post in groomingPosts">
                     <td>{{ post.title }}</td>
                     <td>
-                        <a href="#" @click="imageUrl(post.image.id)" class="mr-2">Podgląd</a>
+                        <img :src="imageSrc(post.image.file_pathname)" alt="photo">
                     </td>
                     <td>{{ post.end_date }}</td>
                     <td>
@@ -104,7 +104,7 @@
                             >
                                 Edytuj post
                             </router-link>
-                            <button type="button" class="btn btn-sm btn-outline-danger ml-2" @click="onDelete(post.id)">Usuń</button>
+                            <button type="button" class="btn btn-sm btn-outline-danger ml-2" @click="onDelete(post.id, 3)">Usuń</button>
                         </div>
                     </td>
                 </tr>
@@ -130,7 +130,7 @@
                 <tr v-for="post in physiotherapyPosts">
                     <td>{{ post.title }}</td>
                     <td>
-                        <a href="#" @click="imageUrl(post.image.id)" class="mr-2">Podgląd</a>
+                        <img :src="imageSrc(post.image.file_pathname)" alt="photo">
                     </td>
                     <td>{{ post.end_date }}</td>
                     <td>
@@ -141,7 +141,7 @@
                             >
                                 Edytuj post
                             </router-link>
-                            <button type="button" class="btn btn-sm btn-outline-danger ml-2" @click="onDelete(post.id)">Usuń</button>
+                            <button type="button" class="btn btn-sm btn-outline-danger ml-2" @click="onDelete(post.id, 4)">Usuń</button>
                         </div>
                     </td>
                 </tr>
@@ -150,7 +150,11 @@
     </div>
 </template>
 <script>
+import imageSrc from '@admin/mixins/imageSrc.js';
+
 export default {
+    mixins: [imageSrc],
+
     data() {
         return {
             dogHotelPosts: {},
@@ -183,10 +187,6 @@ export default {
     },
 
     methods: {
-        imageUrl(imageId) {
-            window.location.href = `/image/${imageId}`
-        },
-
         fetchDogHotelPosts() {
             axios.get('/json/admin/dog-hotel')
             .then((response) => {
@@ -243,29 +243,104 @@ export default {
             })
         },
 
-        onDelete(id) {
+        onDelete(id, sectionType) {
             this.loading = true;
 
             if(confirm(`Czy na pewno chcesz usunąć post?`)) {
-                axios.delete(`/json/admin/dog-hotel/post/${id}`)
-                .then(_ => {
-                    this.$notify({
-                        type: 'success',
-                        title: 'Sukces',
-                        text: `Usunięto post`
-                    })
-                    this.fetchDogHotelPosts();
-                })
-                .catch(_ => {
-                    this.$notify({
-                        type: 'error',
-                        title: 'Error',
-                        text: 'Wystąpił nieoczekiwany błąd.'
-                    });
-                })
-                .then(_ => {
-                    this.loading = false;
-                })
+                switch (sectionType) {
+                    case 1:
+                        axios.post(`/json/admin/dog-hotel/post/${id}`, {
+                            _method: "DELETE"
+                        })
+                        .then(_ => {
+                            this.$notify({
+                                type: 'success',
+                                title: 'Sukces',
+                                text: `Usunięto post`
+                            })
+                            this.fetchDogHotelPosts();
+                        })
+                        .catch(_ => {
+                            this.$notify({
+                                type: 'error',
+                                title: 'Error',
+                                text: 'Wystąpił nieoczekiwany błąd.'
+                            });
+                        })
+                        .then(_ => {
+                            this.loading = false;
+                        });
+                        break;
+                    case 2:
+                        axios.post(`/json/admin/handling/post/${id}`,{
+                            _method: "DELETE"
+                        })
+                        .then(_ => {
+                            this.$notify({
+                                type: 'success',
+                                title: 'Sukces',
+                                text: `Usunięto post`
+                            })
+                            this.fetchHandlinglPosts();
+                        })
+                        .catch(_ => {
+                            this.$notify({
+                                type: 'error',
+                                title: 'Error',
+                                text: 'Wystąpił nieoczekiwany błąd.'
+                            });
+                        })
+                        .then(_ => {
+                            this.loading = false;
+                        });
+                        break;
+                    case 3:
+                        axios.post(`/json/admin/grooming/post/${id}`,{
+                            _method: "DELETE"
+                        })
+                        .then(_ => {
+                            this.$notify({
+                                type: 'success',
+                                title: 'Sukces',
+                                text: `Usunięto post`
+                            })
+                            this.fetchGroomingPosts();
+                        })
+                        .catch(_ => {
+                            this.$notify({
+                                type: 'error',
+                                title: 'Error',
+                                text: 'Wystąpił nieoczekiwany błąd.'
+                            });
+                        })
+                        .then(_ => {
+                            this.loading = false;
+                        });
+                        break;
+                    case 4:
+                        axios.post(`/json/admin/physiotherapy/post/${id}`,{
+                            _method: "DELETE"
+                        })
+                        .then(_ => {
+                            this.$notify({
+                                type: 'success',
+                                title: 'Sukces',
+                                text: `Usunięto post`
+                            })
+                            this.fetchPhysiotherapyPosts();
+                        })
+                        .catch(_ => {
+                            this.$notify({
+                                type: 'error',
+                                title: 'Error',
+                                text: 'Wystąpił nieoczekiwany błąd.'
+                            });
+                        })
+                        .then(_ => {
+                            this.loading = false;
+                        });
+                        break;
+                }
             }
         },
     }

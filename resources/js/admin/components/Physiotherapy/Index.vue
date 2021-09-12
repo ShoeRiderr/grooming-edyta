@@ -17,7 +17,7 @@
                 <div class="form-group d-flex">
                     <router-link
                         class="btn btn-outline-primary btn-lg mx-auto"
-                        :to="{ name: 'admin.grooming.edit' }"
+                        :to="{ name: 'admin.physiotherapy.edit' }"
                     >
                         Edytuj treść sekcji
                     </router-link>
@@ -41,7 +41,7 @@
                             <td>{{ image.title }}</td>
                             <td>{{ image.description }}</td>
                             <td>
-                                <a href="#" @click="imageUrl(image.id)" class="mr-2">Podgląd</a>
+                                <img :src="imageSrc(image.file_pathname)" alt="photo">
                             </td>
                             <td>
                                 <div class="d-flex justify-content-end">
@@ -56,7 +56,11 @@
     </div>
 </template>
 <script>
+import imageSrc from '@admin/mixins/imageSrc.js';
+
 export default {
+    mixins: [imageSrc],
+
     data() {
         return {
             images: {},
@@ -75,10 +79,6 @@ export default {
     },
 
     methods: {
-        imageUrl(imageId) {
-            window.location.href = `/image/${imageId}`
-        },
-
         fetchPhysiotherapyImages() {
             axios.get('/json/admin/physiotherapy')
             .then((response) => {
@@ -97,7 +97,9 @@ export default {
             this.loading = true;
 
             if(confirm(`Czy na pewno chcesz usunąć image?`)) {
-                axios.delete(`/json/admin/physiotherapy/image/${id}`)
+                axios.post(`/json/admin/physiotherapy/image/${id}`, {
+                    _method: "DELETE"
+                })
                 .then(_ => {
                     this.$notify({
                         type: 'success',

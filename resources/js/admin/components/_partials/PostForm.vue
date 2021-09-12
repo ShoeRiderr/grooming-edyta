@@ -1,13 +1,13 @@
 <template>
     <form @submit.prevent="onSubmit">
-        <div v-if="isEditView" class="mb-3">
+        <div v-if="showImages" class="mb-3">
             <h3>Zapisane zdjęcie</h3>
             <table class="table">
                 <thead>
                     <tr>
                         <th>Nazwa pliku</th>
                         <th>Opis</th>
-                        <th></th>
+                        <th>Zdjęcie</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -15,7 +15,7 @@
                         <td>{{ image.name }}</td>
                         <td>{{ image.description }}</td>
                         <td>
-                            <a href="#" @click="imageUrl">Podgląd</a>
+                            <img :src="imageSrc(image.file_pathname)" alt="photo">
                         </td>
                     </tr>
                 </tbody>
@@ -65,6 +65,7 @@
 </template>
 <script>
 import ImageDetails from '@admin/components/_partials/ImageDetails.vue';
+import imageSrc from '@admin/mixins/imageSrc.js';
 
 const validExtensions = [
     'jpg',
@@ -73,6 +74,8 @@ const validExtensions = [
 ];
 
 export default {
+    mixins: [imageSrc],
+
     components: {
         ImageDetails,
     },
@@ -127,6 +130,10 @@ export default {
             }
 
             return false;
+        },
+
+        showImages() {
+            return this.isEditView && this.image.id !== ''
         }
     },
 
@@ -140,10 +147,6 @@ export default {
     },
 
     methods: {
-        imageUrl() {
-            window.location.href = `/image/${this.image.id}`
-        },
-
         fetchPost() {
             axios.get(`/json/admin/dog-hotel/post/${this.$route.params.id}`)
             .then((response) => {
@@ -162,15 +165,6 @@ export default {
             }).catch((error) => {
                 //
             });
-        },
-
-        fetchImage(image)
-        {
-            axios.get(`/json/image/${image.id}`).then((response) => {
-                // this.files.source = response.data
-            }).catch((error) => {
-                //
-            })
         },
 
         trimExtension(fileName) {

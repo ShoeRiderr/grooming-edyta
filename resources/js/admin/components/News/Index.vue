@@ -15,15 +15,15 @@
                     </router-link>
                     <router-link
                         class="btn btn-outline-primary ml-2 mb-2 btn-lg"
-                        :to="{ name: 'admin.grooming.post.create' }"
-                    >
-                        Grooming
-                    </router-link>
-                    <router-link
-                        class="btn btn-outline-primary ml-2 mb-2 btn-lg"
                         :to="{ name: 'admin.handling.post.create' }"
                     >
                         Handling
+                    </router-link>
+                    <router-link
+                        class="btn btn-outline-primary ml-2 mb-2 btn-lg"
+                        :to="{ name: 'admin.grooming.post.create' }"
+                    >
+                        Grooming
                     </router-link>
                     <router-link
                         class="btn btn-outline-primary ml-2 mb-2 btn-lg"
@@ -74,7 +74,9 @@ export default {
             this.loading = true;
 
             if(confirm(`Czy na pewno chcesz usunąć post?`)) {
-                axios.delete(`/json/admin/dog-hotel/post/${id}`)
+                axios.post(`/json/admin/dog-hotel/post/${id}`, {
+                    _method: "DELETE"
+                })
                 .then(_ => {
                     this.$notify({
                         type: 'success',

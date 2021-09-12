@@ -3,7 +3,7 @@
         <h2>{{ $content->title }}</h2>
         @if ($content->end_date)
             <span class="ml-auto alert alert-info" role="alert">
-                Wydarzenie kończy się {{ date('d.m.Y', strtotime($content->end_date)); }}
+                Wydarzenie skończy się {{ date('d.m.Y', strtotime($content->end_date)); }}
                 o godzinie {{ date('H:i', strtotime($content->end_date)); }}
             </span>
         @endif

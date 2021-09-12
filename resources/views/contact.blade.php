@@ -7,9 +7,9 @@
             ])
 
         <div class="row">
-            <div class="mx-auto">
+            <div class="col-md-12 mx-auto">
                 <iframe
-                  width="600"
+                  width="100%"
                   height="450"
                   style="border:0"
                   loading="lazy"

@@ -2,7 +2,7 @@
     <div class="container">
         <div class="content">
             <div class="content-header">
-                <h1>Grooming: zdjęcia</h1>
+                <h1>Handling: zdjęcia</h1>
             </div>
             <image-form
                 id="handling-image-form"

@@ -27,7 +27,7 @@ class AboutCompanyController extends Controller
 
     public function update(AboutCompanyRequest $request): Responsable
     {
-        AboutCompany::updateOrCreate(
+        $aboutCompany = AboutCompany::updateOrCreate(
             ['type' => ContentType::CONSTANT],
             [
                 'title'   => $request->input('title'),

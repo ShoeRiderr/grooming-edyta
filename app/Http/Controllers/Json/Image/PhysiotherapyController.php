@@ -12,7 +12,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use App\Models\Physiotherapy;
 use App\Models\Image;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class PhysiotherapyController extends Controller
 {
@@ -23,7 +23,14 @@ class PhysiotherapyController extends Controller
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
-        $this->physiotherapy = Physiotherapy::where('type', ContentType::CONSTANT)->first();
+        $this->physiotherapy = Physiotherapy::firstOrCreate(
+            ['type' => ContentType::CONSTANT],
+            [
+                'title'   => '',
+                'content' => '',
+                'type'    => ContentType::CONSTANT,
+            ]
+        );
     }
 
     /**
@@ -38,11 +45,11 @@ class PhysiotherapyController extends Controller
             foreach ($request->input('image') as $index => $attributes) {
                 /** @var \Illuminate\Http\UploadedFile */
                 $file = $request->file("image.{$index}.file");
-                $pathname = $file->store("public");
+                $file->move(public_path().'/storage/', $img = 'img_'.$index.time().'.'.$file->getClientOriginalExtension());
 
                 $image = $this->physiotherapy->images()->make([
                     'title' => Arr::get($attributes, 'title'),
-                    'file_pathname' => Str::replace('public/', '', $pathname),
+                    'file_pathname' => $img,
                     'name'          => Arr::get($attributes, 'name'),
                     'description'   => Arr::get($attributes, 'description'),
                 ]);
@@ -58,8 +65,9 @@ class PhysiotherapyController extends Controller
 
     public function destroy(Image $image)
     {
-        Storage::delete('public/' . $image->file_pathname);
-        $this->physiotherapy->images()->where('id', $image->id)->delete();
+        File::delete(public_path().'/storage/' . $image->file_pathname);
+
+        $image->delete();
 
         return ImageResource::make($image);
     }

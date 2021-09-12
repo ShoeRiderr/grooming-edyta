@@ -2,7 +2,7 @@
     <div class="container">
         <div class="content">
             <div class="content-header">
-                <h1>Grooming: zdjęcia</h1>
+                <h1>Hotel dla psów: zdjęcia</h1>
             </div>
             <image-form
                 id="dog-hotel-image-form"

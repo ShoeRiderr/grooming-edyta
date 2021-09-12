@@ -27,7 +27,7 @@ class ContactController extends Controller
 
     public function update(ContactRequest $request): Responsable
     {
-        Contact::updateOrCreate(
+        $contact = Contact::updateOrCreate(
             ['type' => ContentType::CONSTANT],
             [
                 'title'   => $request->input('title'),

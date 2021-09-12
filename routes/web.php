@@ -19,11 +19,11 @@ Auth::routes();
 
 Route::get('/', '\App\Http\Controllers\PageController@index')->name('main');
 Route::get('/grooming', '\App\Http\Controllers\PageController@grooming')->name('grooming');
-Route::get('/dog-hotel', '\App\Http\Controllers\PageController@dogHotel')->name('dog-hotel');
-Route::get('/physiotherapy', '\App\Http\Controllers\PageController@physiotherapy')->name('physiotherapy');
-Route::get('/contact', '\App\Http\Controllers\PageController@contact')->name('contact');
+Route::get('/hotel_dla_psów', '\App\Http\Controllers\PageController@dogHotel')->name('dog-hotel');
+Route::get('/fizjoterapia_zwierzat', '\App\Http\Controllers\PageController@physiotherapy')->name('physiotherapy');
+Route::get('/kontakt', '\App\Http\Controllers\PageController@contact')->name('contact');
 Route::get('/handling', '\App\Http\Controllers\PageController@handling')->name('handling');
-Route::get('/news', '\App\Http\Controllers\PageController@news')->name('news');
+Route::get('/aktualnosci', '\App\Http\Controllers\PageController@news')->name('news');
 Route::get('/post/{post}', '\App\Http\Controllers\PageController@post')->name('post');
 
 Route::group(['prefix' => 'admin'], function () {
@@ -31,5 +31,3 @@ Route::group(['prefix' => 'admin'], function () {
         return view('admin.app');
     })->where('any', '[\s\S]*');
 });
-
-Route::get('image/{image}', \App\Http\Controllers\Json\ImageController::class);
