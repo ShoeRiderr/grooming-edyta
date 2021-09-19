@@ -24,14 +24,20 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'   => ['required'],
+            'title'   => ['nullable'],
+            'content' => ['nullable'],
+            'description' => ['nullable'],
             'date'    => ['required', 'date_format:Y-m-d'],
             'time'    => ['required', 'date_format:H:i'],
-            'content' => ['required'],
 
+            'image' => ['required', 'array'],
             'image.*.file'        => ['required', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],
             'image.*.description' => ['nullable'],
             'image.*.name'        => ['required'],
+
+            'metas' => ['nullable', 'array'],
+            'metas.*.id' => ['sometimes', 'exists:metas,id'],
+            'metas.*.name' => ['required'],
         ];
     }
 }

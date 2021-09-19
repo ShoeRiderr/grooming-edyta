@@ -1,7 +1,27 @@
 <template>
     <form @submit.prevent="onSubmit">
+        <h3>SEO</h3>
+        <div class="form-group">
+            <label for="title">Tytuł strony</label>
+            <input type="text" id="title" class="form-control input-lg" v-model="post.title">
+            <hr>
+        </div>
+        <div class="form-group">
+            <label for="description">Krótki opis strony</label>
+            <textarea id="description" class="form-control" style="resize: none;" v-model="post.description"></textarea>
+        </div>
+        <div class="form-group">
+            <h4>
+                Dane do pozycjonowania strony
+                <button type="button" class="btn btn-outline-secondary" @click="onAddMeta">Dodaj</button>
+            </h4>
+            <meta-data-list-item v-for="(meta, index) in post.metas" :key="index" :meta="meta" :index="index" @remove="onMetaDelete"></meta-data-list-item>
+            <hr>
+        </div>
+        <h3>Treść strony</h3>
+        <hr>
         <div v-if="showImages" class="mb-3">
-            <h3>Zapisane zdjęcie</h3>
+            <h4>Zapisane zdjęcie</h4>
             <table class="table">
                 <thead>
                     <tr>
@@ -20,13 +40,9 @@
                     </tr>
                 </tbody>
             </table>
+        <hr>
         </div>
 
-        <div class="form-group">
-            <label for="service_name"><h4>Tytuł</h4></label>
-            <input type="text" id="service_name" class="form-control" v-model="post.title">
-        </div>
-        <hr>
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
@@ -65,6 +81,7 @@
 </template>
 <script>
 import ImageDetails from '@admin/components/_partials/ImageDetails.vue';
+import MetaDataListItem from './MetaDataListItem';
 import imageSrc from '@admin/mixins/imageSrc.js';
 
 const validExtensions = [
@@ -78,6 +95,7 @@ export default {
 
     components: {
         ImageDetails,
+        MetaDataListItem
     },
 
     props: {
@@ -89,7 +107,9 @@ export default {
     data() {
         return {
             files: [],
-            post: {},
+            post: {
+                metas: []
+            },
             image: {
                 id: ''
             },
@@ -158,6 +178,8 @@ export default {
                 this.post = {
                     id: _.get(post, 'id', {}),
                     content: _.get(post, 'content', {}),
+                    description: _.get(post, 'description', {}),
+                    metas: _.get(post, 'metas', []),
                     date: date,
                     time: time,
                     title: _.get(post, 'title', {}),
@@ -213,9 +235,24 @@ export default {
         },
 
         onSubmit() {
+            const metas = _.filter(this.post.metas, (meta) => {
+                return meta.name !== '';
+            });
+            this.$set(this.post, 'metas', metas);
             const data = _.merge(this.files, this.post)
             this.$emit('submit', data);
         },
+
+        onAddMeta()
+        {
+            this.post.metas.push({
+                name: ''
+            })
+        },
+
+        onMetaDelete(index) {
+            this.$delete(this.post.metas, index);
+        }
     }
 };
 </script>

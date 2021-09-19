@@ -7,7 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ContactRequest;
 use App\Http\Resources\ContactResource;
 use App\Models\Contact;
+use App\Models\Meta;
 use Illuminate\Contracts\Support\Responsable;
+use Illuminate\Support\Arr;
 
 class ContactController extends Controller
 {
@@ -22,6 +24,8 @@ class ContactController extends Controller
             ]
         );
 
+        $contact->load('metas');
+
         return ContactResource::make($contact);
     }
 
@@ -32,8 +36,26 @@ class ContactController extends Controller
             [
                 'title'   => $request->input('title'),
                 'content' => $request->input('content'),
+                'description'  => $request->input('description'),
             ]
         );
+
+        $contact->metas->each(function (Meta $meta) use ($request, $contact) {
+            if (!in_array($meta->id, $request->input('metas.*.id'))) {
+                $contact->metas()->where('id', $meta->id)->delete();
+            }
+        });
+
+        foreach($request->input('metas') as $meta) {
+            $contact->metas()->updateOrCreate(
+                [
+                    'id' => Arr::get($meta, 'id'),
+                ],
+                [
+                    'name' => Arr::get($meta, 'name'),
+                ]
+            );
+        }
 
         return ContactResource::make($contact);
     }

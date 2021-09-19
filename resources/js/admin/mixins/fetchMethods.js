@@ -3,7 +3,9 @@ export default {
         return {
             values: {
                 title: '',
-                content: ''
+                content: '',
+                description: '',
+                metas: [],
             },
         }
     },

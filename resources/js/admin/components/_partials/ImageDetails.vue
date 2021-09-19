@@ -46,7 +46,6 @@
                             :id="`title-${iteration}`"
                             type="text"
                             class="form-control"
-                            required
                             v-model="file.title"
                         />
 

@@ -14,8 +14,14 @@ class AboutCompany extends Model
     protected $fillable = [
         'title',
         'content',
+        'description',
         'type',
     ];
 
     protected $table = 'about_company';
+
+    public function metas()
+    {
+        return $this->morphMany(Meta::class, 'metable');
+    }
 }

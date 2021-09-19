@@ -14,6 +14,7 @@ class DogHotel extends Model
     protected $fillable = [
         'title',
         'content',
+        'description',
         'type',
     ];
 
@@ -22,6 +23,11 @@ class DogHotel extends Model
     public function posts()
     {
         return $this->morphMany(Post::class, 'postable');
+    }
+
+    public function metas()
+    {
+        return $this->morphMany(Meta::class, 'metable');
     }
 
     public function images()

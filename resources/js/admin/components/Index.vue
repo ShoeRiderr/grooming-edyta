@@ -52,6 +52,18 @@
                         <div class="d-flex flex-wrap">
                             <router-link
                                 class="btn btn-outline-primary ml-2 mb-2 btn-lg"
+                                :to="{ name: 'admin.aboutCompany.edit' }"
+                            >
+                                O firmie
+                            </router-link>
+                            <router-link
+                                class="btn btn-outline-primary ml-2 mb-2 btn-lg"
+                                :to="{ name: 'admin.dogHotel.index' }"
+                            >
+                                Hotel dla psów
+                            </router-link>
+                            <router-link
+                                class="btn btn-outline-primary ml-2 mb-2 btn-lg"
                                 :to="{ name: 'admin.grooming.index' }"
                             >
                                 Grooming
@@ -64,21 +76,9 @@
                             </router-link>
                             <router-link
                                 class="btn btn-outline-primary ml-2 mb-2 btn-lg"
-                                :to="{ name: 'admin.dogHotel.index' }"
-                            >
-                                Hotel dla psów
-                            </router-link>
-                            <router-link
-                                class="btn btn-outline-primary ml-2 mb-2 btn-lg"
                                 :to="{ name: 'admin.physiotherapy.index' }"
                             >
                                 Fizjoterapia
-                            </router-link>
-                            <router-link
-                                class="btn btn-outline-primary ml-2 mb-2 btn-lg"
-                                :to="{ name: 'admin.aboutCompany.edit' }"
-                            >
-                                O sobie
                             </router-link>
                             <router-link
                                 class="btn btn-outline-primary ml-2 mb-2 btn-lg"

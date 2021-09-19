@@ -9,8 +9,9 @@ DROP TABLE IF EXISTS `about_company`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `about_company` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `content` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
   `type` tinyint NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -23,8 +24,9 @@ DROP TABLE IF EXISTS `contact`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `contact` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `content` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
   `type` tinyint NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -37,8 +39,9 @@ DROP TABLE IF EXISTS `dog_hotel`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `dog_hotel` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `content` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
   `type` tinyint NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -78,8 +81,9 @@ DROP TABLE IF EXISTS `groomings`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `groomings` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `content` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
   `type` tinyint NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -92,8 +96,9 @@ DROP TABLE IF EXISTS `handling`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `handling` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `content` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
   `type` tinyint NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -106,7 +111,7 @@ DROP TABLE IF EXISTS `images`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `images` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `file_pathname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci,
@@ -114,6 +119,20 @@ CREATE TABLE `images` (
   `imageable_id` bigint unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `images_imageable_type_imageable_id_index` (`imageable_type`,`imageable_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `metas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `metas` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `metable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `metable_id` bigint unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `metas_metable_type_metable_id_index` (`metable_type`,`metable_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `migrations`;
@@ -159,8 +178,9 @@ DROP TABLE IF EXISTS `physiotherapies`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `physiotherapies` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `content` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
   `type` tinyint NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -173,8 +193,9 @@ DROP TABLE IF EXISTS `posts`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `posts` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `content` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
   `end_date` timestamp NOT NULL,
   `postable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `postable_id` bigint unsigned NOT NULL,
@@ -222,3 +243,12 @@ INSERT INTO `migrations` VALUES (11,'2021_08_04_181329_create_contact_table',1);
 INSERT INTO `migrations` VALUES (12,'2021_08_05_063333_create_posts_table',1);
 INSERT INTO `migrations` VALUES (13,'2021_08_21_040144_create_handling_table',1);
 INSERT INTO `migrations` VALUES (14,'2021_09_02_195742_add_admin_user',1);
+INSERT INTO `migrations` VALUES (15,'2021_09_19_084834_create_metas_table',1);
+INSERT INTO `migrations` VALUES (16,'2021_09_19_090953_add_description_column_to_about_company_table',2);
+INSERT INTO `migrations` VALUES (17,'2021_09_19_091030_add_description_column_to_contact_table',2);
+INSERT INTO `migrations` VALUES (18,'2021_09_19_091054_add_description_column_to_dog_hotel_table',2);
+INSERT INTO `migrations` VALUES (19,'2021_09_19_091120_add_description_column_to_groomings_table',2);
+INSERT INTO `migrations` VALUES (20,'2021_09_19_091140_add_description_column_to_handling_table',2);
+INSERT INTO `migrations` VALUES (21,'2021_09_19_091206_add_description_column_to_physiotherapies_table',2);
+INSERT INTO `migrations` VALUES (22,'2021_09_19_091236_add_description_column_to_posts_table',2);
+INSERT INTO `migrations` VALUES (23,'2021_09_19_104452_update_title_column_in_images_table',2);

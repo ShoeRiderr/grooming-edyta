@@ -1,5 +1,11 @@
 @extends('layouts.app')
 
+@section('title')
+    @include('_partials/title', [
+            'title' => 'wydarzenia'
+        ])
+@endsection
+
 @section('content')
     <div class="container">
         @if ($dogHotel->isEmpty()

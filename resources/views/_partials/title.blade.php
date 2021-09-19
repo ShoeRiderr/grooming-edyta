@@ -1,0 +1,1 @@
+<title>{{ $title ? sprintf('Pet Center - %s', $title) : 'Pet Center' }}</title>

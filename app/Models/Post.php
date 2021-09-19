@@ -15,11 +15,17 @@ class Post extends Model
         'title',
         'end_date',
         'content',
+        'description',
     ];
 
     public function postable()
     {
         return $this->morphTo();
+    }
+
+    public function metas()
+    {
+        return $this->morphMany(Meta::class, 'metable');
     }
 
     public function image()

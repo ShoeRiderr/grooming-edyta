@@ -34,7 +34,9 @@ export default {
             axios.post(`/json/admin/dog-hotel/update`, {
                 _method: "PUT",
                 title: _.get(values, 'title', ''),
-                content: _.get(values, 'content', '')
+                content: _.get(values, 'content', ''),
+                description: _.get(values, 'description', ''),
+                metas: _.get(values, 'metas', []),
             })
             .then(_ => {
                 this.isSaved = true

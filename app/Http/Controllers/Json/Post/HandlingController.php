@@ -9,6 +9,7 @@ use App\Http\Requests\Post\UpdateRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Handling;
 use App\Models\Post;
+use App\Models\Meta;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Database\ConnectionInterface as Connection;
 use Illuminate\Http\JsonResponse;
@@ -45,7 +46,7 @@ class HandlingController extends Controller
             return new JsonResponse([], 400);
         }
 
-        $post->load('image');
+        $post->load('image', 'metas');
 
         return PostResource::make($post);
     }
@@ -65,6 +66,7 @@ class HandlingController extends Controller
                 'title'    => $request->input('title'),
                 'end_date' => sprintf('%s %s', $request->input('date'), $request->input('time')),
                 'content'  => $request->input('content'),
+                'description'  => $request->input('description'),
             ]);
 
             foreach ($request->input('image') as $index => $attributes) {
@@ -80,6 +82,14 @@ class HandlingController extends Controller
                 ]);
 
                 $image->save();
+            }
+
+            foreach($request->input('metas') as $meta) {
+                $post->metas()->create(
+                    [
+                        'name' => Arr::get($meta, 'name'),
+                    ]
+                );
             }
 
             return $post;
@@ -104,6 +114,7 @@ class HandlingController extends Controller
                 'title'    => $request->input('title'),
                 'end_date' => sprintf('%s %s', $request->input('date'), $request->input('time')),
                 'content'  => $request->input('content'),
+                'description'  => $request->input('description'),
             ]);
 
             if ($request->input('image') !== null) {
@@ -121,6 +132,23 @@ class HandlingController extends Controller
                         'description'   => Arr::get($attributes, 'description'),
                     ]);
                 }
+            }
+
+            $post->metas->each(function (Meta $meta) use ($request, $post) {
+                if (!in_array($meta->id, $request->input('metas.*.id'))) {
+                    $post->metas()->where('id', $meta->id)->delete();
+                }
+            });
+
+            foreach($request->input('metas') as $meta) {
+                $post->metas()->updateOrCreate(
+                    [
+                        'id' => Arr::get($meta, 'id'),
+                    ],
+                    [
+                        'name' => Arr::get($meta, 'name'),
+                    ]
+                );
             }
 
             return $post;

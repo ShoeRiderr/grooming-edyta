@@ -39,6 +39,7 @@ export default {
     methods: {
         onSubmit(images) {
             const data = new FormData();
+            const metas = _.get(images, 'metas');
 
             images.forEach((image, index) => {
                 data.append(`image[${index}][file]`, _.get(image, 'source'));
@@ -50,6 +51,10 @@ export default {
             data.append('content', _.get(images, 'content') || '');
             data.append('date', _.get(images, 'date') || '');
             data.append('time', _.get(images, 'time') || '');
+            data.append('description', _.get(images, 'description') || '');
+            metas.forEach((meta, index) => {
+                data.append(`metas[${index}][name]`, _.get(meta, 'name'));
+            });
 
             axios.post(`/json/admin/handling/post`, data, {
                 headers: { 'Content-Type': 'multipart/form-data' },

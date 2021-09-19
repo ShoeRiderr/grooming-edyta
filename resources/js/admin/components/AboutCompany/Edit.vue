@@ -33,7 +33,9 @@ export default {
 
             axios.post(`/json/admin/about-company/update`, {
                 title: _.get(values, 'title', ''),
-                content: _.get(values, 'content', '')
+                content: _.get(values, 'content', ''),
+                description: _.get(values, 'description', ''),
+                metas: _.get(values, 'metas', []),
             })
             .then(_ => {
                 this.isSaved = true

@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class GroomingImageResource extends JsonResource
+class MetaResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,10 +16,7 @@ class GroomingImageResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'dog_race' => $this->dog_race,
-            'dog_name' => $this->dog_name,
-            'created_at' => $this->created_at,
-            'images'    => ImageResource::collection($this->whenLoaded('images'))
+            'name' => $this->name,
         ];
     }
 }

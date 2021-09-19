@@ -24,8 +24,13 @@ class ContactRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'   => ['required'],
-            'content' => ['required'],
+            'title'   => ['nullable'],
+            'content' => ['nullable'],
+            'description' => ['nullable'],
+
+            'metas' => ['nullable', 'array'],
+            'metas.*.id' => ['sometimes', 'exists:metas,id'],
+            'metas.*.name' => ['required'],
         ];
     }
 }

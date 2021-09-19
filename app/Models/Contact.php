@@ -14,8 +14,14 @@ class Contact extends Model
     protected $fillable = [
         'title',
         'content',
+        'description',
         'type',
     ];
 
     protected $table = 'contact';
+
+    public function metas()
+    {
+        return $this->morphMany(Meta::class, 'metable');
+    }
 }
