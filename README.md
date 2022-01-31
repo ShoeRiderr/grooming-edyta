@@ -1,12 +1,13 @@
 ## CMS site for grooming company 
 
 ## You can find here some sections like:
-    * Handling
-    * Dog hotel
-    * Ggrooming
-    * Physiotherapy
-    * News
-    * Contact
+
+    - Handling
+    - Dog hotel
+    - Ggrooming
+    - Physiotherapy
+    - News
+    - Contact
     
 ### You can also find here photo gallery to first four sections
 
